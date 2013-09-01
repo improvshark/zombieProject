@@ -402,8 +402,8 @@ class Login
     }
 
     /**
-     * simply return true if the user's group is admin
-     * @return boolean user's admin status
+     * simply return true if the user's group is Developer
+     * @return boolean user's Developer status
      */
     public function isDeveloper()
     {
