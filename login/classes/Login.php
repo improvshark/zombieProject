@@ -29,7 +29,8 @@ class Login
     public $user_gravatar_image_url = "";
     /** @var string $user_gravatar_image_tag The user's gravatar profile pic url with <img ... /> around */
     public $user_gravatar_image_tag = "";
-
+    /** @var string $user_group The user's group */
+    public $user_group = "";
     /** @var boolean $password_reset_link_is_valid Marker for view handling */
     private $password_reset_link_is_valid  = false;
     /** @var boolean $password_reset_was_successful Marker for view handling */
@@ -163,6 +164,7 @@ class Login
     private function loginWithSessionData()
     {
         $this->user_name = $_SESSION['user_name'];
+        $this->user_group = $_SESSION['user_group'];
         $this->user_email = $_SESSION['user_email'];
 
         // set logged in status to true, because we just checked for this:
@@ -194,12 +196,14 @@ class Login
 
                         // write user data into PHP SESSION [a file on your server]
                         $_SESSION['user_id'] = $result_row->user_id;
+                        $_SESSION['user_group'] = $result_row->user_group;
                         $_SESSION['user_name'] = $result_row->user_name;
                         $_SESSION['user_email'] = $result_row->user_email;
                         $_SESSION['user_logged_in'] = 1;
 
                         // declare user id, set the login status to true
                         $this->user_id = $result_row->user_id;
+                        $this->user_group = $result_row->user_group;
                         $this->user_name = $result_row->user_name;
                         $this->user_email = $result_row->user_email;
                         $this->user_is_logged_in = true;
@@ -236,12 +240,14 @@ class Login
 
                         // write user data into PHP SESSION [a file on your server]
                         $_SESSION['user_id'] = $result_row->user_id;
+                        $_SESSION['user_group'] = $result_row->user_group;
                         $_SESSION['user_name'] = $result_row->user_name;
                         $_SESSION['user_email'] = $result_row->user_email;
                         $_SESSION['user_logged_in'] = 1;
 
                         // declare user id, set the login status to true
                         $this->user_id = $result_row->user_id;
+                        $this->user_group = $result_row->user_group;
                         $this->user_name = $result_row->user_name;
                         $this->user_email = $result_row->user_email;
                         $this->user_is_logged_in = true;
@@ -379,6 +385,37 @@ class Login
     {
         return $this->user_is_logged_in;
     }
+
+    /**
+     * simply return true if the user's group is admin
+     * @return boolean user's admin status
+     */
+    public function isAdmin()
+    {
+        if ($this->user_group == "admin") {
+            return true;   
+        }
+        else {
+            return false;
+        }   
+
+    }
+
+    /**
+     * simply return true if the user's group is admin
+     * @return boolean user's admin status
+     */
+    public function isDeveloper()
+    {
+        if ($this->user_group == "dev") {
+            return true;   
+        }
+        else {
+            return false;
+        }   
+
+    }
+
     
     /**
      * edit the user's name, provided in the editing form
@@ -821,6 +858,14 @@ class Login
     public function getUsername()
     {
         return $this->user_name;
+    }
+
+    /**
+     * 
+     */
+    public function getUserGroup()
+    {
+        return $this->user_group;
     }
 
     /**
