@@ -26,6 +26,11 @@ $login = new Login();
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap -->
         <link href="public/css/bootstrap2.css" rel="stylesheet" media="screen">
+        <style>
+            body {
+                padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+        </style>
     </head>
 
     <body>
@@ -34,7 +39,7 @@ $login = new Login();
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="index.php" class="navbar-brand">ZombieAtack</a>
+          <a href="index.php" class="navbar-brand">ZombieAttack</a>
           <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -46,29 +51,28 @@ $login = new Login();
             <li class="active"> <a href="#">Help</a> </li>
             <li><a href="#">Blog</a></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right">
 
             <?php
-            // ... ask if we are logged in here:
-            if ($login->isUserLoggedIn() == true) {
-                // the user is logged in. you can do whatever you want here.
-                // for demonstration purposes, we simply show the "you are logged in" view.
-                include("views/logged_in.php");
-
-            } else {
-                // the user is not logged in. you can do whatever you want here.
-                // for demonstration purposes, we simply show the "you are not logged in" view.
-                include("views/not_logged_in_mini.php");
-            }
+                // ... ask if we are logged in here:
+                if ($login->isUserLoggedIn() == true) {
+                    // the user is logged in. you can do whatever you want here.
+                    // for demonstration purposes, we simply show the "you are logged in" view.
+                    include("views/logged_in.php");
+                } else {
+                    // the user is not logged in. you can do whatever you want here.
+                    // for demonstration purposes, we simply show the "you are not logged in" view.
+                    include("views/not_logged_in_mini.php");
+                }
             ?>
-          </ul>
+            </ul>
         </div>
       </div>
     </div>
     <br>
     <div class="container">
-      // show negative messages
       <?php
+        // show negative messages
         if ($login->errors) {
             foreach ($login->errors as $error) {
                 echo "
@@ -93,6 +97,27 @@ $login = new Login();
         }
       ?>
     </div>
+
+    <div class="container"> 
+            
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h2 class="panel-title">Hello World!</h2>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-6 ">
+                        <a href="admin_index.php" >admin test</a>
+                    </div>
+                    <div class="col-lg-6 ">
+                        <a href="dev_index.php" >dev test</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
 
 
 
