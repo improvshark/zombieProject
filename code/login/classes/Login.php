@@ -894,7 +894,8 @@ class Login
     {
         $url = 'http://www.gravatar.com/avatar/';
         $url .= md5( strtolower( trim( $email ) ) );
-        $url .= "?s=$s&d=$d&r=$r&f=y";
+        $url .= "?s=$s&d=$d&r=$r";
+       // $url .= "?s=$s&d=$d&r=$r&f=y";
 
         // the image url (on gravatarr servers), will return in something like
         // http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80&d=mm&r=g
