@@ -52,7 +52,6 @@ $login = new Login();
             <li><a href="#">Blog</a></li>
           </ul>
             <ul class="nav navbar-nav navbar-right">
-
             <?php
                 // ... ask if we are logged in here:
                 if ($login->isUserLoggedIn() == true) {
@@ -64,8 +63,9 @@ $login = new Login();
                     // for demonstration purposes, we simply show the "you are not logged in" view.
                     include("views/not_logged_in_mini.php");
                 }
+
             ?>
-            </ul>
+
         </div>
       </div>
     </div>
