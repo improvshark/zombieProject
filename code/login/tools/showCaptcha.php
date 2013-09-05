@@ -28,8 +28,8 @@ $selected_letters = array_slice($letters, 0, 4);
 $secure_text = implode('', $selected_letters);
 
 // write the 4 selected letters into a SESSION variable
-$_SESSION['captcha'] = $secure_text;
 
+$_SESSION['captcha'] = $secure_text;
 // get letters from SESSION, split them, create array of letters
 $letters = str_split($_SESSION['captcha']);
 

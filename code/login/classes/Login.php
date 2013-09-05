@@ -47,9 +47,10 @@ class Login
      */    
     public function __construct()
     {
-        // create/read session
-        session_start();                                        
-
+        // create/read session   
+        if (session_status() == PHP_SESSION_NONE) {
+             session_start();
+        }
         // check the possible login actions:
         // 1. logout (happen when user clicks logout button)
         // 2. login via session data (happens each time user opens a page on your php project AFTER he has successfully logged in via the login form)

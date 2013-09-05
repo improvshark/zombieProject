@@ -1,4 +1,24 @@
+<?php
 
+    // checking for minimum PHP version
+    if (version_compare(PHP_VERSION, '5.3.7', '<')) {
+        exit("Sorry, Simple PHP Login does not run on a PHP version smaller than 5.3.7 !");
+    } else if (version_compare(PHP_VERSION, '5.5.0', '<')) {
+        // if you are using PHP 5.3 or PHP 5.4 you have to include the password_api_compatibility_library.php
+        // (this library adds the PHP 5.5 password hashing functions to older versions of PHP)
+        require_once("libraries/password_compatibility_library.php");
+    }
+
+    // include the configs / constants for the database connection
+    require_once("config/config.php");
+
+    // load the login class
+    require_once("classes/Login.php");
+
+    // create a login object. when this object is created, it will do all login/logout stuff automatically
+    // so this single line handles the entire login process. in consequence, you can simply ...
+    $login = new Login();
+?>
         <style>
             body {
                 padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
@@ -17,10 +37,11 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
-            <li class="active"> <a href="#">Help</a> </li>
-            <li><a href="#">Blog</a></li>
+            <li class="active"> <a href="#">Play</a> </li>
+            <li><a href="#">Maps</a></li>
           </ul>
             <ul class="nav navbar-nav navbar-right">
+
             <?php
                 // ... ask if we are logged in here:
                 if ($login->isUserLoggedIn() == true) {
@@ -34,6 +55,7 @@
                 }
 
             ?>
+            </ul>
 
         </div>
       </div>
@@ -58,9 +80,9 @@
         if ($login->messages) {
             foreach ($login->messages as $message) {
             echo "
-                    <div class='alert alert-dismissable alert-warning'>
+                    <div class='alert alert-dismissable alert-info'>
                         <button type='button' class='close' data-dismiss='alert'>&times;</button>
-                        <strong>Warning! </strong>$message
+                        $message
                     </div>
                 ";
             }
