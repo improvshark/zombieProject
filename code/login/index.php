@@ -18,7 +18,7 @@
     <div class="container">
         <div class="jumbotron">
             <h1>Are you ready to kill some zombies?</h1>
-            <p>Its time to servive. 
+            <p>Its time to survive. 
             <a  <?php if ($login->isUserLoggedIn() == false) { echo "href='register.php'"; } else { echo "href='register.php?logout'"; } ?> class="btn btn-success btn-lg">Join now</a></p>
         </div>
     </div>
