@@ -31,10 +31,12 @@
 
 <?php if (!$registration->registration_successful && !$registration->verification_successful) { ?>
 
+
+</style>
+
 <!-- register form -->
-<div class="row">
-<div class="col-lg-7">
-    <div class="well">
+<div class=" container">
+    <div class="well col-md-8 col-md-offset-2 ">
         <form method="post" action="register.php" name="registerform" class="bs-example form-horizontal">
             <fieldset>
                 <legend>Register</legend>
@@ -91,11 +93,7 @@
         </form>
     </div>
     <!-- backlink -->
-    <a href="index.php">Back to Login Page</a>
-    <?php
-    echo $_SESSION['captcha'];
-    ?>
-</div>
+    <a class="col-md-3 col-md-offset-2 " href="index.php">Back to Login Page</a>
 </div>
 
 
