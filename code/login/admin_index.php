@@ -1,54 +1,87 @@
-<?php
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ZombieAttack</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap -->
+        <link href="public/css/bootstrap2.css" rel="stylesheet" media="screen">
 
-/**
- * A simple, clean and secure PHP Login Script
- *
- * MINIMAL VERSION
- * (check the website / github / facebook for other versions)
- *
- * A simple PHP Login Script.
- * Uses PHP SESSIONS, modern password-hashing and salting
- * and gives the basic functions a proper login system needs.
- *
- * Please remember: this is just the minimal version of the login script, so if you need a more
- * advanced version, have a look on the github repo. there are / will be better versions, including
- * more functions and/or much more complex code / file structure. buzzwords: MVC, dependency injected,
- * one shared database connection, PDO, prepared statements, PSR-0/1/2 and documented in phpDocumentor style
- *
- * @package php-login
- * @author Panique <panique@web.de>
- * @link https://github.com/panique/php-login/
- * @license http://opensource.org/licenses/MIT MIT License
- */
+    </head>
 
-// checking for minimum PHP version
-if (version_compare(PHP_VERSION, '5.3.7', '<')) {
-    exit("Sorry, Simple PHP Login does not run on a PHP version smaller than 5.3.7 !");
-} else if (version_compare(PHP_VERSION, '5.5.0', '<')) {
-    // if you are using PHP 5.3 or PHP 5.4 you have to include the password_api_compatibility_library.php
-    // (this library adds the PHP 5.5 password hashing functions to older versions of PHP)
-    require_once("libraries/password_compatibility_library.php");
-}
+    <body>
+    <!--  adding the navbar to the page-->
+    <?php include("views/navbar.php"); ?>
 
-// include the configs / constants for the database connection
-require_once("config/config.php");
 
-// load the login class
-require_once("classes/Login.php");
+    <?php
+        // ... ask if we are logged in here:
+        if ($login->isUserLoggedIn() == true and $login->isAdmin() ) { 
+        require_once("classes/Admin.php");
+        $admin = new Admin();
+    ?>
+            <div class="container"> 
 
-// create a login object. when this object is created, it will do all login/logout stuff automatically
-// so this single line handles the entire login process. in consequence, you can simply ...
-$login = new Login();
+                <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+                    <div class="well sidebar-nav">
+                        <ul class="nav">
+                            <li>Users</li>
+                            <li class="active"><a href="#">UserGroups</a></li>
+                            <li><a href="#">Users</a></li>
+                            <li><a href="#">Link</a></li>
+                            <li>Sidebar</li>
+                            <li><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                            <li>Sidebar</li>
+                            <li><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                        </ul>
+                    </div>
+                </div>
 
-// ... ask if we are logged in here:
-if ($login->isUserLoggedIn() == true and $login->isAdmin() ) {
-    // the user is logged in. you can do whatever you want here.
-    // for demonstration purposes, we simply show the "you are logged in" view.
-    echo "<h1>You are an Admin</h1>";
-    include("views/logged_in.php");
+                <!--  adding the navbar to the page-->
+                <?php include("views/admin/user_table.php"); ?>
 
-} else {
-    // the user is not logged in. you can do whatever you want here.
-    // for demonstration purposes, we simply show the "you are not logged in" view.
-    echo "<h1>Admin only page</h1>";
-}
+                <div class="col-xs-12 col-sm-9">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">Hello World!</h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6 ">
+                                    <a href="admin_index.php" >admin test</a>
+                                </div>
+                                <div class="col-lg-6 ">
+                                    <a href="dev_index.php" >dev test</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+    <?php
+        } else {
+            // print an error and redirect to main page after couple of seconds
+            echo "
+                    <div class='alert alert-dismissable alert-danger '>
+                        <button type='button' class='close' data-dismiss='alert'>&times;</button>
+                        <strong>Warning! </strong>You do not have privlages to view this page!
+                    </div>
+                ";
+        }
+    ?>
+
+
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="public/js/bootstrap.min.js"></script>
+
+    </body>
+</html>
+
+
+
+
+

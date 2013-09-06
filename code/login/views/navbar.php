@@ -39,6 +39,23 @@
           <ul class="nav navbar-nav">
             <li class="active"> <a href="#">Play</a> </li>
             <li><a href="#">Maps</a></li>
+
+			<?php 
+				if ($login->isUserLoggedIn() == true and ($login->isDeveloper() or $login->isAdmin()) ) { ?>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Designer<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Editor</a></li>
+							<li><a href="#">My maps</a></li>
+						</ul>
+					</li>
+			<?php
+				}
+				if ($login->isUserLoggedIn() == true and $login->isAdmin() ) { ?>
+					<li><a href="admin_index.php">Admin</a></li>
+			<?php
+				}
+			?>
           </ul>
             <ul class="nav navbar-nav navbar-right">
 
