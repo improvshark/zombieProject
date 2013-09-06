@@ -72,13 +72,6 @@ class Admin
 
     }
 
-
-    public function ()
-    {
-
-    }
-
-
 }
 
 ?>

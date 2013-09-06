@@ -156,7 +156,7 @@ class Login
             // get result row (as an object)
             return $query_user->fetchObject();
 
-		} else {
+        } else {
 
             return false;
         }
@@ -894,27 +894,7 @@ class Login
     public function getGravatarImageUrl($email, $s = 50, $d = 'mm', $r = 'g', $atts = array() )
     {
         $url = 'http://www.gravatar.com/avatar/';
-        $url .= md5( s    /**
-     * Checks if database connection is opened and open it if not
-     */
-    private function databaseConnection()
-    {
-        // connection already opened
-        if ($this->db_connection != null) {
-            return true;
-        } else {
-            // create a database connection, using the constants from config/config.php
-            try {
-                $this->db_connection = new PDO('mysql:host='. DB_HOST .';dbname='. DB_NAME, DB_USER, DB_PASS);
-                return true;
-
-                // If an error is catched, database connection failed
-            } catch (PDOException $e) {
-                $this->errors[] = "Database connection problem.";
-                return false;
-            }
-        }
-    }trtolower( trim( $email ) ) );
+        $url .= md5( strtolower( trim( $email ) ) );
         $url .= "?s=$s&d=$d&r=$r";
        // $url .= "?s=$s&d=$d&r=$r&f=y";
 

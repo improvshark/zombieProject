@@ -40,7 +40,7 @@
                 </div>
 
                 <!--  adding the navbar to the page-->
-                <?php //include("views/admin/user_table.php"); ?>
+                <?php include("views/admin/user_table.php"); ?>
 
                 <div class="col-xs-12 col-sm-9">
                     <div class="panel panel-primary">
