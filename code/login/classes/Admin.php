@@ -43,17 +43,22 @@ class Admin
     }	
 
 
-    private function getAllUserData()
+    public function getAllUserData()
     {
         // if database connection opened
         if ($this->databaseConnection()) {
 
-            // database query, getting all the info of the selected user
-            $query_user = $this->db_connection->prepare('SELECT * FROM users');
-            $query_user->bindValue(':user_name', $user_name, PDO::PARAM_STR);
-            $query_user->execute();
-            // get result row (as an object)
-            return $query_user->fetchObject();
+        // database query, getting all the info of the selected user
+        foreach($this->db_connection->query('SELECT user_id, user_group, user_name, user_email FROM users') as $row) {
+            $info['user_id'] = $row['user_id'];
+            $info['user_group'] = $row['user_group'];
+            $info['user_name'] = $row['user_name'];
+            $info['user_email'] = $row['user_email'];
+            $array[] = $info;
+            $info = [];
+        }
+
+        return $array;
 
 		} else {
 
@@ -62,12 +67,12 @@ class Admin
     }
 
 
-    public function setUserGroup($userGroup)
+    public function setUserGroup($user_id, $userGroup)
     {
 
     }
 
-    public function deleteUser()
+    public function deleteUser($user_id)
     {
 
     }

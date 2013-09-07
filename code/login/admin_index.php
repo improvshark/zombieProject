@@ -21,12 +21,11 @@
     ?>
             <div class="container"> 
 
-                <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+                <div class="col-xs-6 col-sm-2 sidebar-offcanvas" id="sidebar" role="navigation">
                     <div class="well sidebar-nav">
                         <ul class="nav">
                             <li>Users</li>
-                            <li class="active"><a href="#">UserGroups</a></li>
-                            <li><a href="#">Users</a></li>
+                            <li><a data-toggle="collapse" data-target="#userTable" href="#userTable">Users</a></li>
                             <li><a href="#">Link</a></li>
                             <li>Sidebar</li>
                             <li><a href="#">Link</a></li>
@@ -39,10 +38,10 @@
                     </div>
                 </div>
 
-                <!--  adding the navbar to the page-->
+                <!--  adding user_table-->
                 <?php include("views/admin/user_table.php"); ?>
 
-                <div class="col-xs-12 col-sm-9">
+                <div class="row col-md-9">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h2 class="panel-title">Hello World!</h2>
@@ -58,9 +57,10 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                
+                </div>   
+
             </div>
+
 
     <?php
         } else {
