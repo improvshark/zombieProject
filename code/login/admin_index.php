@@ -15,7 +15,7 @@
 
     <?php
         // ... ask if we are logged in here:
-        if ($login->isUserLoggedIn() == true and $login->isAdmin() ) { 
+        if ($login->isUserLoggedIn() == true and $login->isAdmin()  ) { 
         require_once("classes/Admin.php");
         $admin = new Admin();
     ?>
