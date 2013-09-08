@@ -11,7 +11,6 @@
 
     // include the configs / constants for the database connection
     require_once("../config/config.php");
-
     // load the login class
     require_once("../classes/Login.php");
     // Load the admin class
@@ -22,13 +21,18 @@
     // make sure the user has admin
     if ($login->isUserLoggedIn() == true and $login->isAdmin() ) {
         $admin2 = new Admin();
-        $admin2->editUserGroup();
-    
 
-?>
-        <!--alert area -->
-        <div class="row col-sm-9">
-          <?php
+        if (!empty($_POST['update_usergroup']) ){
+            $admin2->editUserGroup();
+        }
+
+        if (!empty($_POST['delete_user']) ){
+            $admin2->deleteUser();
+        }
+
+
+        // alerts
+        echo "<div class='row col-sm-9'>";
             // show negative messages
             if ($admin2->errors) {
                 foreach ($admin2->errors as $error) {
@@ -52,9 +56,8 @@
                     ";
                 }
             }
-          ?>
-        </div>
-
-        <?php
+        echo "</div>";
     }
-    ?>
+
+
+?>

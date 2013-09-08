@@ -21,27 +21,25 @@
     ?>
             <div class="container"> 
 
-                <div class="col-xs-6 col-sm-2 sidebar-offcanvas" id="sidebar" role="navigation">
-                    <div class="well sidebar-nav">
-                        <ul class="nav">
-                            <li>Users</li>
-                            <li><a data-toggle="collapse" data-target="#userTable" href="#userTable">Users</a></li>
-                            <li><a href="#">Link</a></li>
-                            <li>Sidebar</li>
-                            <li><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                            <li>Sidebar</li>
-                            <li><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                        </ul>
+
+                <div class="row col-md-12 ">
+                    <ul id="myTab" class="nav nav-tabs ">
+                        <li class="active"><a class="glyphicon glyphicon-user" href="#users" data-toggle="tab"> Users</a></li>
+                        <li class=""><a href="#profile" data-toggle="tab">Maps</a></li>
+                    </ul>
+
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane fade active in" id="users">
+                            <?php include("views/admin/user_table.php"); ?>
+                        </div>
+                        <div class="tab-pane fade" id="profile">
+                            <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+                        </div>
+             
                     </div>
                 </div>
 
-                <!--  adding user_table-->
-                <?php include("views/admin/user_table.php"); ?>
-
-                <div class="row col-md-9">
+                <div class="row col-md-12">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h2 class="panel-title">Hello World!</h2>

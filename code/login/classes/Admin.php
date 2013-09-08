@@ -72,11 +72,11 @@ class Admin
 
     public function editUserGroup()
     {
-        if (empty($_POST['user_group']) ) {
+        if (empty($_POST['user_group']) or empty($_POST['user_id'])) {
 
-            $this->errors[] = "no user_group specified";
+            $this->errors[] = "no user_group or user_id specified";
 
-        // user mail cannot be empty and must be in email format
+        // usergroup must be in correct format
         } elseif (!empty($_POST['user_group']) && ($_POST['user_group']== 'dev' or $_POST['user_group']== 'admin' or $_POST['user_group']== 'user')){
 
             // if database connection opened
@@ -108,15 +108,36 @@ class Admin
 
     }  
 
-    public function setUserGroup($user_id, $userGroup)
+    public function deleteUser()
     {
+        if (empty($_POST['user_id']) ) {
 
-    }
+            $this->errors[] = "no user_id specified";
+        } else {
 
-    public function deleteUser($user_id)
-    {
+            // if database connection opened
+            if ($this->databaseConnection()) {
 
-    }
+                // write users new data into database
+                $query_edit_user_group = $this->db_connection->prepare('DELETE FROM users WHERE user_id = :user_id');
+                $query_edit_user_group->bindValue(':user_id', $_POST['user_id'], PDO::PARAM_INT);
+                $query_edit_user_group->execute();
+
+                if ($query_edit_user_group->rowCount()) {
+
+                    $this->messages[] = "user has been successfully removed.";
+
+                } else {
+
+                    $this->errors[] = "Sorry, your delete failed.";
+
+                }
+
+            }
+
+        }
+
+    }  
 
 }
 
