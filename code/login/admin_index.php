@@ -78,6 +78,9 @@
         ?>
     </div>
 
+        <!--  adding the navbar to the page and selecting current tab-->
+        <?php include("views/footer.php"); ?>
+
         <script src="http://code.jquery.com/jquery.js"></script>
         <script src="public/js/bootstrap.min.js"></script>
             <!-- selecting current tab-->
