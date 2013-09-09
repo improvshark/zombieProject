@@ -156,7 +156,7 @@ class Login
             // get result row (as an object)
             return $query_user->fetchObject();
 
-		} else {
+        } else {
 
             return false;
         }
