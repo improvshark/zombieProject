@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,67 +10,63 @@
     </head>
 
     <body>
-    <!--  adding the navbar to the page-->
+    <!--  adding the navbar to the page and selecting current tab-->
     <?php include("views/navbar.php"); ?>
 
+        <div class="container">
+            <?php
 
+                // ... ask if we are logged in here:
+                if ($login->isUserLoggedIn() == true and ($login->isDeveloper() or $login->isAdmin()) ) {
+                    // the user is logged in. you can do whatever you want here.
+                    // for demonstration purposes, we simply show the "you are logged in" view.
+                    if ($login->isAdmin()){
+                        echo "<h1>You are an Admin and a Developer</h1>";
+                    }
+                    else {
+                        echo "<h1>You are a Developer</h1>";
+                    }
 
-    <div class="container">
-        <div class="jumbotron">
-            <h1>Are you ready to kill some zombies?</h1>
-            <p>Its time to survive. 
-            <a  <?php if ($login->isUserLoggedIn() == false) { echo "href='register.php'"; } else { echo "href='register.php?logout'"; } ?> class="btn btn-success btn-lg">Join now</a></p>
+                } else {
+                    // the user is not logged in. you can do whatever you want here.
+                    // for demonstration purposes, we simply show the "you are not logged in" view.
+                    echo "<h1>dev only page</h1>";
+                    echo "
+                            <div class='alert alert-dismissable alert-danger '>
+                                <button type='button' class='close' data-dismiss='alert'>&times;</button>
+                                <strong>Warning! </strong>You do not have privlages to view this page!
+                            </div>
+                        ";
+                }
+            ?>
         </div>
-    </div>
 
-    <div class="container"> 
-            
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h2 class="panel-title">Hello World!</h2>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-lg-6 ">
-                        <a href="admin_index.php" >admin test</a>
-                    </div>
-                    <div class="col-lg-6 ">
-                        <a href="dev_index.php" >dev test</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-    </div>
+ 
+
 
 
 
 
         <script src="http://code.jquery.com/jquery.js"></script>
         <script src="public/js/bootstrap.min.js"></script>
-
+            <!-- selecting current tab-->
+        <script type="text/javascript"> 
+            $('#navbar-designer').addClass("active");   
+        </script>
     </body>
 </html>
 
 
 
 
-<?php
 
-// ... ask if we are logged in here:
-if ($login->isUserLoggedIn() == true and ($login->isDeveloper() or $login->isAdmin()) ) {
-    // the user is logged in. you can do whatever you want here.
-    // for demonstration purposes, we simply show the "you are logged in" view.
-    if ($login->isAdmin()){
-        echo "<h1>You are an Admin and a Developer</h1>";
-    }
-    else {
-        echo "<h1>You are a Developer</h1>";
-    }
-    include("views/logged_in.php");
 
-} else {
-    // the user is not logged in. you can do whatever you want here.
-    // for demonstration purposes, we simply show the "you are not logged in" view.
-    echo "<h1>dev only page</h1>";
-}
+
+
+
+
+
+
+
+
+

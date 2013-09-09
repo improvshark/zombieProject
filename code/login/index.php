@@ -10,8 +10,9 @@
     </head>
 
     <body>
-    <!--  adding the navbar to the page-->
+    <!--  adding the navbar to the page and selecting current tab-->
     <?php include("views/navbar.php"); ?>
+
 
 
 
@@ -48,7 +49,6 @@
 
         <script src="http://code.jquery.com/jquery.js"></script>
         <script src="public/js/bootstrap.min.js"></script>
-
     </body>
 </html>
 

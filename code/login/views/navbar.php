@@ -19,6 +19,7 @@
     // so this single line handles the entire login process. in consequence, you can simply ...
     $login = new Login();
 ?>
+
         <style>
             body {
                 padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
@@ -37,25 +38,25 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
-            <li class="active"> <a href="#">Play</a> </li>
-            <li><a href="#">Maps</a></li>
+            <li class="#" id="navbar-play"> <a href="#">Play</a> </li>
+            <li class="" id="navbar-maps"><a href="#">Maps</a></li>
 
-			<?php 
+                <?php 
 				if ($login->isUserLoggedIn() == true and ($login->isDeveloper() or $login->isAdmin()) ) { ?>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle glyphicon glyphicon-pencil" data-toggle="dropdown"> Designer</a>
+					<li id="navbar-designer" class="dropdown">
+						<a href="" class="dropdown-toggle glyphicon glyphicon-pencil" data-toggle="dropdown"> Designer</a>
 						<ul class="dropdown-menu">
 							<li><a class="glyphicon glyphicon-briefcase" href="#"> Editor</a></li>
-							<li><a class="glyphicon glyphicon-picture" href="#"> Maps</a></li>
+							<li><a class="glyphicon glyphicon-picture" href="dev_index.php"> Maps</a></li>
 						</ul>
 					</li>
-			<?php
+			     <?php
 				}
 				if ($login->isUserLoggedIn() == true and $login->isAdmin() ) { ?>
-					<li><a class="glyphicon glyphicon-list-alt" href="admin_index.php"> Admin</a></li>
-			<?php
+					<li id="navbar-admin"><a class="glyphicon glyphicon-list-alt" href="admin_index.php"> Admin</a></li>
+                <?php
 				}
-			?>
+                ?>
           </ul>
             <ul class="nav navbar-nav navbar-right">
 
@@ -106,3 +107,5 @@
         }
       ?>
     </div>
+
+
