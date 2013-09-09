@@ -43,16 +43,16 @@
 			<?php 
 				if ($login->isUserLoggedIn() == true and ($login->isDeveloper() or $login->isAdmin()) ) { ?>
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Designer<b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle glyphicon glyphicon-pencil" data-toggle="dropdown"> Designer</a>
 						<ul class="dropdown-menu">
-							<li><a href="#">Editor</a></li>
-							<li><a href="#">My maps</a></li>
+							<li><a class="glyphicon glyphicon-briefcase" href="#"> Editor</a></li>
+							<li><a class="glyphicon glyphicon-picture" href="#"> Maps</a></li>
 						</ul>
 					</li>
 			<?php
 				}
 				if ($login->isUserLoggedIn() == true and $login->isAdmin() ) { ?>
-					<li><a href="admin_index.php">Admin</a></li>
+					<li><a class="glyphicon glyphicon-list-alt" href="admin_index.php"> Admin</a></li>
 			<?php
 				}
 			?>
