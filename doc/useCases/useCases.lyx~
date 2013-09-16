@@ -63,11 +63,12 @@
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename useCaseImages/CreateAcount.svg
+	filename diagrams/CreateAcount.svg
+	scale 50
 
 \end_inset
 
@@ -105,7 +106,7 @@ Flow:
 
 \begin_deeper
 \begin_layout Itemize
-User navigates to page
+user navigates to page
 \end_layout
 
 \begin_layout Itemize
@@ -113,7 +114,7 @@ user enters login information
 \end_layout
 
 \begin_layout Itemize
-User logs in
+user logs in
 \end_layout
 
 \end_deeper
@@ -135,11 +136,12 @@ Users connection fails
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename useCaseImages/Login.svg
+	filename diagrams/Login.svg
+	scale 50
 
 \end_inset
 
@@ -181,7 +183,7 @@ user enters login information
 \end_layout
 
 \begin_layout Itemize
-User logs in
+user logs in
 \end_layout
 
 \end_deeper
@@ -192,10 +194,818 @@ Exceptions:
 \begin_deeper
 \begin_layout Standard
 Users connection fails
+\end_layout
+
+\end_deeper
+\begin_layout Standard
 \begin_inset Newpage newpage
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename diagrams/edit_profile.svg
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+PrimaryActor:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+user
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Goal:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+edit profile
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Flow:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+user navagates to page
+\end_layout
+
+\begin_layout Itemize
+user edits profile
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Exceptions:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Users connection fails
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename diagrams/view_help_page.svg
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+PrimaryActor:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+user
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Goal:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+view help page
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Flow:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+user navagates to page
+\end_layout
+
+\begin_layout Itemize
+user views help page
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Exceptions:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Users connection fails
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename diagrams/browse_maps.svg
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+PrimaryActor:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+user
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Goal:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+login to system
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Flow:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+user navagates to map page
+\end_layout
+
+\begin_layout Itemize
+User views maps
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Exceptions:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Users connection fails
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename diagrams/play_maps.svg
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+PrimaryActor:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+user
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Goal:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+login to system
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Flow:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+user logs in
+\end_layout
+
+\begin_layout Itemize
+user navagates to map
+\end_layout
+
+\begin_layout Itemize
+User plays map
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Exceptions:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Users connection fails
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename diagrams/create_map.svg
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+PrimaryActor:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+designer
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Goal:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+create map
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Flow:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+user enters logs in
+\end_layout
+
+\begin_layout Itemize
+User creates map
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Exceptions:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Users connection fails
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename diagrams/edit_map.svg
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+PrimaryActor:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+designer
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Goal:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+edit map
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Flow:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+user logs in
+\end_layout
+
+\begin_layout Itemize
+User edits map
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Exceptions:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Users connection fails
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename diagrams/delete_own_maps.svg
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+PrimaryActor:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+designer
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Goal:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+delete map
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Flow:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+designer logs in 
+\end_layout
+
+\begin_layout Itemize
+designer selects map
+\end_layout
+
+\begin_layout Itemize
+designer deletes map
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Exceptions:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Users connection fails
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename diagrams/play_test_map.svg
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+PrimaryActor:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+designer
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Goal:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+play test map
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Flow:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+designer logs in
+\end_layout
+
+\begin_layout Itemize
+designer edits map
+\end_layout
+
+\begin_layout Itemize
+designer tests map
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Exceptions:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Users connection fails
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename diagrams/delete_accounts.svg
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+PrimaryActor:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+admin
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Goal:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+delete account
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Flow:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+admin logs in
+\end_layout
+
+\begin_layout Itemize
+admin navagates to admin page
+\end_layout
+
+\begin_layout Itemize
+admin deletes account
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Exceptions:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Users connection fails
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename diagrams/delete_any_map.svg
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+PrimaryActor:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+admin
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Goal:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+delete map
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Flow:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+admin logs in
+\end_layout
+
+\begin_layout Itemize
+admin deletes map
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Exceptions:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Users connection fails
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename diagrams/change_account_types.svg
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+PrimaryActor:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+admin
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Goal:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+change account type
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Flow:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+admin logs in
+\end_layout
+
+\begin_layout Itemize
+admin changes account type
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Exceptions:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Users connection fails
 \end_layout
 
 \end_deeper
