@@ -425,7 +425,7 @@ Users connection fails
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -549,11 +549,11 @@ Flow:
 
 \begin_deeper
 \begin_layout Itemize
-user enters logs in
+designer enters logs in
 \end_layout
 
 \begin_layout Itemize
-user creates map
+designer creates map
 \end_layout
 
 \end_deeper
@@ -622,11 +622,11 @@ Flow:
 
 \begin_deeper
 \begin_layout Itemize
-user logs in
+designer logs in
 \end_layout
 
 \begin_layout Itemize
-user edits map
+designer edits map
 \end_layout
 
 \end_deeper
