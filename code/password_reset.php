@@ -12,7 +12,7 @@
     <body>
         <!--  adding the navbar to the page and selecting current tab-->
         <?php 
-        include("views/navbar.php"); 
+        include("views/templates/header.php"); 
 
 		// include the PHPMailer library
 		require_once("libraries/PHPMailer.php");
@@ -36,7 +36,7 @@
 
         
         //<!--  adding the navbar to the page and selecting current tab-->
-        include("views/footer.php"); 
+        include("views/templates/footer.php"); 
         ?>
 
         <script src="http://code.jquery.com/jquery.js"></script>
