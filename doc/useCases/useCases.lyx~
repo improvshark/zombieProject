@@ -399,7 +399,7 @@ user navagates to map page
 \end_layout
 
 \begin_layout Itemize
-User views maps
+user views maps
 \end_layout
 
 \end_deeper
@@ -425,7 +425,7 @@ Users connection fails
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -476,7 +476,7 @@ user navagates to map
 \end_layout
 
 \begin_layout Itemize
-User plays map
+user plays map
 \end_layout
 
 \end_deeper
@@ -499,10 +499,14 @@ Users connection fails
 
 \end_deeper
 \begin_layout Standard
+Designer: can do everything a user can do.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -545,11 +549,11 @@ Flow:
 
 \begin_deeper
 \begin_layout Itemize
-user enters logs in
+designer enters logs in
 \end_layout
 
 \begin_layout Itemize
-User creates map
+designer creates map
 \end_layout
 
 \end_deeper
@@ -618,11 +622,11 @@ Flow:
 
 \begin_deeper
 \begin_layout Itemize
-user logs in
+designer logs in
 \end_layout
 
 \begin_layout Itemize
-User edits map
+designer edits map
 \end_layout
 
 \end_deeper
@@ -794,6 +798,10 @@ Users connection fails
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Admin: can do everything a designer can.
 \end_layout
 
 \begin_layout Standard
