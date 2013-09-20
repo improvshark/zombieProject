@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 20, 2013 at 04:38 PM
+-- Generation Time: Sep 20, 2013 at 04:42 PM
 -- Server version: 5.5.32-0ubuntu0.13.04.1
 -- PHP Version: 5.4.9-4ubuntu2.3
 
@@ -49,8 +49,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`user_id`, `user_group`, `user_name`, `user_password_hash`, `user_email`, `user_active`, `user_activation_hash`, `user_password_reset_hash`, `user_password_reset_timestamp`, `user_rememberme_token`, `user_registration_datetime`, `user_registration_ip`) VALUES
 (1, 'user', 'improvshark', '$2y$10$YEthVgSwB0JXcgLYSL3bsusY8.1T8n/snYxM3djErspbMeNBi/.iK', 'moonyou1234321@gmail.com', 1, NULL, NULL, NULL, NULL, '2013-08-30 20:11:57', '127.0.0.1'),
-(15, 'user', 'dev', '$2y$10$9K.tTOQee9i5E.stRyGYq.pDtGCuHKkm2CngE3o04x8mmSCzckJUS', 'email@email.com', 1, '15da19425bead693802dd23d4cff26dbc4795c3d', NULL, NULL, NULL, '2013-09-20 16:34:52', '127.0.0.1'),
-(14, 'user', 'admin', '$2y$10$t.3p1aQxjKS3OH0mNFy0t.fxFFwnBeb6oNY.sgGXxm0XGyeehJySy', 'email@email.com', 1, NULL, NULL, NULL, NULL, '2013-09-20 16:34:15', '127.0.0.1'),
+(15, 'dev', 'dev', '$2y$10$9K.tTOQee9i5E.stRyGYq.pDtGCuHKkm2CngE3o04x8mmSCzckJUS', 'email@email.com', 1, '15da19425bead693802dd23d4cff26dbc4795c3d', NULL, NULL, NULL, '2013-09-20 16:34:52', '127.0.0.1'),
+(14, 'admin', 'admin', '$2y$10$t.3p1aQxjKS3OH0mNFy0t.fxFFwnBeb6oNY.sgGXxm0XGyeehJySy', 'email@email.com', 1, NULL, NULL, NULL, NULL, '2013-09-20 16:34:15', '127.0.0.1'),
 (4, 'dev', 'doug', '', 'email@email.com', 1, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0.0.0.0'),
 (6, 'dev', 'apple', '', 'email@email.com', 1, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0.0.0.0'),
 (8, 'user', 'pear', '', 'email@email.com', 1, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0.0.0.0'),
