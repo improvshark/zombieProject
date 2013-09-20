@@ -37,7 +37,7 @@
                                 <strong>Warning! </strong>You do not have privlages to view this page!
                             </div>
                         ";
-                }
+                }//comment by mario
             ?>
         </div>
 
@@ -51,6 +51,7 @@
             $('#navbar-designer').addClass("active");   
         </script>
     </body>
+	
 </html>
 
 
