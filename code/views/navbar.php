@@ -46,7 +46,7 @@
 					<li id="navbar-designer" class="dropdown">
 						<a href="" class="dropdown-toggle glyphicon glyphicon-pencil" data-toggle="dropdown"> Designer</a>
 						<ul class="dropdown-menu">
-							<li><a class="glyphicon glyphicon-briefcase" href="#"> Editor</a></li>
+							<li><a class="glyphicon glyphicon-briefcase" href="editor.php"> Editor</a></li>
 							<li><a class="glyphicon glyphicon-picture" href="dev_index.php"> Maps</a></li>
 						</ul>
 					</li>
