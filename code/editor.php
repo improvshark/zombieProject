@@ -14,11 +14,48 @@
     <?php include("views/navbar.php"); ?>
 
         <div class="container">
-            <canvas id='myCanvas' width='900' height='600' style="border: 1px black solid"></canvas>
+            <canvas id='myCanvas' width='900' height='650' style="border: 1px black solid"></canvas>
             <script type="text/javascript">
 
-          
-                myMap = new Map( document.getElementById('myCanvas') );
+                // load tiles
+                var tiles = new Image()
+                tiles.src = 'public/img/tiles.png'
+
+                var map = {
+                    title: "test map map",
+                    author: "dosmun",
+                    width: 15,
+                    height: 15,
+                    x: 4,
+                    y: 4,
+                    data: {
+                        bottom: [
+                        [22,22,22,22,22,22,22,22,22,22,22,22,22,22,22],
+                        [22, 0, 8,16,22,22,22,22,22,22,22,22,22,22,22],
+                        [22, 1, 9, 8,16,22,22,22,22,22,22,22,22,22,22],
+                        [22, 1, 9, 9,17,22,22,22,22,22,22,22,22,22,22],
+                        [22, 2, 0, 9, 8,16,22,22,22,22,22,22,22,22,22],
+                        [22,22, 1, 9, 9, 8, 8,16,22,22,22,22,22,22,22],
+                        [22,22, 2, 4, 9, 9, 9, 8,16,22,22,22,22,22,22],
+                        [22,22,22, 2,10, 4, 9, 9, 8,16,22,22,22,22,22],
+                        [22,22,22,22,22, 2, 4, 9, 9,17,22,22,22,22,22],
+                        [22,22,22,22,22,22, 2, 4, 9,17,22,22,22,22,22],
+                        [22,22,22,22,22,22,22, 2,10,18,22,22,22,22,22],
+                        [22,22,22,22,22,22,22,22,22,22,22,22,22,22,22],
+                        [22,22,22,22,22,22,22,22,22,22,22,22,22,22,22],
+                        [22,22,22,22,22,22,22,22,22,22,22,22,22,22,22],
+                        [22,22,22,22,22,22,22,22,22,22,22,22,22,22,22]
+                        ],
+                        middle:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]],
+                        top:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
+                    },
+                    events: [],
+                    env: "normal"
+                };
+                // create map object pass canvase and tiles
+                console.log(map.data['bottom'])
+
+                myMap = new Map( document.getElementById('myCanvas'), tiles , 10, 10, map.width, map.height);
                 myMap.draw();
 
 

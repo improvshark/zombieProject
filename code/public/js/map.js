@@ -1,54 +1,55 @@
-function Map(newCanvas) {
+function Map(canvas, tiles, x, y, height, width, array) {
 
-	var canvas = newCanvas;
-	var context = canvas.getContext('2d');
+	this.canvas = canvas;
+	this.context = canvas.getContext('2d');
 
-	console.log('just map object with:' +canvas);
-	this.height = 10;
-	this.width = 10;
-	this.x = 10;
-	console.log(this.x);
-	this.y = 10;
-	this.grid = false
+	console.log('just map obj with:' +canvas);
+	this.height = height;
+	this.width =  width;
+	this.x = x;
+	this.y = y;
+	this.grid = false;
+	this.tiles = tiles;
+	if (array) {
+		this.array = array;
+	} else{
+		this.array = ['bottom', 'middle', 'top'];
+		this.array.bottom = [],[];
+	    for (var j = 0; j < this.height; j++) {
+	        for (var i = 0; i < this.width; i++) {
+	        	this.array.bottom[i] = 0;
+	        }
+	    }
+	}
+	console.log(this.array.bottom)
+
+	// there has to be a better way :(
+	var obj = this
+	this.update = function () {
+		obj = this;
+	}
 	
-
-
-
-	this.sources = {
-		darthVader: 'http://www.html5canvastutorials.com/demos/assets/darth-vader.jpg'
-	};
-
-
-	function loadImages(sources, callback) {
-		var images = {};
-		var loadedImages = 0;
-		var numImages = 0;
-		// get num of sources
-		for(var src in sources) {
-		  numImages++;
-		}
-		for(var src in sources) {
-		  images[src] = new Image();
-		  images[src].onload = function() {
-		    if(++loadedImages >= numImages) {
-		      callback(images);
-		    }
-		  };
-		  images[src].src = sources[src];
-		}
-	}
-
 	this.draw = function() {
-		console.log('drawing');
-		console.log('woot ->' +this.x);
-		loadImages(this.sources, function(images, ) {
-			for (var i = 0; i < this.height; i++) {
-			    for (var j = 0; j < this.width; j++) {
-			        context.drawImage(images.darthVader, this.x + (40 * i), this.y + (40 * j), 40, 40);
-			    }
-			}
-			context.drawImage(images.darthVader, this.x, 10 , 400, 400);
-			console.log(this.x);
-		});
+		this.tiles.onload = function() {
+			console.log('width: ' + tiles.width + ' height: ' + tiles.height)
+			        // draw cropped image
+	        var sourceX = 0;
+	        var sourceY = 3;
+	        var sourceWidth = 40;
+	        var sourceHeight = 40;
+	        var tileSize = 40;
+	        for (var j = 0; j < obj.height; j++) {
+		        for (var i = 0; i < obj.width; i++) {
+		        	obj.context.drawImage(tiles, (obj.array.bottom[i]*tileSize), (sourceY*tileSize), sourceWidth, sourceHeight, obj.x+(tileSize*i), obj.y+(tileSize*j), tileSize, tileSize);
+		        }
+	        }
+
+	        
+		}
+		
 	}
+
+
+
+
 }
