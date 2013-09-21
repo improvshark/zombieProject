@@ -53,9 +53,9 @@
                     env: "normal"
                 };
                 // create map object pass canvase and tiles
-                console.log(map.data['bottom'])
+                console.log(map.data.bottom[1][2])
 
-                myMap = new Map( document.getElementById('myCanvas'), tiles , 10, 10, map.width, map.height);
+                myMap = new Map( document.getElementById('myCanvas'), tiles , 10, 10, map.width, map.height, map.data.bottom);
                 myMap.draw();
 
 
