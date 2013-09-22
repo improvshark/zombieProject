@@ -23,6 +23,8 @@ function Map(canvas, tiles, x, y, height, width, map) {
 
 	this.tiles = tiles;
 	this.tilesLoaded = false;
+	this.dragging = false;
+	this.dragPoint = 0;
 	// load map function
 	this.loadMap = function(map){
 		this.title = map.title;
@@ -112,24 +114,40 @@ function Map(canvas, tiles, x, y, height, width, map) {
 
 	};
 
+	this.getMousePos = function (evt) {
+        var rect = this.canvas.getBoundingClientRect();
+        return {
+            x: evt.clientX - rect.left,
+            y: evt.clientY - rect.top
+        };
+    };
+
+    this.isOverMap = function(mousePos) {
+    	if ( (mousePos.x < this.x || mousePos.x > this.x + this.pixelWidth) || (mousePos.y < this.y || mousePos.y > this.y + this.pixelHeight)){	
+    		return false;
+    	} else {
+    		console.log('over map!')
+    		return true;
+    	}
+    };
+
 	// this function will give the x and y of the tile the mouese is over
-	this.getMousePos = function(evt) {
-		var bounds = this.canvas.getBoundingClientRect();
-		var mouseX = evt.clientX - bounds.left;
-		var mouseY = evt.clientY - bounds.top;j
-		//console.log('mouse click x:' + mouseX + ' y:' + mouseY);
+	this.getTilePos = function(evt) {
+		var mousePos = this.getMousePos(evt);
+		//console.log('mouse click x:' + mousePos.x + ' y:' + mousePos.y);
 
 		// make sure click is on map
-		if ( (mouseX < this.x || mouseX > this.x + this.pixelWidth) || (mouseY < this.y || mouseY > this.y + this.pixelHeight)){
-			console.log('no tile');
-			return null
-		}
-		else{
+		if ( this.isOverMap(mousePos) ){
 			// return tile location
-			var tileX = Math.floor((mouseX - this.x)/ Math.floor(this.pixelWidth / this.width));
-			var tileY = Math.floor((mouseY - this.y)/ Math.floor(this.pixelWidth / this.width));
+			var tileX = Math.floor((mousePos.x - this.x)/ Math.floor(this.pixelWidth / this.width));
+			var tileY = Math.floor((mousePos.y - this.y)/ Math.floor(this.pixelWidth / this.width));
 			//console.log('tile x:' + tileX + ' y:' + tileY);
 			return {x: tileX, y: tileY};
+		}
+		else{
+			console.log('no tile');
+			return null
+
 		}
 	};
 	// this function will change the selected tile and redraw
@@ -137,12 +155,41 @@ function Map(canvas, tiles, x, y, height, width, map) {
 		this.data.bottom[y][x] = tile;
 	};
 
-	this.dragStart = function(evt){
+	this.drag = function(evt){
+		var mousePos = obj.getMousePos(evt);
+		obj.update();
+		if (obj.dragging == false) {
+			console.log('setting dragstart')
+			obj.dragStart = mousePos.x;
+			obj.dragging = true;
+		}
+		if ( obj.isOverMap(mousePos) ){
+			console.log('mouse x:' + mousePos.x + " y:" + mousePos.y);
+			console.log('map x:' + obj.x + ' y:' + obj.y);
+			console.log('drag start:' + obj.dragStart.x);
+			obj.x  = mousePos.x - (obj.dragStart.x - obj.x);
 
+			console.log('map moved to x:' + obj.x + ' y:' + obj.y);
+			//this.y = mousePos.y + (mousePos.y - this.y);
+			obj.draw();
+		}
 	};
+
+
+	this.dragStart = function(evt){
+		if (this.dragging == false){
+			this.canvas.addEventListener('mousemove', this.drag, false);
+			
+		}
+	}
 
 	this.dragEnd = function(evt){
+		if (this.dragging == true){
+			this.dragging = false;
+			this.canvas.removeEventListener('mousemove', this.drag, false);
+		}
+	}
 
-	};
+
 
 }

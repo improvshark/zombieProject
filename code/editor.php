@@ -85,7 +85,7 @@
                     // if statement ot checkif its the left mouse button
                     if(evt.button == 0) {
                         // set location of mouse click to click object
-                        click = myMap.getMousePos(evt);  
+                        click = myMap.getTilePos(evt);  
                         // check if we are on map...if we are change tile
                         if (click != null) { 
                             // pass is location x and y and the tile number to change it to
@@ -94,7 +94,7 @@
                     }
                     else if (evt.button == 2 ) {
                         // set location of mouse click to click object
-                        click = myMap.getMousePos(evt);  
+                        click = myMap.getTilePos(evt);  
                         // check if we are on map...if we are change tile
                         if (click != null) { 
                             myMap.changeTile(click.x, click.y, 1)
@@ -104,6 +104,34 @@
                     myMap.draw();
                 }, false);
 
+                
+                /// testing draging map only works with spacebar held down
+
+                function getMousePos(canvas, evt) {
+                    var rect = canvas.getBoundingClientRect();
+                    return {
+                        x: evt.clientX - rect.left,
+                        y: evt.clientY - rect.top
+                    };
+                }
+
+                var move = function(evt) {
+                   myMap.drag(evt);
+                }
+
+                // add listner when spacebar is pressed down
+                window.addEventListener('keydown', function(evt){
+                    if (evt.keyCode = 32) {   // space bar
+                        myMap.dragStart();
+                    }   
+                }, false);
+                // remove listner when space bar is released
+                window.addEventListener('keyup', function(evt){
+                    if (evt.keyCode = 32) {   // space bar
+                        console.log('spacebar relesed');
+                        myMap.dragEnd();
+                    }   
+                }, false);
         
 
             </script>
