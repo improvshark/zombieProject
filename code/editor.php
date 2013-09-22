@@ -26,8 +26,8 @@
                     author: "dosmun",
                     width: 15,
                     height: 15,
-                    x: 4,
-                    y: 4,
+                    x: 50,
+                    y: 20,
                     data: {
                         bottom: [
                         [22,22,22,22,22,22,22,22,22,22,22,22,22,22,22],
@@ -52,7 +52,7 @@
                     events: [],
                     env: "normal"
                 };
-                // create map object pass canvase and tiles
+               
                 console.log(map.data.bottom[1][2])
 
 
@@ -60,31 +60,47 @@
                 var tiles = new Image()
                 tiles.src = 'public/img/tiles.png'
 
-                myMap = new Map( document.getElementById('myCanvas'), tiles , 10, 10, map.width, map.height);
+                 // create map object pass canvase and tiles image  
+                myMap = new Map( document.getElementById('myCanvas'), tiles);
+                myMap.loadMap(map);
                 myMap.draw();
 
+                // stuff like this would go in the button.js class
+                document.getElementById('toolbar-showGrid').onclick = function(){
+                    console.log('grid');
+                    if (myMap.grid != 0){
+                       myMap.grid = 0; 
+                    } else {
+                       myMap.grid = .7;  
+                    }
+                    myMap.draw();
+                }
+
+                // stuff like this would go in the mouse class
                 document.getElementById('myCanvas').addEventListener('mousedown', function(evt){
                     // if statement ot checkif its the left mouse button
                     if(evt.button == 0) {
+                        // set location of mouse click to click object
                         click = myMap.getMousePos(evt);  
+                        // check if we are on map...if we are change tile
                         if (click != null) { 
+                            // pass is location x and y and the tile number to change it to
                             myMap.changeTile(click.x, click.y, 7)
                         }
                     }
                     else if (evt.button == 2 ) {
+                        // set location of mouse click to click object
                         click = myMap.getMousePos(evt);  
+                        // check if we are on map...if we are change tile
                         if (click != null) { 
                             myMap.changeTile(click.x, click.y, 1)
                         }
                     }
-                    
-
+                    // redraw map so we can see changes
+                    myMap.draw();
                 }, false);
 
-                document.getElementById('myCanvas').on
-
-            
-
+        
 
             </script>
         </div>

@@ -1,4 +1,4 @@
-function Map(canvas, tiles, x, y, height, width, bottom) {
+function Map(canvas, tiles, x, y, height, width, map) {
 
 	// canvas object 
 	this.canvas = canvas;
@@ -15,21 +15,36 @@ function Map(canvas, tiles, x, y, height, width, bottom) {
 
 	//the name of the map
 	this.title = "";
+	// creator user id
+	this.author = "";
 
-	this.grid = false;
+	this.grid = 0;
+	this.gridColor = "black";
+
 	this.tiles = tiles;
 	this.tilesLoaded = false;
+	// load map function
+	this.loadMap = function(map){
+		this.title = map.title;
+		this.author = map.author;
+		this.width = map.width;
+		this.height = map.height;
+		this.x = map.x;
+		this.y = map.y;
+		this.data = map.data;
+		this.env = map.env;
+	};
 
-	if (bottom) {
-		this.map = {bottom: bottom, middle: [], top: []};
+	if (map) {
+		this.loadMap(map);
 	} else{
 		// filling the array of arrays
-		this.map = {bottom: [], middle: [], top: []};
+		this.data = {bottom: [], middle: [], top: []};
 	    for (var j = 0; j < this.height; j++) {
-	    	this.map.bottom[j] = [];
+	    	this.data.bottom[j] = [];
 	        for (var i = 0; i < this.width; i++) {
 	        	
-	        	this.map.bottom[j][i] = 22;
+	        	this.data.bottom[j][i] = 22;
 	        }
 	    }
 	}
@@ -51,7 +66,7 @@ function Map(canvas, tiles, x, y, height, width, bottom) {
 
 	// this function will draw it to the screen
 	this.draw = function() {
-		console.log('drawing')
+		//console.log('drawing')
 		// clear it out
 		this.context.save();
     	this.context.clearRect(0, 0, canvas.width, canvas.height);
@@ -65,23 +80,31 @@ function Map(canvas, tiles, x, y, height, width, bottom) {
 	        for (var j = 0; j < this.height; j++) {
 		        for (var i = 0; i < this.width; i++) {
 
-		        	var sourceX = (this.map.bottom[j][i]%divider)
-		        	var sourceY = Math.floor(this.map.bottom[j][i]/divider)
+		        	var sourceX = (this.data.bottom[j][i]%divider)
+		        	var sourceY = Math.floor(this.data.bottom[j][i]/divider)
 
+		        	// draw grid
+		        	if (this.grid > 0) {
+		        		this.context.beginPath();
+		        		this.context.rect(
+		        			this.x+((this.pixelWidth/this.width) *i), this.y+((this.pixelHeight/this.height) *j),
+		        	 		this.pixelWidth/this.width, this.pixelHeight/this.height
+		        		);
+		        		this.context.lineWidth = this.grid;
+		 				this.context.strokeStyle = this.gridColor;
+		 				this.context.stroke();
+		        	}
+		        	// draw tile
 		        	this.context.drawImage(
 		        		this.tiles, 
 		        		(sourceX*tileSize), (sourceY*tileSize), 
 		        		sourceWidth, sourceHeight,
-		        		this.x+((this.pixelWidth/this.width) *i), this.y+((this.pixelHeight/this.height) *j),
-		        		this.pixelWidth/this.width, this.pixelHeight/this.height
+		        		this.x+((this.pixelWidth/this.width) *i)+(this.grid/2), this.y+((this.pixelHeight/this.height) *j)+(this.grid/2),
+		        		(this.pixelWidth/this.width)-this.grid, (this.pixelHeight/this.height)-this.grid
 		        	);
 		        }
 	        }
 		}
-
-	};
-
-	this.loadMap = function(map){
 
 	};
 
@@ -94,7 +117,7 @@ function Map(canvas, tiles, x, y, height, width, bottom) {
 		var bounds = this.canvas.getBoundingClientRect();
 		var mouseX = evt.clientX - bounds.left;
 		var mouseY = evt.clientY - bounds.top;j
-		console.log('mouse click x:' + mouseX + ' y:' + mouseY);
+		//console.log('mouse click x:' + mouseX + ' y:' + mouseY);
 
 		// make sure click is on map
 		if ( (mouseX < this.x || mouseX > this.x + this.pixelWidth) || (mouseY < this.y || mouseY > this.y + this.pixelHeight)){
@@ -105,15 +128,13 @@ function Map(canvas, tiles, x, y, height, width, bottom) {
 			// return tile location
 			var tileX = Math.floor((mouseX - this.x)/ Math.floor(this.pixelWidth / this.width));
 			var tileY = Math.floor((mouseY - this.y)/ Math.floor(this.pixelWidth / this.width));
-			console.log('tile x:' + tileX + ' y:' + tileY);
-
+			//console.log('tile x:' + tileX + ' y:' + tileY);
 			return {x: tileX, y: tileY};
 		}
 	};
 	// this function will change the selected tile and redraw
 	this.changeTile = function(x, y, tile){
-		this.map.bottom[y][x] = tile;
-		this.draw();
+		this.data.bottom[y][x] = tile;
 	};
 
 	this.dragStart = function(evt){

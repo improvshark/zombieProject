@@ -42,51 +42,51 @@
                 <li id="toolbar-file" class="dropdown">
                     <a href="" class="" data-toggle="dropdown"> File </a>
                     <ul class="dropdown-menu">
-                        <li><a id="new" class="" href="#">New</a></li>
-                        <li><a id="open" class="" href="#">Open</a></li>
-                        <li><a id="save" class="" href="#">Save</a></li>
-                        <li><a id="download" class="" href="#">Download</a></li>
-                        <li><a id="close" class="" href="index.php"> Close</a></li>
-                        <li><a id="exit" class="" href="index.php"> Exit</a></li>
+                        <li><a id="toolbar-new" class="" href="#">New</a></li>
+                        <li><a id="toolbar-open" class="" href="#">Open</a></li>
+                        <li><a id="toolbar-save" class="" href="#">Save</a></li>
+                        <li><a id="toolbar-download" class="" href="#">Download</a></li>
+                        <li><a id="toolbar-close" class="" href="index.php"> Close</a></li>
+                        <li><a id="toolbar-exit" class="" href="index.php"> Exit</a></li>
                     </ul>
                 </li>
 
                 <li id="toolbar-edit" class="dropdown">
                     <a href="" class="" data-toggle="dropdown"> Edit </a>
                     <ul class="dropdown-menu">
-                        <li><a id="undo" class="" href="#">Undo</a></li>
-                        <li><a id="redo" class="" href="#">Redo</a></li>
-                        <li><a id="cut" class="" href="#">Cut</a></li>
-                        <li><a id="copy" class="" href="#">Copy</a></li>
-                        <li><a id="paste" class="" href="#">Paste</a></li>
-                        <li><a id="Select All" class="" href="#">Select All</a></li>
-                        <li><a id="delete" class="" href="#">Delete</a></li>
-                        <li><a id="preferences" class="" href="#">Preferences</a></li>
+                        <li><a id="toolbar-undo" class="" href="#">Undo</a></li>
+                        <li><a id="toolbar-redo" class="" href="#">Redo</a></li>
+                        <li><a id="toolbar-cut" class="" href="#">Cut</a></li>
+                        <li><a id="toolbar-copy" class="" href="#">Copy</a></li>
+                        <li><a id="toolbar-paste" class="" href="#">Paste</a></li>
+                        <li><a id="toolbar-Select All" class="" href="#">Select All</a></li>
+                        <li><a id="toolbar-delete" class="" href="#">Delete</a></li>
+                        <li><a id="toolbar-preferences" class="" href="#">Preferences</a></li>
                     </ul>
                 </li>
 
                 <li id="toolbar-view" class="dropdown">
                     <a href="" class="" data-toggle="dropdown"> View </a>
                     <ul class="dropdown-menu">
-                        <li><a id="zoom" class="" href="#">Zoom</a></li>
-                        <li><a id="showGrid" class="" href="#">Show Grid</a></li>
+                        <li><a id="toolbar-zoom" class="" href="#">Zoom</a></li>
+                        <li><a id="toolbar-showGrid" class="" href="#">Show Grid</a></li>
                     </ul>
                 </li>
 
                 <li id="toolbar-tools" class="dropdown">
                     <a href="" class="" data-toggle="dropdown"> Tools </a>
                     <ul class="dropdown-menu">
-                        <li><a id="fill" class="" href="#">Fill</a></li>
-                        <li><a id="playTest" class="" href="#">Play Test</a></li>
+                        <li><a id="toolbar-fill" class="" href="#">Fill</a></li>
+                        <li><a id="toolbar-playTest" class="" href="#">Play Test</a></li>
                     </ul>
                 </li>
                 <li id="toolbar-windows" class="dropdown">
                     <a href="" class="" data-toggle="dropdown"> Windows </a>
                     <ul class="dropdown-menu">
-                        <li><a id="toolbox" class="" href="#">Toolbox</a></li>
-                        <li><a id="palette" class="" href="#">Palette</a></li>
-                        <li><a id="miniMap" class="" href="#">Mini map</a></li>
-                        <li><a id="events" class="" href="#">Events</a></li>
+                        <li><a id="toolbar-toolbox" class="" href="#">Toolbox</a></li>
+                        <li><a id="toolbar-palette" class="" href="#">Palette</a></li>
+                        <li><a id="toolbar-miniMap" class="" href="#">Mini map</a></li>
+                        <li><a id="toolbar-events" class="" href="#">Events</a></li>
                     </ul>
                 </li>
 
