@@ -69,9 +69,13 @@
                 document.getElementById('toolbar-showGrid').onclick = function(){
                     console.log('grid');
                     if (myMap.grid != 0){
-                       myMap.grid = 0; 
+                        // use bootstrap to put a checkmark by it
+                        document.getElementById('toolbar-showGrid').setAttribute("class", "");
+                        myMap.grid = 0; 
                     } else {
-                       myMap.grid = .7;  
+                        // use bootstrap to put a checkmark by it
+                        document.getElementById('toolbar-showGrid').setAttribute("class", "glyphicon glyphicon-ok");
+                        myMap.grid = .7;  
                     }
                     myMap.draw();
                 }
