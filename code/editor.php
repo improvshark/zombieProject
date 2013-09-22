@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap -->
         <link href="public/css/bootstrap2.css" rel="stylesheet" media="screen">
+        <!-- including map class -->
         <script src="public/js/map.js"></script>
     </head>
 
@@ -14,11 +15,12 @@
     <?php include("views/mapEditor/toolbar.php"); ?>
 
         <div class="container">
+        	<!--create canvas -->
             <canvas id='myCanvas' width='900' height='650' style="border: 1px black solid"></canvas>
             <script type="text/javascript">
 
 
-
+            // just a sample object
                 var map = {
                     title: "test map map",
                     author: "dosmun",
@@ -58,7 +60,7 @@
                 var tiles = new Image()
                 tiles.src = 'public/img/tiles.png'
 
-                myMap = new Map( document.getElementById('myCanvas'), tiles , 10, 10, map.width, map.height, map.data.bottom);
+                myMap = new Map( document.getElementById('myCanvas'), tiles , 100, 100, map.width, map.height, map.data.bottom);
                 myMap.draw();
 
 
