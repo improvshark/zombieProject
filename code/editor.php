@@ -17,9 +17,7 @@
             <canvas id='myCanvas' width='900' height='650' style="border: 1px black solid"></canvas>
             <script type="text/javascript">
 
-                // load tiles
-                var tiles = new Image()
-                tiles.src = 'public/img/tiles.png'
+
 
                 var map = {
                     title: "test map map",
@@ -54,6 +52,11 @@
                 };
                 // create map object pass canvase and tiles
                 console.log(map.data.bottom[1][2])
+
+
+                // load tiles image
+                var tiles = new Image()
+                tiles.src = 'public/img/tiles.png'
 
                 myMap = new Map( document.getElementById('myCanvas'), tiles , 10, 10, map.width, map.height, map.data.bottom);
                 myMap.draw();

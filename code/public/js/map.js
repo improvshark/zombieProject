@@ -1,4 +1,4 @@
-function Map(canvas, tiles, x, y, height, width, array) {
+function Map(canvas, tiles, x, y, height, width, bottom) {
 
 	this.canvas = canvas;
 	this.context = canvas.getContext('2d');
@@ -11,8 +11,8 @@ function Map(canvas, tiles, x, y, height, width, array) {
 	this.grid = false;
 	this.tiles = tiles;
 
-	if (array) {
-		this.map = {bottom: array, middle: [], top: []};
+	if (bottom) {
+		this.map = {bottom: bottom, middle: [], top: []};
 	} else{
 		//this.map = ['bottom', 'middle', 'top'];
 		this.map = {bottom: [], middle: [], top: []};
