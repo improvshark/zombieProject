@@ -11,7 +11,7 @@
 
     <body>
     <!--  adding the navbar to the page and selecting current tab-->
-    <?php include("views/templates/navbar.php"); ?>
+    <?php include("views/mapEditor/toolbar.php"); ?>
 
         <div class="container">
             <canvas id='myCanvas' width='900' height='650' style="border: 1px black solid"></canvas>
