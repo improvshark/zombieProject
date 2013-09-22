@@ -13,6 +13,9 @@ function Map(canvas, tiles, x, y, height, width, bottom) {
 	this.pixelHeight = 400;
 	this.pixelWidth = 400;
 
+	//the name of the map
+	this.title = "";
+
 	this.grid = false;
 	this.tiles = tiles;
 
@@ -64,6 +67,37 @@ function Map(canvas, tiles, x, y, height, width, bottom) {
 		        }
 	        }
 		}
-	}
+	};
+
+	this.loadMap = function(map){
+
+	};
+
+	this.getJSON = function(){
+
+	};
+
+	// this function will give the x and y of the tile the mouese is over
+	this.getMousePos = function(evt) {
+		var bounds = this.canvas.getBoundingClientRect();
+		var mouseX = evt.clientX - bounds.left;
+		var mouseY = evt.clientY - bounds.top;j
+
+		console.log('mouse click x:' + mouseX + ' y:' + mouseY);
+
+	};
+	// this function will change the selected tile and redraw
+	this.changeTile = function(x, y, tile){
+
+		this.draw();
+	};
+
+	this.dragStart = function(evt){
+
+	};
+
+	this.dragEnd = function(evt){
+
+	};
 
 }

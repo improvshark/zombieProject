@@ -14,7 +14,7 @@
     <!--  adding the navbar to the page and selecting current tab-->
     <?php include("views/mapEditor/toolbar.php"); ?>
 
-        <div class="container">
+        <div class="container" oncontextmenu="return false">
         	<!--create canvas -->
             <canvas id='myCanvas' width='900' height='650' style="border: 1px black solid"></canvas>
             <script type="text/javascript">
@@ -63,6 +63,16 @@
                 myMap = new Map( document.getElementById('myCanvas'), tiles , 100, 100, map.width, map.height, map.data.bottom);
                 myMap.draw();
 
+                document.getElementById('myCanvas').addEventListener('mousedown', function(evt){
+                    // if statement ot checkif its the left mouse button
+                    if(evt.button == 0) {
+                        myMap.getMousePos(evt);   
+                    }
+                    
+
+                }, false);
+
+                document.getElementById('myCanvas').on
 
             
 
