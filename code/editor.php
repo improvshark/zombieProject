@@ -60,13 +60,15 @@
                 var tiles = new Image()
                 tiles.src = 'public/img/tiles.png'
 
-                myMap = new Map( document.getElementById('myCanvas'), tiles , 100, 100, map.width, map.height, map.data.bottom);
+                myMap = new Map( document.getElementById('myCanvas'), tiles , 10, 10, map.width, map.height);
                 myMap.draw();
 
                 document.getElementById('myCanvas').addEventListener('mousedown', function(evt){
                     // if statement ot checkif its the left mouse button
                     if(evt.button == 0) {
-                        myMap.getMousePos(evt);   
+                        click = myMap.getMousePos(evt);   
+                        myMap.changeTile(click.x, click.y, 2)
+                        myMap.draw();
                     }
                     
 

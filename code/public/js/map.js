@@ -10,8 +10,8 @@ function Map(canvas, tiles, x, y, height, width, bottom) {
 	this.x = x;
 	this.y = y;
 	// how tall or wide the map is in pixels
-	this.pixelHeight = 400;
-	this.pixelWidth = 400;
+	this.pixelHeight = 600;
+	this.pixelWidth = 600;
 
 	//the name of the map
 	this.title = "";
@@ -38,14 +38,19 @@ function Map(canvas, tiles, x, y, height, width, bottom) {
 	var obj = this // this is a global object so that the draw function can see our variables
 	// updater function for global object
 	this.update = function () {
+		obj = null;
 		obj = this;
 	}
 	
 
 	// this function will draw it to the screen
 	this.draw = function() {
+		console.log('drawing map');
+		
 		this.tiles.onload = function() {
+			console.log('old: ' + obj.map.bottom);
 			obj.update(); // make user we have updated stuff to work with
+			console.log('updated: ' + obj.map.bottom);
 			var divider = 8;
 			var tileSize = 40;
 	        var sourceWidth = 40;
@@ -85,11 +90,22 @@ function Map(canvas, tiles, x, y, height, width, bottom) {
 
 		console.log('mouse click x:' + mouseX + ' y:' + mouseY);
 
+		var tileX = Math.floor(mouseX/ Math.floor(this.pixelWidth / this.width));
+		var tileY = Math.floor(mouseY/ Math.floor(this.pixelWidth / this.width));
+
+		console.log('tile x:' + tileX + ' y:' + tileY);
+
+		return {x: tileX, y: tileY}
+
 	};
 	// this function will change the selected tile and redraw
 	this.changeTile = function(x, y, tile){
-
-		this.draw();
+		console.log('atemting to change tile x:' + x + ' y:' + x + 'to this:' + tile)
+		console.log( 'old tile: ' + this.map.bottom[y][x])
+		this.map.bottom[y][x] = tile;
+		console.log( 'new tile: ' + this.map.bottom[y][x])
+		//this.draw();
+		console.log(this.map.bottom);
 	};
 
 	this.dragStart = function(evt){
