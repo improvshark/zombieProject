@@ -10,7 +10,7 @@
 
     <body>
         <!--  adding the navbar to the page-->
-        <?php include("views/navbar.php"); ?>
+        <?php include("views/templates/header.php"); ?>
 
         <?php
             // ... ask if we are logged in here:
@@ -26,7 +26,7 @@
             }
         ?>
         <!--  adding the footer to the page-->
-        <?php include("views/footer.php"); ?>
+        <?php include("views/templates/footer.php"); ?>
 
         <script src="http://code.jquery.com/jquery.js"></script>
         <script src="public/js/bootstrap.min.js"></script>

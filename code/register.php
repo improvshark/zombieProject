@@ -36,10 +36,7 @@
 
     <body>
     <!--  adding the navbar to the page-->
-    <?php 
-    	include("views/navbar.php"); 
-		
-    ?>
+    <?php  include("views/templates/header.php"); ?>
 
 
 
@@ -50,7 +47,7 @@
 
 	<!--  showing the register view (with the registration form, and messages/errors -->
 	<?php include("views/register.php"); ?>
-        
+    <?php  include("views/templates/footer.php"); ?>  
     </div>
 
 

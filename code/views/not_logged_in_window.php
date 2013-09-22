@@ -39,7 +39,7 @@
 <div class="container ">
     <form method="post" class="form-signin well" action="index.php" name="loginform">
         <h2 class="form-signin-heading">Please sign in</h2>
-        <input id="login_input_username" class="login_input input-block-level" placeholder="Email address" type="text" name="user_name" required /><br/><br/>
+        <input id="login_input_username" class="login_input input-block-level" placeholder="UserName" type="text" name="user_name" required /><br/><br/>
         <input id="login_input_password" class="login_input input-block-level" placeholder="Password" type="password" name="user_password" autocomplete="off" required /><br/><br/>
         <input type="checkbox" id="login_input_rememberme" name="user_rememberme" value="1" /> Keep me logged in (for 2 weeks)<br/><br/>
         <input type="submit" class="btn btn-large btn-primary" name="login" value="Sign in" /><br/><br/>
