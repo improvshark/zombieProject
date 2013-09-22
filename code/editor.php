@@ -66,9 +66,16 @@
                 document.getElementById('myCanvas').addEventListener('mousedown', function(evt){
                     // if statement ot checkif its the left mouse button
                     if(evt.button == 0) {
-                        click = myMap.getMousePos(evt);   
-                        myMap.changeTile(click.x, click.y, 2)
-                        myMap.draw();
+                        click = myMap.getMousePos(evt);  
+                        if (click != null) { 
+                            myMap.changeTile(click.x, click.y, 7)
+                        }
+                    }
+                    else if (evt.button == 2 ) {
+                        click = myMap.getMousePos(evt);  
+                        if (click != null) { 
+                            myMap.changeTile(click.x, click.y, 1)
+                        }
                     }
                     
 

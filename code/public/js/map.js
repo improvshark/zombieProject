@@ -18,6 +18,7 @@ function Map(canvas, tiles, x, y, height, width, bottom) {
 
 	this.grid = false;
 	this.tiles = tiles;
+	this.tilesLoaded = false;
 
 	if (bottom) {
 		this.map = {bottom: bottom, middle: [], top: []};
@@ -41,37 +42,43 @@ function Map(canvas, tiles, x, y, height, width, bottom) {
 		obj = null;
 		obj = this;
 	}
-	
+	//make sure image is loaded
+	this.tiles.onload = function() {
+		obj.tilesLoaded = true;
+		obj.draw();
+	}
+
 
 	// this function will draw it to the screen
 	this.draw = function() {
-		console.log('drawing map');
-		
-		this.tiles.onload = function() {
-			console.log('old: ' + obj.map.bottom);
-			obj.update(); // make user we have updated stuff to work with
-			console.log('updated: ' + obj.map.bottom);
-			var divider = 8;
-			var tileSize = 40;
-	        var sourceWidth = 40;
-	        var sourceHeight = 40;	        
+		console.log('drawing')
+		// clear it out
+		this.context.save();
+    	this.context.clearRect(0, 0, canvas.width, canvas.height);
+		// draw the tile grid
+		var divider = 8;
+		var tileSize = 40;
+        var sourceWidth = 40;
+        var sourceHeight = 40;	        
 
-	        for (var j = 0; j < obj.height; j++) {
-		        for (var i = 0; i < obj.width; i++) {
+        if (this.tilesLoaded) {
+	        for (var j = 0; j < this.height; j++) {
+		        for (var i = 0; i < this.width; i++) {
 
-		        	var sourceX = (obj.map.bottom[j][i]%divider)
-		        	var sourceY = Math.floor(obj.map.bottom[j][i]/divider)
+		        	var sourceX = (this.map.bottom[j][i]%divider)
+		        	var sourceY = Math.floor(this.map.bottom[j][i]/divider)
 
-		        	obj.context.drawImage(
-		        		obj.tiles, 
+		        	this.context.drawImage(
+		        		this.tiles, 
 		        		(sourceX*tileSize), (sourceY*tileSize), 
 		        		sourceWidth, sourceHeight,
-		        		obj.x+((obj.pixelWidth/obj.width) *i), obj.y+((obj.pixelHeight/obj.height) *j),
-		        		obj.pixelWidth/obj.width, obj.pixelHeight/obj.height
+		        		this.x+((this.pixelWidth/this.width) *i), this.y+((this.pixelHeight/this.height) *j),
+		        		this.pixelWidth/this.width, this.pixelHeight/this.height
 		        	);
 		        }
 	        }
 		}
+
 	};
 
 	this.loadMap = function(map){
@@ -87,25 +94,26 @@ function Map(canvas, tiles, x, y, height, width, bottom) {
 		var bounds = this.canvas.getBoundingClientRect();
 		var mouseX = evt.clientX - bounds.left;
 		var mouseY = evt.clientY - bounds.top;j
-
 		console.log('mouse click x:' + mouseX + ' y:' + mouseY);
 
-		var tileX = Math.floor(mouseX/ Math.floor(this.pixelWidth / this.width));
-		var tileY = Math.floor(mouseY/ Math.floor(this.pixelWidth / this.width));
+		// make sure click is on map
+		if ( (mouseX < this.x || mouseX > this.x + this.pixelWidth) || (mouseY < this.y || mouseY > this.y + this.pixelHeight)){
+			console.log('no tile');
+			return null
+		}
+		else{
+			// return tile location
+			var tileX = Math.floor((mouseX - this.x)/ Math.floor(this.pixelWidth / this.width));
+			var tileY = Math.floor((mouseY - this.y)/ Math.floor(this.pixelWidth / this.width));
+			console.log('tile x:' + tileX + ' y:' + tileY);
 
-		console.log('tile x:' + tileX + ' y:' + tileY);
-
-		return {x: tileX, y: tileY}
-
+			return {x: tileX, y: tileY};
+		}
 	};
 	// this function will change the selected tile and redraw
 	this.changeTile = function(x, y, tile){
-		console.log('atemting to change tile x:' + x + ' y:' + x + 'to this:' + tile)
-		console.log( 'old tile: ' + this.map.bottom[y][x])
 		this.map.bottom[y][x] = tile;
-		console.log( 'new tile: ' + this.map.bottom[y][x])
-		//this.draw();
-		console.log(this.map.bottom);
+		this.draw();
 	};
 
 	this.dragStart = function(evt){
