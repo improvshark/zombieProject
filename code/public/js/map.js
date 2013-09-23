@@ -24,7 +24,7 @@ function Map(canvas, tiles, x, y, height, width, map) {
 	this.tiles = tiles;
 	this.tilesLoaded = false;
 	this.dragging = false;
-	this.dragPoint = 0;
+	this.dragPoint = {x: 0, y: 0};
 	// load map function
 	this.loadMap = function(map){
 		this.title = map.title;
@@ -156,23 +156,28 @@ function Map(canvas, tiles, x, y, height, width, map) {
 	};
 
 	this.drag = function(evt){
+
 		var mousePos = obj.getMousePos(evt);
 		obj.update();
+
+		console.log('dragstart:' + obj.dragPoint.x)
 		if (obj.dragging == false) {
-			console.log('setting dragstart')
-			obj.dragStart = mousePos.x;
+			console.log('setting dragstart to:' + mousePos.x)
+			obj.dragPoint = {x: (mousePos.x - obj.x), y: (mousePos.y - obj.y)};
 			obj.dragging = true;
 		}
-		if ( obj.isOverMap(mousePos) ){
-			console.log('mouse x:' + mousePos.x + " y:" + mousePos.y);
-			console.log('map x:' + obj.x + ' y:' + obj.y);
-			console.log('drag start:' + obj.dragStart.x);
-			obj.x  = mousePos.x - (obj.dragStart.x - obj.x);
+		
+		console.log('mouse x:' + mousePos.x + " y:" + mousePos.y);
+		console.log('map x:' + obj.x + ' y:' + obj.y);
+		console.log('drag start:' + obj.dragPoint.x);
 
-			console.log('map moved to x:' + obj.x + ' y:' + obj.y);
-			//this.y = mousePos.y + (mousePos.y - this.y);
-			obj.draw();
-		}
+		obj.x  = mousePos.x - (obj.dragPoint.x );
+		obj.y  = mousePos.y - (obj.dragPoint.y );
+
+		console.log('map moved to x:' + obj.x + ' y:' + obj.y);
+		//this.y = mousePos.y + (mousePos.y - this.y);
+		obj.draw();
+
 	};
 
 
