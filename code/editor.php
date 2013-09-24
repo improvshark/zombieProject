@@ -12,11 +12,13 @@
 
     <body>
     <!--  adding the navbar to the page and selecting current tab-->
-    <?php include("views/mapEditor/toolbar.php"); ?>
-
-        <div class="container" oncontextmenu="return false">
+    <?php include("views/mapEditor/butBar.php"); ?>
+        <div style="width: 100%;" oncontextmenu="return false">
+            <canvas id='myCanvas' width='900' height='650' style="border: 1px black solid; "></canvas>
+        </div>
+        <div class="container" >
         	<!--create canvas -->
-            <canvas id='myCanvas' width='900' height='650' style="border: 1px black solid"></canvas>
+            
             <script type="text/javascript">
 
 
@@ -65,16 +67,26 @@
                 myMap.loadMap(map);
                 myMap.draw();
 
+
+                // important makes pixel ratio
+                window.onresize=function(){
+                    document.getElementById('myCanvas').width =window.innerWidth;
+                    myMap.context.width = window.innerWidth;
+                    myMap.x = (window.innerWidth/2)-(myMap.pixelWidth/2);
+                    myMap.draw();
+
+                };
+
                 // stuff like this would go in the button.js class
-                document.getElementById('toolbar-showGrid').onclick = function(){
+                document.getElementById('butBar-showGrid').onclick = function(){
                     console.log('grid');
                     if (myMap.grid != 0){
                         // use bootstrap to put a checkmark by it
-                        document.getElementById('toolbar-showGrid').setAttribute("class", "");
+                        document.getElementById('butBar-showGrid').setAttribute("class", "");
                         myMap.grid = 0; 
                     } else {
                         // use bootstrap to put a checkmark by it
-                        document.getElementById('toolbar-showGrid').setAttribute("class", "glyphicon glyphicon-ok");
+                        document.getElementById('butBar-showGrid').setAttribute("class", "glyphicon glyphicon-ok");
                         myMap.grid = .7;  
                     }
                     myMap.draw();
@@ -119,29 +131,46 @@
                    myMap.drag(evt);
                 }
 
+                var spacebar = false;
                 // add listner when spacebar is pressed down
-                window.addEventListener('keydown', function(evt){
-                    if (evt.keyCode = 32) {   // space bar
-                        myMap.dragStart();
+                document.getElementById('myCanvas').addEventListener('mousedown', function(evt){
+                    if (evt.button == 1) {   // mouse click
+                    myMap.dragStart();
                     }   
                 }, false);
-                // remove listner when space bar is released
-                window.addEventListener('keyup', function(evt){
-                    if (evt.keyCode = 32) {   // space bar
-                        console.log('spacebar relesed');
+                window.addEventListener('mouseup', function(evt){
+                    if (evt.button == 1) {   // mouse click
+                        console.log('ending' )
                         myMap.dragEnd();
+                    }   
+                }, false);
+                // add listner when spacebar is pressed down
+                window.addEventListener('keydown', function(evt){
+                    if (evt.keyCode = 32) {   
+                        myMap.x += 50;
+                        myMap.draw();      
                     }   
                 }, false);
         
 
             </script>
+
+        </div>
+
         </div>
 
         <!--  adding the navbar to the page and selecting current tab-->
         <?php include("views/templates/footer.php"); ?>
+
+        <!--  adding the toolbar-->
+        <?php include("views/mapEditor/toolBar.php"); ?>
+        <!--  adding the tile browser-->
+        <?php include("views/mapEditor/tileBrowser.php"); ?>
  
         <script src="http://code.jquery.com/jquery.js"></script>
         <script src="public/js/bootstrap.min.js"></script>
+        <script src="public/js/slider.js"></script>
+
             <!-- selecting current tab-->
         <script type="text/javascript"> 
             $('#navbar-designer').addClass("active");   
@@ -149,18 +178,3 @@
     </body>
 	
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
