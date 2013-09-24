@@ -1,17 +1,17 @@
-function Map(canvas, tiles, x, y, height, width, map) {
+function Map(canvas, tiles, height, width ) {
 
 	// canvas object 
 	this.canvas = canvas;
 	this.context = canvas.getContext('2d');
 	// how many tiles there are in map
-	this.height = height;
-	this.width =  width;
-	// position of map 
-	this.x = x;
-	this.y = y;
+	this.height = typeof height !== 'undefined' ? height : 10;
+	this.width =  typeof width !== 'undefined' ? width: 10;
 	// how tall or wide the map is in pixels
 	this.pixelHeight = 600;
 	this.pixelWidth = 600;
+		// position of map 
+	this.x = this.canvas.width/2 - this.pixelWidth/2;
+	this.y = this.canvas.height/2 - this.pixelHeight/2;
 
 	//the name of the map
 	this.title = "";
@@ -26,30 +26,16 @@ function Map(canvas, tiles, x, y, height, width, map) {
 	this.dragging = false;
 	this.dragPoint = {x: 0, y: 0};
 	// load map function
-	this.loadMap = function(map){
-		this.title = map.title;
-		this.author = map.author;
-		this.width = map.width;
-		this.height = map.height;
-		this.x = map.x;
-		this.y = map.y;
-		this.data = map.data;
-		this.env = map.env;
-	};
 
-	if (map) {
-		this.loadMap(map);
-	} else{
-		// filling the array of arrays
-		this.data = {bottom: [], middle: [], top: []};
-	    for (var j = 0; j < this.height; j++) {
-	    	this.data.bottom[j] = [];
-	        for (var i = 0; i < this.width; i++) {
-	        	
-	        	this.data.bottom[j][i] = 22;
-	        }
-	    }
-	}
+	// filling the array of arrays
+	this.data = {bottom: [], middle: [], top: []};
+    for (var j = 0; j < this.height; j++) {
+    	this.data.bottom[j] = [];
+        for (var i = 0; i < this.width; i++) {
+        	
+        	this.data.bottom[j][i] = 22;
+        }
+    }
 
 
 	// there has to be a better way :(
@@ -65,12 +51,24 @@ function Map(canvas, tiles, x, y, height, width, map) {
 		obj.draw();
 	}
 
+	this.loadMap = function(map){
+		this.title = map.title;
+		this.author = map.author;
+		this.width = map.width;
+		this.height = map.height;
+		this.x = map.x;
+		this.y = map.y;
+		this.data = map.data;
+		this.env = map.env;
+	};
 
 	// this function will draw it to the screen
 	this.draw = function() {
 		//console.log('drawing')
 		// clear it out
 		this.context.save();
+		this.context.width = canvas.width;
+		this.context.height = canvas.height;
     	this.context.clearRect(0, 0, canvas.width, canvas.height);
 		// draw the tile grid
 		var divider = 8;

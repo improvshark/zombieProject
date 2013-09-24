@@ -64,14 +64,17 @@
 
                  // create map object pass canvase and tiles image  
                 myMap = new Map( document.getElementById('myCanvas'), tiles);
-                myMap.loadMap(map);
+                //myMap.loadMap(map);
                 myMap.draw();
 
+
+                document.getElementById('myCanvas').width =window.innerWidth;
+                document.getElementById('myCanvas').height =window.innerHeight-110;
 
                 // important makes pixel ratio
                 window.onresize=function(){
                     document.getElementById('myCanvas').width =window.innerWidth;
-                    myMap.context.width = window.innerWidth;
+                    document.getElementById('myCanvas').height =window.innerHeight-110;
                     myMap.x = (window.innerWidth/2)-(myMap.pixelWidth/2);
                     myMap.draw();
 
