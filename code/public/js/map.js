@@ -108,8 +108,17 @@ function Map(canvas, tiles, height, width ) {
 
 	};
 
-	this.getJSON = function(){
-
+	this.getMap = function(){
+		return {
+			title: this.title,
+			author: this.author,
+			width: this.width,
+			height: this.height,
+			x: this.x,
+			y: this.y,
+			data: this.data,
+			env: this.env,
+		}
 	};
 
 	this.getMousePos = function (evt) {
