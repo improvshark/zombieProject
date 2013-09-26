@@ -9,7 +9,7 @@
 
         <script src="http://code.jquery.com/jquery.js"></script>
         <script src="public/js/bootstrap.min.js"></script>
-        <script src="public/js/slider.js"></script>
+        
         <!-- including map class -->
         <script src="public/js/map.js"></script>
     </head>
@@ -168,6 +168,7 @@
         <?php include("views/mapEditor/toolBar.php"); ?>
         <!--  adding the tile browser-->
         <?php include("views/mapEditor/tileBrowser.php"); ?>
+        <script src="public/js/slider.js"></script>
 
             <!-- selecting current tab-->
         <script type="text/javascript"> 
