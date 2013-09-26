@@ -6,6 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap -->
         <link href="public/css/bootstrap2.css" rel="stylesheet" media="screen">
+
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="public/js/bootstrap.min.js"></script>
+        <script src="public/js/slider.js"></script>
         <!-- including map class -->
         <script src="public/js/map.js"></script>
     </head>
@@ -136,25 +140,20 @@
 
                 var spacebar = false;
                 // add listner when spacebar is pressed down
-                document.getElementById('myCanvas').addEventListener('mousedown', function(evt){
-                    if (evt.button == 1) {   // mouse click
-                    myMap.dragStart();
-                    }   
-                }, false);
-                window.addEventListener('mouseup', function(evt){
-                    if (evt.button == 1) {   // mouse click
-                        console.log('ending' )
-                        myMap.dragEnd();
-                    }   
-                }, false);
+
+                $('#myCanvas').mousedown(function(evt){
+                    console.log('MOUSEBUTTON: ' + evt.which);
+                    if (evt.ctrlKey == true){
+                        if (evt.which == 1) {  myMap.dragStart();  }   
+                    }
+                });
+
+
+                $('#myCanvas').mouseup(function(evt){
+                    if (evt.which == 1) {  myMap.dragEnd(); }   
+                });
                 // add listner when spacebar is pressed down
-                window.addEventListener('keydown', function(evt){
-                    if (evt.keyCode = 32) {   
-                        myMap.x += 50;
-                        myMap.draw();      
-                    }   
-                }, false);
-        
+
 
             </script>
 
@@ -169,10 +168,6 @@
         <?php include("views/mapEditor/toolBar.php"); ?>
         <!--  adding the tile browser-->
         <?php include("views/mapEditor/tileBrowser.php"); ?>
- 
-        <script src="http://code.jquery.com/jquery.js"></script>
-        <script src="public/js/bootstrap.min.js"></script>
-        <script src="public/js/slider.js"></script>
 
             <!-- selecting current tab-->
         <script type="text/javascript"> 

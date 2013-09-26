@@ -165,44 +165,35 @@ Map.prototype.changeTile = function(x, y, tile){
 	this.data.bottom[y][x] = tile;
 };
 
-Map.prototype.drag = function(evt, mapObj){
-
-	console.log('object: =' + mapObj+ 'evt :' + evt);
+Map.prototype.drag = function(evt){
 
 	var mousePos = {x: evt.clientX, y: evt.clientY};
-	mapObj.update();
 
-	console.log('dragstart:' + mapObj.dragPoint.x)
-	if (mapObj.dragging == false) {
-		console.log('setting dragstart to:' + mousePos.x)
-		mapObj.dragPoint = {x: (mousePos.x - mapObj.x), y: (mousePos.y - mapObj.y)};
-		mapObj.dragging = true;
+
+	if (this.dragging == false && this.isOverMap(mousePos)) {
+		this.dragPoint = {x: (mousePos.x - this.x), y: (mousePos.y - this.y)};
+		this.dragging = true;
 	}
-	
-	console.log('mouse x:' + mousePos.x + " y:" + mousePos.y);
-	console.log('map x:' + mapObj.x + ' y:' + mapObj.y);
-	console.log('drag start:' + mapObj.dragPoint.x);
 
-	mapObj.x  = mousePos.x - (mapObj.dragPoint.x );
-	mapObj.y  = mousePos.y - (mapObj.dragPoint.y );
-
-	console.log('map moved to x:' + mapObj.x + ' y:' + mapObj.y);
-	//this.y = mousePos.y + (mousePos.y - this.y);
-	myMap.draw();
+	if (this.dragging == true){
+		this.x  = mousePos.x - (this.dragPoint.x );
+		this.y  = mousePos.y - (this.dragPoint.y );
+		this.draw();
+	}
 
 };
 
 
 Map.prototype.dragStart = function(evt){
 	if (this.dragging == false){
-		this.canvas.addEventListener('mousemove', this.drag, true);
-		
+		var mapObj = this;
+		$(this.canvas).mousemove(function(e){ mapObj.drag(e)});
 	}
 }
 
 Map.prototype.dragEnd = function(evt){
 	if (this.dragging == true){
 		this.dragging = false;
-		this.canvas.removeEventListener('mousemove', this.drag, false);
+		$(this.canvas).off('mousemove');
 	}
 }
