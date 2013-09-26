@@ -192,8 +192,6 @@ Map.prototype.dragStart = function(evt){
 }
 
 Map.prototype.dragEnd = function(evt){
-	if (this.dragging == true){
-		this.dragging = false;
-		$(this.canvas).off('mousemove');
-	}
+	this.dragging = false;
+	$(this.canvas).off('mousemove');
 }
