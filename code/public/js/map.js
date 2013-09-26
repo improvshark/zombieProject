@@ -1,17 +1,18 @@
-function Map(canvas, tiles, height, width ) {
+function Map(canvas, image, height, width ) {
+	if (arguments.length == 0) return; // don't do anything
 
 	// canvas object 
 	this.canvas = canvas;
-	this.context = canvas.getContext('2d');
+	this.context = this.canvas.getContext('2d');
 	// how many tiles there are in map
 	this.height = typeof height !== 'undefined' ? height : 10;
 	this.width =  typeof width !== 'undefined' ? width: 10;
 	// how tall or wide the map is in pixels
-	this.pixelHeight = 600;
-	this.pixelWidth = 600;
+	this.pixelHeight = this.height*40;
+	this.pixelWidth = this.width*40;
 		// position of map 
-	this.x = this.canvas.width/2 - this.pixelWidth/2;
-	this.y = this.canvas.height/2 - this.pixelHeight/2;
+	this.x = 30;
+	this.y = 30;
 
 	//the name of the map
 	this.title = "";
@@ -21,8 +22,8 @@ function Map(canvas, tiles, height, width ) {
 	this.grid = 0;
 	this.gridColor = "black";
 
-	this.tiles = tiles;
-	this.tilesLoaded = false;
+	this.image = image;
+	this.imageLoaded = false;
 	this.dragging = false;
 	this.dragPoint = {x: 0, y: 0};
 	// load map function
@@ -42,8 +43,8 @@ function Map(canvas, tiles, height, width ) {
 	var obj = this // this is a global object so that the draw function can see our variables
 
 	//make sure image is loaded
-	this.tiles.onload = function() {
-		obj.tilesLoaded = true;
+	this.image.onload = function() {
+		obj.imageLoaded = true;
 		obj.draw();
 	}
 }
@@ -79,7 +80,7 @@ Map.prototype.draw = function() {
     var sourceWidth = 40;
     var sourceHeight = 40;	        
 
-    if (this.tilesLoaded) {
+    if (this.imageLoaded) {
         for (var j = 0; j < this.height; j++) {
 	        for (var i = 0; i < this.width; i++) {
 
@@ -99,7 +100,7 @@ Map.prototype.draw = function() {
 	        	}
 	        	// draw tile
 	        	this.context.drawImage(
-	        		this.tiles, 
+	        		this.image, 
 	        		(sourceX*tileSize), (sourceY*tileSize), 
 	        		sourceWidth, sourceHeight,
 	        		this.x+((this.pixelWidth/this.width) *i)+(this.grid/2), this.y+((this.pixelHeight/this.height) *j)+(this.grid/2),

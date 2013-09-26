@@ -12,14 +12,19 @@
         
         <!-- including map class -->
         <script src="public/js/map.js"></script>
+        <script src="public/js/tileBrowser.js"></script>
     </head>
 
     <body>
-    <!--  adding the navbar to the page and selecting current tab-->
-    <?php include("views/mapEditor/butBar.php"); ?>
+        <!--  adding the navbar to the page and selecting current tab-->
+        <?php include("views/mapEditor/butBar.php"); ?>
+        <!--  adding the tile browser-->
+        <?php include("views/mapEditor/tileBrowser.php"); ?>
+
         <div style="width: 100%;" oncontextmenu="return false">
             <canvas id='myCanvas' width='900' height='650' style="border: 1px black solid; "></canvas>
         </div>
+
         <div class="container" >
         	<!--create canvas -->
             
@@ -58,18 +63,41 @@
                     events: [],
                     env: "normal"
                 };
-               
-                console.log(map.data.bottom[1][2])
 
 
                 // load tiles image
                 var tiles = new Image()
-                tiles.src = 'public/img/tiles.png'
+                tiles.src = 'public/img/tiles.png';
+
+                tileBrowser = new TileBrowser( document.getElementById('myTileBrowser'), tiles);
+                tileBrowser.draw();
+
+                var click1 = 0;
+                var click2 = 1;
+
+                $('#myTileBrowser').mousedown(function(evt){
+
+                    if( evt.which == 1){
+                        click1 = tileBrowser.getTile(evt);
+                    }
+                    if ( evt.which == 3){
+                       click2 = tileBrowser.getTile(evt); 
+                    }
+                })
+
+
+                // load tiles image
+                var tiles2 = new Image()
+                tiles2.src = 'public/img/tiles.png';
 
                  // create map object pass canvase and tiles image  
-                myMap = new Map( document.getElementById('myCanvas'), tiles);
+                myMap = new Map( document.getElementById('myCanvas'), tiles2, 16 , 52);
                 //myMap.loadMap(map);
                 myMap.draw();
+
+                tileBrowser.draw();
+
+
 
 
                 document.getElementById('myCanvas').width =window.innerWidth;
@@ -108,7 +136,7 @@
                         // check if we are on map...if we are change tile
                         if (click != null) { 
                             // pass is location x and y and the tile number to change it to
-                            myMap.changeTile(click.x, click.y, 7)
+                            myMap.changeTile(click.x, click.y, click1)
                         }
                     }
                     else if (evt.button == 2 ) {
@@ -116,7 +144,7 @@
                         click = myMap.getTilePos(evt);  
                         // check if we are on map...if we are change tile
                         if (click != null) { 
-                            myMap.changeTile(click.x, click.y, 1)
+                            myMap.changeTile(click.x, click.y, click2)
                         }
                     }
                     // redraw map so we can see changes
@@ -166,8 +194,7 @@
 
         <!--  adding the toolbar-->
         <?php include("views/mapEditor/toolBar.php"); ?>
-        <!--  adding the tile browser-->
-        <?php include("views/mapEditor/tileBrowser.php"); ?>
+
         <script src="public/js/slider.js"></script>
 
             <!-- selecting current tab-->

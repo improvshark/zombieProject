@@ -14,7 +14,6 @@
                 top: 20%;
                 width: 30px;
                 height: 500px;
-                background-color: #fff;
 
             }
         </style>
