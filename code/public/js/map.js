@@ -161,6 +161,22 @@ Map.prototype.getTilePos = function(evt) {
 
 	}
 };
+
+Map.prototype.getTile = function(evt){
+	var tilePos = this.getTilePos(evt)
+
+	var count = 0;
+	for (var i = 0; i < this.width; i++) {
+		for (var j = 0; j < this.height; j++) {
+
+			if (tilePos.x == j && tilePos.y == i) {
+				console.log('msg: '+ count)
+				return count;
+			};
+			count += 1;			
+		};
+	};
+}
 // this function will change the selected tile and redraw
 Map.prototype.changeTile = function(x, y, tile){
 	this.data.bottom[y][x] = tile;
