@@ -69,7 +69,8 @@
                 var tiles = new Image()
                 tiles.src = 'public/img/tiles.png';
 
-                tileBrowser = new TileBrowser( document.getElementById('myTileBrowser'), tiles);
+                tileBrowser = new TileBrowser( document.getElementById('myTileBrowser'), tiles, 6, 8);
+                tileBrowser.pixelWidth = $('#myTileBrowser')[0].width;
                 tileBrowser.draw();
 
                 var click1 = 0;
@@ -128,28 +129,34 @@
                 }
 
                 // stuff like this would go in the mouse class
-                document.getElementById('myCanvas').addEventListener('mousedown', function(evt){
-                    // if statement ot checkif its the left mouse button
-                    if(evt.button == 0) {
-                        // set location of mouse click to click object
-                        click = myMap.getTilePos(evt);  
-                        // check if we are on map...if we are change tile
-                        if (click != null) { 
-                            // pass is location x and y and the tile number to change it to
-                            myMap.changeTile(click.x, click.y, click1)
+                $('#myCanvas').mousedown(function(evt){
+                    $('#myCanvas').mousemove(function(evt){
+
+                        // if statement ot checkif its the left mouse button
+                        if (evt.ctrlKey == false){
+                            if(evt.which == 1) {
+                                // set location of mouse click to click object
+                                click = myMap.getTilePos(evt);  
+                                // check if we are on map...if we are change tile
+                                if (click != null) { 
+                                    // pass is location x and y and the tile number to change it to
+                                    myMap.changeTile(click.x, click.y, click1)
+                                }
+                            }
+                            else if (evt.which == 3 ) {
+                                // set location of mouse click to click object
+                                click = myMap.getTilePos(evt);  
+                                // check if we are on map...if we are change tile
+                                if (click != null) { 
+                                    myMap.changeTile(click.x, click.y, click2)
+                                }
+                            }
+                            // redraw map so we can see changes
+                            myMap.draw();
                         }
-                    }
-                    else if (evt.button == 2 ) {
-                        // set location of mouse click to click object
-                        click = myMap.getTilePos(evt);  
-                        // check if we are on map...if we are change tile
-                        if (click != null) { 
-                            myMap.changeTile(click.x, click.y, click2)
-                        }
-                    }
-                    // redraw map so we can see changes
-                    myMap.draw();
-                }, false);
+
+                    });
+                });
 
                 
                 /// testing draging map only works with spacebar held down

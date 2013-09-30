@@ -11,8 +11,8 @@ function Map(canvas, image, height, width ) {
 	this.pixelHeight = this.height*40;
 	this.pixelWidth = this.width*40;
 		// position of map 
-	this.x = 30;
-	this.y = 30;
+	this.x = 0;
+	this.y = 0;
 
 	//the name of the map
 	this.title = "";
@@ -151,7 +151,7 @@ Map.prototype.getTilePos = function(evt) {
 	if ( this.isOverMap(mousePos) ){
 		// return tile location
 		var tileX = Math.floor((mousePos.x - this.x)/ Math.floor(this.pixelWidth / this.width));
-		var tileY = Math.floor((mousePos.y - this.y)/ Math.floor(this.pixelWidth / this.width));
+		var tileY = Math.floor((mousePos.y - this.y)/ Math.floor(this.pixelHeight / this.height));
 		//console.log('tile x:' + tileX + ' y:' + tileY);
 		return {x: tileX, y: tileY};
 	}
@@ -164,18 +164,9 @@ Map.prototype.getTilePos = function(evt) {
 
 Map.prototype.getTile = function(evt){
 	var tilePos = this.getTilePos(evt)
-
-	var count = 0;
-	for (var i = 0; i < this.width; i++) {
-		for (var j = 0; j < this.height; j++) {
-
-			if (tilePos.x == j && tilePos.y == i) {
-				console.log('msg: '+ count)
-				return count;
-			};
-			count += 1;			
-		};
-	};
+	console.log('tilepos: x:'+tilePos.x + " y:" +tilePos.y )
+	console.log('this: '+ this.data.bottom[tilePos.y][tilePos.x])
+	return this.data.bottom[tilePos.y][tilePos.x];
 }
 // this function will change the selected tile and redraw
 Map.prototype.changeTile = function(x, y, tile){
