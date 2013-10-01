@@ -21,11 +21,11 @@
         <!--  adding the tile browser-->
         <?php include("views/mapEditor/tileBrowser.php"); ?>
 
-        <div style="width: 100%;" oncontextmenu="return false">
+        <div style="width: 100%;" oncontextmenu="return false" class="unselectable">
             <canvas id='myCanvas' width='900' height='650' style="border: 1px black solid; "></canvas>
         </div>
 
-        <div class="container" >
+        <div class="container unselectable" >
         	<!--create canvas -->
             
             <script type="text/javascript">
