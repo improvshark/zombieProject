@@ -198,15 +198,15 @@
                         
                         myMap.pixelWidth += myMap.width*change;
                         myMap.pixelHeight += myMap.height*change;
-                        myMap.x -= change/2;
-                        myMap.y -= change/2;
+                        myMap.x -= (myMap.width*change)/2;
+                        myMap.y -= (myMap.height*change)/2;
                         myMap.draw();
                     }
                     else if (evt.which == 45){
                         myMap.pixelWidth -= myMap.width*change;
                         myMap.pixelHeight -= myMap.height*change;
-                        myMap.x += change/2;
-                        myMap.y += change/2;
+                        myMap.x += (myMap.width*change)/2;
+                        myMap.y += (myMap.height*change)/2;
                         myMap.draw();
                     }
                 });
