@@ -69,8 +69,9 @@
                 var tiles = new Image()
                 tiles.src = 'public/img/tiles.png';
 
-                tileBrowser = new TileBrowser( document.getElementById('myTileBrowser'), tiles, 6, 8);
+                tileBrowser = new TileBrowser( $('#myTileBrowser')[0], tiles, 6, 8);
                 tileBrowser.pixelWidth = $('#myTileBrowser')[0].width;
+                tileBrowser.pixelHeight = $('#myTileBrowser')[0].height;
                 tileBrowser.draw();
 
                 var click1 = 0;
@@ -92,8 +93,8 @@
                 tiles2.src = 'public/img/tiles.png';
 
                  // create map object pass canvase and tiles image  
-                myMap = new Map( document.getElementById('myCanvas'), tiles2, 16 , 52);
-                //myMap.loadMap(map);
+                myMap = new Map( document.getElementById('myCanvas'), tiles2);
+                myMap.loadMap(map);
                 myMap.draw();
 
                 tileBrowser.draw();
@@ -101,17 +102,18 @@
 
 
 
-                document.getElementById('myCanvas').width =window.innerWidth;
-                document.getElementById('myCanvas').height =window.innerHeight-110;
-
                 // important makes pixel ratio
-                window.onresize=function(){
+                var resize=function(){
                     document.getElementById('myCanvas').width =window.innerWidth;
                     document.getElementById('myCanvas').height =window.innerHeight-110;
                     myMap.x = (window.innerWidth/2)-(myMap.pixelWidth/2);
                     myMap.draw();
 
                 };
+
+                window.onresize = resize;
+                resize();
+
 
                 // stuff like this would go in the button.js class
                 document.getElementById('butBar-showGrid').onclick = function(){
@@ -188,6 +190,26 @@
                     if (evt.which == 1) {  myMap.dragEnd(); }   
                 });
                 // add listner when spacebar is pressed down
+
+                $(window).keypress(function(evt){
+                    console.log('key: ' + evt.which);
+                    var change = 5;
+                    if (evt.which == 43 || evt.which == 61){
+                        
+                        myMap.pixelWidth += myMap.width*change;
+                        myMap.pixelHeight += myMap.height*change;
+                        myMap.x -= change/2;
+                        myMap.y -= change/2;
+                        myMap.draw();
+                    }
+                    else if (evt.which == 45){
+                        myMap.pixelWidth -= myMap.width*change;
+                        myMap.pixelHeight -= myMap.height*change;
+                        myMap.x += change/2;
+                        myMap.y += change/2;
+                        myMap.draw();
+                    }
+                });
 
 
             </script>
