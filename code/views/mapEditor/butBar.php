@@ -84,6 +84,7 @@
                     <a href="" class="" data-toggle="dropdown"> Windows </a>
                     <ul class="dropdown-menu">
                         <li><a id="butBar-toolbox" class="" href="#"> Toolbox</a></li>
+                        <li><a id="butBar-tileBrowser" class="" href="#"> TileBrowser</a></li>
                         <li><a id="butBar-palette" class="" href="#"> Palette</a></li>
                         <li><a id="butBar-miniMap" class="" href="#"> Mini map</a></li>
                         <li><a id="butBar-events" class="" href="#"> Events</a></li>

@@ -2,9 +2,11 @@
 var click1 = 0;	// left click
 var click2 = 1;	// right click
 
+var tool = 0; // tool selected from toolbar
 
 
 
+// get tile selected from tile browser
 $('#myTileBrowser').mousedown(function(evt){
 
     if( evt.which == 1){
@@ -15,34 +17,46 @@ $('#myTileBrowser').mousedown(function(evt){
     }
 })
 
-// stuff like this would go in the mouse class
+// placement of tiles
 $('#myCanvas').mousedown(function(evt){
-    $('#myCanvas').mousemove(function(evt){
 
-        // if statement ot checkif its the left mouse button
-        if (evt.ctrlKey == false){
+	if (tool == 0 && !evt.ctrlKey ){
+	    if(evt.which == 1) { 
+	        // set location of mouse click to click object
+	        click = myMap.getTilePos(evt);  
+	        // check if we are on map...if we are change tile
+	        if (click != null) { myMap.changeTile(click.x, click.y, click1) }
+	    }
+	    else if (evt.which == 3 ) {
+	        // set location of mouse click to click object
+	        click = myMap.getTilePos(evt);  
+	        // check if we are on map...if we are change tile
+	        if (click != null) { myMap.changeTile(click.x, click.y, click2) }
+	    }
+		myMap.draw(); // redraw map so we can see changes
+	}
+	else if (tool == 1 && !evt.ctrlKey ){
+	    $('#myCanvas').mousemove(function(evt){
+
             if(evt.which == 1) {
                 // set location of mouse click to click object
                 click = myMap.getTilePos(evt);  
                 // check if we are on map...if we are change tile
-                if (click != null) { 
-                    // pass is location x and y and the tile number to change it to
-                    myMap.changeTile(click.x, click.y, click1)
-                }
+                if (click != null) { myMap.changeTile(click.x, click.y, click1) }
             }
             else if (evt.which == 3 ) {
                 // set location of mouse click to click object
                 click = myMap.getTilePos(evt);  
                 // check if we are on map...if we are change tile
-                if (click != null) { 
-                    myMap.changeTile(click.x, click.y, click2)
-                }
+                if (click != null) { myMap.changeTile(click.x, click.y, click2) }
             }
-            // redraw map so we can see changes
-            myMap.draw();
-        }
+        	myMap.draw(); // redraw map so we can see changes
+	    });
+	}
 
-    });
+	
+
+	
 });
 
 
@@ -83,30 +97,42 @@ $(window).keypress(function(evt){
 
 
 // this stuff is to hide and show the toolbar and tile Broweser
+var showToolbar = false;
+var showTileBrowser = false;
 
-$('#toolbar').hide();
-$('#tileBrowser').hide();
+if (!showToolbar && !showTileBrowser){
+	$('#toolbar').hide();
+	$('#tileBrowser').hide();
+}
 // show toolbar when mouse over
 $('#toolbarHandle').mouseover(function() {
-    $('#toolbar').show();
-    $('#toolbar').animate({'left' : 0 }, {duration: 200, queue: false, easing: 'linear'})
+	if (!showToolbar) {
+	    $('#toolbar').show();
+	    $('#toolbar').animate({'left' : 0 }, {duration: 200, queue: false, easing: 'linear'})
+	}
 });
 
 // hide toolbar on mouse out
 $('#toolbarHandle').mouseout(function() {
-    $('#toolbar').animate({'left' :  -200}, {duration: 200, queue: false, easing: 'linear'})
-    $('#toolbar').hide();
+	if (!showToolbar) {
+	    $('#toolbar').animate({'left' :  -200}, {duration: 200, queue: false, easing: 'linear'})
+	    $('#toolbar').hide();
+	}
 });
 
 
-// show toolbar when mouse over
+// show tileBrowser when mouse over
 $('#tileBrowserHandle').mouseover(function() {
-    $('#tileBrowser').show();
-    $('#tileBrowser').animate({'right' : 0 }, {duration: 200, queue: false, easing: 'linear'})
+	if (!showTileBrowser) {
+	    $('#tileBrowser').show();
+	    $('#tileBrowser').animate({'right' : 0 }, {duration: 200, queue: false, easing: 'linear'})
+	}
 });
 
-// hide toolbar on mouse out
+// hide tileBrowser on mouse out
 $('#tileBrowserHandle').mouseout(function() {
-    $('#tileBrowser').animate({'right' :  -500}, {duration: 200, queue: false, easing: 'linear'})
-    $('#tileBrowser').hide();
+	if (!showTileBrowser) {
+	    $('#tileBrowser').animate({'right' :  -500}, {duration: 200, queue: false, easing: 'linear'})
+	    $('#tileBrowser').hide();
+	}
 });
