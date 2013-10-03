@@ -2,7 +2,7 @@
 var click1 = 0;	// left click
 var click2 = 1;	// right click
 
-var tool = 0; // tool selected from toolbar
+var tool = 1; // tool selected from toolbar
 
 
 
@@ -20,7 +20,7 @@ $('#myTileBrowser').mousedown(function(evt){
 // placement of tiles
 $('#myCanvas').mousedown(function(evt){
 
-	if (tool == 0 && !evt.ctrlKey ){
+	if (tool == 0 && !evt.ctrlKey ){  // if tool 0 is selected
 	    if(evt.which == 1) { 
 	        // set location of mouse click to click object
 	        click = myMap.getTilePos(evt);  
@@ -35,7 +35,7 @@ $('#myCanvas').mousedown(function(evt){
 	    }
 		myMap.draw(); // redraw map so we can see changes
 	}
-	else if (tool == 1 && !evt.ctrlKey ){
+	else if (tool == 1 && !evt.ctrlKey ){  // if tool 1 is selected
 	    $('#myCanvas').mousemove(function(evt){
 
             if(evt.which == 1) {
