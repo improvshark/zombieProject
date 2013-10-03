@@ -68,43 +68,42 @@ Map.prototype.loadMap = function(map){
 
 // this function will draw it to the screen
 Map.prototype.draw = function() {
-	//console.log('drawing')
-	// clear it out
-	this.context.save();
+	// setting canvas demensions
 	this.context.width = this.canvas.width;
 	this.context.height = this.canvas.height;
-	this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+	this.context.clearRect(0, 0, this.canvas.width, this.canvas.height); // clearing out the canvas
 	// draw the tile grid
-	var divider = 8;
+	var divider = 8; // number of tiles in a row
 	var tileSize = 40;
     var sourceWidth = 40;
     var sourceHeight = 40;	        
 
     if (this.imageLoaded) {
+    	// cycle through the tiles one at a time to crop them from the tile image.
         for (var j = 0; j < this.height; j++) {
 	        for (var i = 0; i < this.width; i++) {
 
-	        	var sourceX = (this.data.bottom[j][i]%divider)
+	        	var sourceX = (this.data.bottom[j][i]%divider) 
 	        	var sourceY = Math.floor(this.data.bottom[j][i]/divider)
 
 	        	// draw grid
 	        	if (this.grid > 0) {
-	        		this.context.beginPath();
+	        		this.context.beginPath(); // telling the canvas that we are starting a draw of something
 	        		this.context.rect(
-	        			this.x+((this.pixelWidth/this.width) *i), this.y+((this.pixelHeight/this.height) *j),
-	        	 		this.pixelWidth/this.width, this.pixelHeight/this.height
+	        			this.x+((this.pixelWidth/this.width) *i), this.y+((this.pixelHeight/this.height) *j), // x and y position of the rectangle
+	        	 		this.pixelWidth/this.width, this.pixelHeight/this.height // the height and width of the rectangle
 	        		);
-	        		this.context.lineWidth = this.grid;
-	 				this.context.strokeStyle = this.gridColor;
-	 				this.context.stroke();
+	        		this.context.lineWidth = this.grid; // the thickness of the rectangle
+	 				this.context.strokeStyle = this.gridColor; // the color of the rectangle
+	 				this.context.stroke(); // draw the rectangle
 	        	}
 	        	// draw tile
 	        	this.context.drawImage(
-	        		this.image, 
-	        		(sourceX*tileSize), (sourceY*tileSize), 
-	        		sourceWidth, sourceHeight,
-	        		this.x+((this.pixelWidth/this.width) *i)+(this.grid/2), this.y+((this.pixelHeight/this.height) *j)+(this.grid/2),
-	        		(this.pixelWidth/this.width)-this.grid, (this.pixelHeight/this.height)-this.grid
+	        		this.image, // the image we are croping to get our tile
+	        		(sourceX*tileSize), (sourceY*tileSize), // the x and y location we will crop in relation to the tile image
+	        		sourceWidth, sourceHeight,	// the height and width of our crop in relation to the tile image
+	        		this.x+((this.pixelWidth/this.width) *i)+(this.grid/2), this.y+((this.pixelHeight/this.height) *j)+(this.grid/2), // the x and y location we will be placing the cropped image on the canvas
+	        		(this.pixelWidth/this.width)-this.grid, (this.pixelHeight/this.height)-this.grid // the final height and width of our tile that will be drawn on the canvas
 	        	);
 	        }
         }
