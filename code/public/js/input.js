@@ -1,4 +1,10 @@
 
+var click1 = 0;	// left click
+var click2 = 1;	// right click
+
+
+
+
 $('#myTileBrowser').mousedown(function(evt){
 
     if( evt.which == 1){
@@ -40,6 +46,7 @@ $('#myCanvas').mousedown(function(evt){
 });
 
 
+// starts the drag of the map
 $('#myCanvas').mousedown(function(evt){
     console.log('MOUSEBUTTON: ' + evt.which);
     if (evt.ctrlKey == true){
@@ -47,12 +54,13 @@ $('#myCanvas').mousedown(function(evt){
     }
 });
 
-
+// releases the drag
 $('#myCanvas').mouseup(function(evt){
     if (evt.which == 1) {  myMap.dragEnd(); }   
 });
-// add listner when spacebar is pressed down
 
+
+// makes pluss and minus zoom the map
 $(window).keypress(function(evt){
     console.log('key: ' + evt.which);
     var change = 5;
@@ -71,4 +79,34 @@ $(window).keypress(function(evt){
         myMap.y += (myMap.height*change)/2;
         myMap.draw();
     }
+});
+
+
+// this stuff is to hide and show the toolbar and tile Broweser
+
+$('#toolbar').hide();
+$('#tileBrowser').hide();
+// show toolbar when mouse over
+$('#toolbarHandle').mouseover(function() {
+    $('#toolbar').show();
+    $('#toolbar').animate({'left' : 0 }, {duration: 200, queue: false, easing: 'linear'})
+});
+
+// hide toolbar on mouse out
+$('#toolbarHandle').mouseout(function() {
+    $('#toolbar').animate({'left' :  -200}, {duration: 200, queue: false, easing: 'linear'})
+    $('#toolbar').hide();
+});
+
+
+// show toolbar when mouse over
+$('#tileBrowserHandle').mouseover(function() {
+    $('#tileBrowser').show();
+    $('#tileBrowser').animate({'right' : 0 }, {duration: 200, queue: false, easing: 'linear'})
+});
+
+// hide toolbar on mouse out
+$('#tileBrowserHandle').mouseout(function() {
+    $('#tileBrowser').animate({'right' :  -500}, {duration: 200, queue: false, easing: 'linear'})
+    $('#tileBrowser').hide();
 });

@@ -1,3 +1,4 @@
+
 // stuff like this would go in the button.js class
 document.getElementById('butBar-showGrid').onclick = function(){
     console.log('grid');

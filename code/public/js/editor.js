@@ -36,13 +36,13 @@
                 var tiles = new Image()
                 tiles.src = 'public/img/tiles.png';
 
+                // create tileBrowser
                 tileBrowser = new TileBrowser( $('#myTileBrowser')[0], tiles, 6, 8);
                 tileBrowser.pixelWidth = $('#myTileBrowser')[0].width;
                 tileBrowser.pixelHeight = $('#myTileBrowser')[0].height;
                 tileBrowser.draw();
 
-                var click1 = 0;
-                var click2 = 1;
+
 
 
 
@@ -60,7 +60,7 @@
 
 
 
-                // important makes pixel ratio
+                // important makes pixel ratio and canvas size correct
                 var resize=function(){
                     document.getElementById('myCanvas').width =window.innerWidth;
                     document.getElementById('myCanvas').height =window.innerHeight-110;
@@ -68,6 +68,5 @@
                     myMap.draw();
 
                 };
-
                 window.onresize = resize;
                 resize();
