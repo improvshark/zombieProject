@@ -22,7 +22,7 @@
 
         <style>
             body {
-                padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+                padding-top: 50px; /* 60px to make the container go all the way to the bottom of the topbar */
             }
         </style>
 
@@ -39,54 +39,55 @@
         <div class="navbar-collapse collapse" id="navbar-main">
             <ul class="nav navbar-nav">
 
-                <li id="toolbar-file" class="dropdown">
+                <li id="butBar-file" class="dropdown">
                     <a href="" class="" data-toggle="dropdown"> File </a>
                     <ul class="dropdown-menu">
-                        <li><a id="toolbar-new" class="" href="#"> New</a></li>
-                        <li><a id="toolbar-open" class="" href="#"> Open</a></li>
-                        <li><a id="toolbar-save" class="" href="#"> Save</a></li>
-                        <li><a id="toolbar-download" class="" href="#"> Download</a></li>
-                        <li><a id="toolbar-close" class="" href="index.php"> Close</a></li>
-                        <li><a id="toolbar-exit" class="" href="index.php"> Exit</a></li>
+                        <li><a id="butBar-new" class="" href="#"> New</a></li>
+                        <li><a id="butBar-open" class="" href="#"> Open</a></li>
+                        <li><a id="butBar-save" class="" href="#"> Save</a></li>
+                        <li><a id="butBar-download" class="" href="#"> Download</a></li>
+                        <li><a id="butBar-close" class="" href="index.php"> Close</a></li>
+                        <li><a id="butBar-exit" class="" href="index.php"> Exit</a></li>
                     </ul>
                 </li>
 
-                <li id="toolbar-edit" class="dropdown">
+                <li id="butBar-edit" class="dropdown">
                     <a href="" class="" data-toggle="dropdown"> Edit </a>
                     <ul class="dropdown-menu">
-                        <li><a id="toolbar-undo" class="" href="#"> Undo</a></li>
-                        <li><a id="toolbar-redo" class="" href="#"> Redo</a></li>
-                        <li><a id="toolbar-cut" class="" href="#"> Cut</a></li>
-                        <li><a id="toolbar-copy" class="" href="#"> Copy</a></li>
-                        <li><a id="toolbar-paste" class="" href="#"> Paste</a></li>
-                        <li><a id="toolbar-Select All" class="" href="#"> Select All</a></li>
-                        <li><a id="toolbar-delete" class="" href="#"> Delete</a></li>
-                        <li><a id="toolbar-preferences" class="" href="#">Preferences</a></li>
+                        <li><a id="butBar-undo" class="" href="#"> Undo</a></li>
+                        <li><a id="butBar-redo" class="" href="#"> Redo</a></li>
+                        <li><a id="butBar-cut" class="" href="#"> Cut</a></li>
+                        <li><a id="butBar-copy" class="" href="#"> Copy</a></li>
+                        <li><a id="butBar-paste" class="" href="#"> Paste</a></li>
+                        <li><a id="butBar-Select All" class="" href="#"> Select All</a></li>
+                        <li><a id="butBar-delete" class="" href="#"> Delete</a></li>
+                        <li><a id="butBar-preferences" class="" href="#">Preferences</a></li>
                     </ul>
                 </li>
 
-                <li id="toolbar-view" class="dropdown">
+                <li id="butBar-view" class="dropdown">
                     <a href="" class="" data-toggle="dropdown"> View </a>
                     <ul class="dropdown-menu">
-                        <li><a id="toolbar-zoom" class="" href="#"> Zoom</a></li>
-                        <li><a id="toolbar-showGrid" class="" href="#"> Show Grid</a></li>
+                        <li><a id="butBar-zoom" class="" href="#"> Zoom</a></li>
+                        <li><a id="butBar-showGrid" class="" href="#"> Show Grid</a></li>
                     </ul>
                 </li>
 
-                <li id="toolbar-tools" class="dropdown">
+                <li id="butBar-tools" class="dropdown">
                     <a href="" class="" data-toggle="dropdown"> Tools </a>
                     <ul class="dropdown-menu">
-                        <li><a id="toolbar-fill" class="" href="#"> Fill</a></li>
-                        <li><a id="toolbar-playTest" class="" href="#"> Play Test</a></li>
+                        <li><a id="butBar-fill" class="" href="#"> Fill</a></li>
+                        <li><a id="butBar-playTest" class="" href="#"> Play Test</a></li>
                     </ul>
                 </li>
-                <li id="toolbar-windows" class="dropdown">
+                <li id="butBar-windows" class="dropdown">
                     <a href="" class="" data-toggle="dropdown"> Windows </a>
                     <ul class="dropdown-menu">
-                        <li><a id="toolbar-toolbox" class="" href="#"> Toolbox</a></li>
-                        <li><a id="toolbar-palette" class="" href="#"> Palette</a></li>
-                        <li><a id="toolbar-miniMap" class="" href="#"> Mini map</a></li>
-                        <li><a id="toolbar-events" class="" href="#"> Events</a></li>
+                        <li><a id="butBar-toolbox" class="" href="#"> Toolbox</a></li>
+                        <li><a id="butBar-tileBrowser" class="" href="#"> TileBrowser</a></li>
+                        <li><a id="butBar-palette" class="" href="#"> Palette</a></li>
+                        <li><a id="butBar-miniMap" class="" href="#"> Mini map</a></li>
+                        <li><a id="butBar-events" class="" href="#"> Events</a></li>
                     </ul>
                 </li>
 
