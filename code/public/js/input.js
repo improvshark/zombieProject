@@ -136,3 +136,12 @@ $('#tileBrowserHandle').mouseout(function() {
 	    $('#tileBrowser').hide();
 	}
 });
+
+
+//TOOLBAR FUNCTIONS
+//This function changes tool according to the tile selected in the toolbar
+$('#myToolBar').mousedown(function(evt){
+    var selTool = toolBar.getTile(evt);
+    tool = (selTool/8) + 1;
+
+})

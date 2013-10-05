@@ -1,4 +1,4 @@
- // just a sample object
+  // just a sample object
                 var map = {
                     title: "test map map",
                     author: "dosmun",
@@ -42,8 +42,15 @@
                 tileBrowser.pixelHeight = $('#myTileBrowser')[0].height;
                 tileBrowser.draw();
 
+                //load image for ToolBarr
+                var TBTiles = new Image();
+                TBTiles.src = 'public/img/tiles.png';
 
-
+                //Create Toolbar
+                toolBar = new ToolBar($('#myToolBar')[0], TBTiles, 9, 1);
+                toolBar.pixelWidth = $('#myToolBar')[0].width;
+                toolBar.pixelHeight = $('#myToolBar')[0].height;
+                toolBar.draw();
 
 
                 // load tiles image

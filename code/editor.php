@@ -31,7 +31,7 @@
 
         <script src="public/js/map.js"></script>
         <script src="public/js/tileBrowser.js"></script>
-
+        <script src="public/js/toolBar.js"></script>
         <script src="public/js/editor.js"></script>
         <script src="public/js/input.js"></script>
         <script src="public/js/buttons.js"></script>

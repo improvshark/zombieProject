@@ -1,4 +1,3 @@
-
 <style>
     #tileBrowser {
         position: absolute;
