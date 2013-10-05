@@ -9,6 +9,8 @@ var tool = 1; // tool selected from toolbar
 // get tile selected from tile browser
 $('#myTileBrowser').mousedown(function(evt){
 
+    tool = 1;
+
     if( evt.which == 1){
         click1 = tileBrowser.getTile(evt);
     }
@@ -53,6 +55,25 @@ $('#myCanvas').mousedown(function(evt){
         	myMap.draw(); // redraw map so we can see changes
 	    });
 	}
+    else if (tool == 2 && !evt.ctrlKey)
+    {
+        //This gets the default tile (ie. grass, sand,...) to simulate the erase tool.
+        var defaultTile = myMap.getDefaultTile();
+
+        console.log('Terrain: ' + defaultTile);
+
+        $('#myCanvas').mousemove(function(evt){
+        if(evt.which == 1){
+            click = myMap.getTilePos(evt);  
+            if (click != null) { myMap.changeTile(click.x, click.y, defaultTile);}
+        }else if (evt.which == 3){
+           click = myMap.getTilePos(evt);  
+            if (click != null) { myMap.changeTile(click.x, click.y, defaultTile);}
+        }
+        myMap.draw();
+
+        });
+    }
 
 	
 
@@ -142,6 +163,8 @@ $('#tileBrowserHandle').mouseout(function() {
 //This function changes tool according to the tile selected in the toolbar
 $('#myToolBar').mousedown(function(evt){
     var selTool = toolBar.getTile(evt);
-    tool = (selTool/8) + 1;
+    tool = (selTool/8) ;//+ 1;
 
 })
+
+//eraser function

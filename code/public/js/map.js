@@ -28,6 +28,9 @@ function Map(canvas, image, height, width ) {
 	this.dragPoint = {x: 0, y: 0};
 	// load map function
 
+	//default map terrain (ie. grass, sand, etc...)
+	this.terrainTile = 22; //default to 22 which is grass.
+
 	// filling the array of arrays
 	this.data = {bottom: [], middle: [], top: []};
     for (var j = 0; j < this.height; j++) {
@@ -47,6 +50,22 @@ function Map(canvas, image, height, width ) {
 		obj.imageLoaded = true;
 		obj.draw();
 	}
+}
+
+//default terrain functions
+Map.prototype.setDefaultTerrain = function(terrain)
+{
+	if(terrain > 0 && terrain < 38)
+	{
+		this.terrainTile = terrain;
+	}	
+
+}
+
+//return default terrain
+Map.prototype.getDefaultTile = function()
+{
+	return this.terrainTile;
 }
 
 // updater function for global object
