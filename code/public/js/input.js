@@ -3,7 +3,9 @@ var click1 = 0;	// left click
 var click2 = 1;	// right click
 
 var tool = 1; // tool selected from toolbar
-
+var linin = false;//flag to control the line scketching
+var clickStart = {x: 0, y: 0};
+var clickEnd = {x: 0, y: 0};
 
 
 // get tile selected from tile browser
@@ -21,7 +23,7 @@ $('#myTileBrowser').mousedown(function(evt){
 
 // placement of tiles
 $('#myCanvas').mousedown(function(evt){
-
+    //begin pencil tool
 	if (tool == 0 && !evt.ctrlKey ){  // if tool 0 is selected
 	    if(evt.which == 1) { 
 	        // set location of mouse click to click object
@@ -36,7 +38,8 @@ $('#myCanvas').mousedown(function(evt){
 	        if (click != null) { myMap.changeTile(click.x, click.y, click2) }
 	    }
 		myMap.draw(); // redraw map so we can see changes
-	}
+	}//end pencil tool
+    //begin pen tool
 	else if (tool == 1 && !evt.ctrlKey ){  // if tool 1 is selected
 	    $('#myCanvas').mousemove(function(evt){
 
@@ -54,7 +57,8 @@ $('#myCanvas').mousedown(function(evt){
             }
         	myMap.draw(); // redraw map so we can see changes
 	    });
-	}
+	}//end pen tool
+    //begin delete tool
     else if (tool == 2 && !evt.ctrlKey)
     {
         //This gets the default tile (ie. grass, sand,...) to simulate the erase tool.
@@ -73,6 +77,44 @@ $('#myCanvas').mousedown(function(evt){
         myMap.draw();
 
         });
+    }//end delete tool
+    //begin line tool
+    else if (tool == 3 && !evt.ctrlKey)
+    {
+        console.log('linin: ' + linin);
+        if(linin == false){
+            linin = true;
+            clickStart = myMap.getTilePos(evt);
+        }else if (linin == true)
+        {
+            linin = false;
+            clickEnd = myMap.getTilePos(evt);
+
+            var dx = clickEnd.x - clickStart.x;
+            var dy = clickEnd.y - clickStart.y;
+
+            for(var i = clickStart.x; i<=clickEnd.x; i++)
+            {
+                click.x = i;
+                if(dx == 0)
+                {
+                    dx = 1;//protection for divide by 0
+                }
+                click.y = Math.floor(clickStart.y + (dy)*(i - clickStart.x)/(dx));
+
+                console.log('x1: '+clickStart.x+' y1: '+clickStart.y+' x2: '+clickEnd.x+' y2: '+clickEnd.y);
+
+                console.log('Changing tile; x: ' + click.x + ' y: ' + click.y + ' tile: ' +click1);
+                click.x = Math.abs(click.x);
+                click.y = Math.abs(click.y);
+                myMap.changeTile(click.x, click.y, click1);
+                myMap.draw();
+            }
+
+
+
+        }
+
     }
 
 	
@@ -167,4 +209,3 @@ $('#myToolBar').mousedown(function(evt){
 
 })
 
-//eraser function
