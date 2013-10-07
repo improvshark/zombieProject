@@ -3,6 +3,7 @@ var click1 = 0;	// left click
 var click2 = 1;	// right click
 
 var tool = 1; // tool selected from toolbar
+
 var linin = false;//flag to control the line scketching
 var clickStart = {x: 0, y: 0};
 var clickEnd = {x: 0, y: 0};
@@ -196,7 +197,7 @@ $(window).keypress(function(evt){
 
 
 // this stuff is to hide and show the toolbar and tile Broweser
-var toolbarVisable = false;
+var toolbarVisable = true;
 var tileBrowserVisable = true;
 
 var showToolbar = function (){
@@ -220,8 +221,8 @@ var hideTileBrowser = function (){
     $('#butBar-tileBrowser')[0].setAttribute("class", ""); // remove checkmark 
 }
 
-if (showToolbar){ showToolbar() } else { hideToolbar() };
-if (showTileBrowser) { showTileBrowser() } else { hideTileBrowser };
+if (toolbarVisable){ showToolbar() } else { hideToolbar() };
+if (tileBrowserVisable) { showTileBrowser() } else { hideTileBrowser };
 
 // show toolbar when mouse over
 $('#toolbarHandle').mouseover(function() {
