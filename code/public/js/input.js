@@ -160,43 +160,56 @@ $(window).keypress(function(evt){
 
 
 // this stuff is to hide and show the toolbar and tile Broweser
-var showToolbar = false;
-var showTileBrowser = false;
+var toolbarVisable = false;
+var tileBrowserVisable = true;
 
-if (!showToolbar && !showTileBrowser){
-	$('#toolbar').hide();
-	$('#tileBrowser').hide();
+var showToolbar = function (){
+    $('#toolbar').show();
+    $('#toolbar').animate({'left' : 0 }, {duration: 200, queue: false, easing: 'linear'})
+    $('#butBar-toolbox')[0].setAttribute("class", "glyphicon glyphicon-ok"); // add checkmark 
 }
+var showTileBrowser = function (){
+    $('#tileBrowser').show();
+    $('#tileBrowser').animate({'right' : 0 }, {duration: 200, queue: false, easing: 'linear'})
+    $('#butBar-tileBrowser')[0].setAttribute("class", "glyphicon glyphicon-ok"); // add checkmark 
+}
+var hideToolbar = function (){
+    $('#toolbar').animate({'left' :  -200}, {duration: 200, queue: false, easing: 'linear'})
+    $('#toolbar').hide();
+    $('#butBar-toolbox')[0].setAttribute("class", ""); // remove checkmark 
+}
+var hideTileBrowser = function (){
+    $('#tileBrowser').animate({'right' :  -500}, {duration: 200, queue: false, easing: 'linear'})
+    $('#tileBrowser').hide();
+    $('#butBar-tileBrowser')[0].setAttribute("class", ""); // remove checkmark 
+}
+
+if (showToolbar){ showToolbar() } else { hideToolbar() };
+if (showTileBrowser) { showTileBrowser() } else { hideTileBrowser };
+
 // show toolbar when mouse over
 $('#toolbarHandle').mouseover(function() {
-	if (!showToolbar) {
-	    $('#toolbar').show();
-	    $('#toolbar').animate({'left' : 0 }, {duration: 200, queue: false, easing: 'linear'})
+	if (!toolbarVisable) {
+	    showToolbar()
 	}
 });
 
 // hide toolbar on mouse out
 $('#toolbarHandle').mouseout(function() {
-	if (!showToolbar) {
-	    $('#toolbar').animate({'left' :  -200}, {duration: 200, queue: false, easing: 'linear'})
-	    $('#toolbar').hide();
+	if (!toolbarVisable) {
+	    hideToolbar()
 	}
 });
-
-
 // show tileBrowser when mouse over
 $('#tileBrowserHandle').mouseover(function() {
-	if (!showTileBrowser) {
-	    $('#tileBrowser').show();
-	    $('#tileBrowser').animate({'right' : 0 }, {duration: 200, queue: false, easing: 'linear'})
+	if (!tileBrowserVisable) {
+	    showTileBrowser()
 	}
 });
-
 // hide tileBrowser on mouse out
 $('#tileBrowserHandle').mouseout(function() {
-	if (!showTileBrowser) {
-	    $('#tileBrowser').animate({'right' :  -500}, {duration: 200, queue: false, easing: 'linear'})
-	    $('#tileBrowser').hide();
+	if (!tileBrowserVisable) {
+	    hideTileBrowser();
 	}
 });
 

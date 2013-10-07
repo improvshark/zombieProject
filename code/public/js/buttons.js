@@ -17,35 +17,50 @@ $('#butBar-showGrid')[0].onclick = function(){
 
 // window --> tilebrowser
 $('#butBar-tileBrowser')[0].onclick = function(){
-	console.log('tilebrowser');
-    if (!showTileBrowser){
+    if (!tileBrowserVisable){
     	console.log(showTileBrowser)
-        $('#butBar-tileBrowser')[0].setAttribute("class", "glyphicon glyphicon-ok"); // add checkmark 
-        $('#tileBrowser').show();
-        $('#tileBrowser').animate({'right' : 0 }, {duration: 200, queue: false, easing: 'linear'});
-        showTileBrowser = true;
+        tileBrowserVisable = true;
+        showTileBrowser();
 
     } else {
     	console.log(showTileBrowser)
-        $('#butBar-tileBrowser')[0].setAttribute("class", ""); // add checkmark 
-        $('#tileBrowser').animate({'right' :  -500}, {duration: 200, queue: false, easing: 'linear'});
-        $('#tileBrowser').promise().done(function(){ $('#tileBrowser').hide();	}); // hide when done
-        showTileBrowser = false;
+        tileBrowserVisable = false;
+        hideTileBrowser();
     }
 }
 
 // window --> toolbox
 $('#butBar-toolbox')[0].onclick = function(){
-    if (!showToolbar){
-        $('#butBar-toolbox')[0].setAttribute("class", "glyphicon glyphicon-ok"); // add checkmark 
-        $('#toolbar').show();
-        $('#toolbar').animate({'left' : 0 }, {duration: 200, queue: false, easing: 'linear'})
-        showToolbar = true;
+    if (!toolbarVisable){
+        toolbarVisable = true;
+        showToolbar();
 
     } else {
-        $('#butBar-toolbox')[0].setAttribute("class", ""); // add checkmark 
-        $('#toolbar').animate({'left' :  -200}, {duration: 200, queue: false, easing: 'linear'})
-        $('#toolbar').promise().done(function(){ $('#toolbar').hide();	}); // hide when done
-        showToolbar = false;
+        toolbarVisable = false;
+        hideToolbar();
     }
 }
+
+// playTest
+$('#butBar-playTest')[0].onclick = function(){
+    console.log('sending report');
+    var map2 = myMap.getMap()
+    var report = $.post('http://zombie-attack.aws.af.cm/uploadMap/6acf1540-14e5-3e29-bcd3-b4209f40e17e', { map: map2 });
+
+    console.log(report.success);
+    console.log(map);
+
+    if (report.success) {
+        var win=window.open('', '_blank');
+        win.focus();
+    } 
+    
+}
+
+// Example Response:
+
+// {
+//   "success": true,
+//   "url": "http://zombie-attack.aws.af.cm/simulate.html?id=78fcda8a717151e1a2e116b21c0114f3",
+//   "report": "<div class='success'>Congrats. Your map JSON is valid</div>"
+// }
