@@ -6,12 +6,15 @@ var tool = 1; // tool selected from toolbar
 var linin = false;//flag to control the line scketching
 var clickStart = {x: 0, y: 0};
 var clickEnd = {x: 0, y: 0};
+var clickT = {x: 0, y: 0};//click variable for toolbar
 
 
 // get tile selected from tile browser
 $('#myTileBrowser').mousedown(function(evt){
-
-    tool = 1;
+    if(tool == 2)//if after using the eraser you select a new tile then the tool is set to the pencil
+    {
+        tool = 1;
+    }
 
     if( evt.which == 1){
         click1 = tileBrowser.getTile(evt);
@@ -90,24 +93,57 @@ $('#myCanvas').mousedown(function(evt){
             linin = false;
             clickEnd = myMap.getTilePos(evt);
 
-            var dx = clickEnd.x - clickStart.x;
-            var dy = clickEnd.y - clickStart.y;
+            var dx;
+            var dy;
+            var tmpX;
+            var tmpY;
+
+                if(clickEnd.x > clickStart.x)
+                {
+                    console.log('In && --> x1: '+clickStart.x+' y1: '+clickStart.y+' x2: '+clickEnd.x+' y2: '+clickEnd.y);
+                    dx = clickEnd.x - clickStart.x;
+                    dy = clickEnd.y - clickStart.y;
+
+                }else
+                {
+                    console.log('In !&& --> x1: '+clickStart.x+' y1: '+clickStart.y+' x2: '+clickEnd.x+' y2: '+clickEnd.y);
+                    tmpX = clickEnd.x;
+                    clickEnd.x = clickStart.x;
+                    clickStart.x = tmpX;
+
+                    dx = clickEnd.x - clickStart.x;
+
+                    tmpY = clickEnd.y;
+                    clickEnd.y = clickStart.y;
+                    clickStart.y = tmpY;
+
+                     dy = clickEnd.y - clickStart.y;
+                }
+
+            
+                /*if(clickEnd.y > clickStart.y)
+                {
+                    
+                }else
+                {
+                    
+                }*/
 
             for(var i = clickStart.x; i<=clickEnd.x; i++)
             {
-                click.x = i;
+                clickT.x = i;
                 if(dx == 0)
                 {
                     dx = 1;//protection for divide by 0
                 }
-                click.y = Math.floor(clickStart.y + (dy)*(i - clickStart.x)/(dx));
+                clickT.y = Math.floor(clickStart.y + (dy)*(i - clickStart.x)/(dx));
 
-                console.log('x1: '+clickStart.x+' y1: '+clickStart.y+' x2: '+clickEnd.x+' y2: '+clickEnd.y);
+                //console.log('x1: '+clickStart.x+' y1: '+clickStart.y+' x2: '+clickEnd.x+' y2: '+clickEnd.y);
 
-                console.log('Changing tile; x: ' + click.x + ' y: ' + click.y + ' tile: ' +click1);
-                click.x = Math.abs(click.x);
-                click.y = Math.abs(click.y);
-                myMap.changeTile(click.x, click.y, click1);
+                //console.log('Changing tile; x: ' + clickT.x + ' y: ' + clickT.y + ' tile: ' +click1);
+                //clickT.x = Math.abs(clickT.x);
+                //clickT.y = Math.abs(clickT.y);
+                myMap.changeTile(clickT.x, clickT.y, click1);
                 myMap.draw();
             }
 

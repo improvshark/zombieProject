@@ -1,8 +1,8 @@
 <style>
     #toolbar {
         position: absolute;
-        width: 100px;
-        height: 500px;
+        width: 85px;
+        height: 300px;
         background: #000;
         left: -200px;
 
@@ -14,12 +14,13 @@
         top: 20%;
         width: 30px;
         height: 500px;
+        text-align: center;
 
     }
 </style>
 <div id="toolbarHandle">
     <div id="toolbar" oncontextmenu="return false">
-        <canvas id='myToolBar' width='100' height='500'></canvas> 
+        <canvas id='myToolBar' width='80' height='350'></canvas> 
     </div>
 
 </div>
