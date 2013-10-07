@@ -44,12 +44,14 @@
 
                 //load image for ToolBarr
                 var TBTiles = new Image();
-                TBTiles.src = 'public/img/tiles.png';
+                TBTiles.src = 'public/img/tooltiles.png';
 
                 //Create Toolbar
-                toolBar = new ToolBar($('#myToolBar')[0], TBTiles, 9, 1);
+                toolBar = new ToolBar($('#myToolBar')[0], TBTiles, 5, 1);
                 toolBar.pixelWidth = $('#myToolBar')[0].width;
                 toolBar.pixelHeight = $('#myToolBar')[0].height;
+                ToolBar.height = 30;
+                ToolBar.width = 30;
                 toolBar.draw();
 
 
