@@ -160,8 +160,12 @@ Map.prototype.shrinkWidth = function(width){
 }
 
 Map.prototype.growWidth = function(width){
-
-	this.pixelWidth += (this.pixelWidth/ this.width) * (width  this.width);
+	for (var i = 0; i < this.height; i++) {
+		for (var j = this.width; j < width; j++) {
+			this.data.bottom[i][j] = this.terrainTile;  // doesnt actuall remove elements of array...look into this
+		};
+	};
+	this.pixelWidth += (this.pixelWidth/ this.width) * (width - this.width);
 	this.width = width;
 }
 
