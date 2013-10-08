@@ -35,9 +35,8 @@ function Map(canvas, image, height, width ) {
 	this.data = {bottom: [], middle: [], top: []};
     for (var j = 0; j < this.height; j++) {
     	this.data.bottom[j] = [];
-        for (var i = 0; i < this.width; i++) {
-        	
-        	this.data.bottom[j][i] = 22;
+        for (var i = 0; i < this.width; i++) {  	
+        	this.data.bottom[j][i] = this.terrainTile;
         }
     }
 
@@ -129,6 +128,59 @@ Map.prototype.draw = function() {
 	}
 
 };
+
+Map.prototype.shrinkHeight = function(height){
+	for (var i = this.height; i > height; i--) {
+		console.log(this.data.bottom[i]);
+		this.data.bottom[i] = null;
+	};
+	this.pixelHeight -= (this.pixelHeight/ this.height) * (this.height -height);
+	this.height = height;
+}
+
+Map.prototype.growHeight = function(height){
+	for (var i = this.height; i < height; i++) {
+		this.data.bottom[i] = []; // make new array
+		for (var j = 0; j < this.width; j++) {
+			this.data.bottom[i][j] = this.terrainTile;
+		};
+	};
+	this.pixelHeight += (this.pixelHeight/ this.height) * (height - this.height);
+	this.height = height;
+}
+
+Map.prototype.shrinkWidth = function(width){
+	for (var i = 0; i < this.height; i++) {
+		for (var j = this.width; j > width; j--) {
+			this.data.bottom[i][j] = null;  // doesnt actuall remove elements of array...look into this
+		};
+	};
+	this.pixelWidth -= (this.pixelWidth/ this.width) * (this.width - width);
+	this.width = width;
+}
+
+Map.prototype.growWidth = function(width){
+
+	this.pixelWidth += (this.pixelWidth/ this.width) * (width  this.width);
+	this.width = width;
+}
+
+Map.prototype.resize = function(width, height){
+	console.log('resizeing from: x:' + this.width + " y:" + this.height + "  to x:" +width + " y:" + height);
+
+	if (height > this.height){
+		this.growHeight(height);
+	} else if (height < this.height ) {
+		this.shrinkHeight(height);
+	}
+	if (width > this.width){
+		this.growWidth(width);
+	} else if (width < this.width ) {
+		this.shrinkWidth(width);
+	}
+
+	this.draw();
+}
 
 Map.prototype.getMap = function(){
 	return {

@@ -41,7 +41,7 @@ $('#butBar-toolbox')[0].onclick = function(){
     }
 }
 
-// playTest
+// tools --> playTest
 $('#butBar-playTest')[0].onclick = function(){
     console.log('sending report');
     var map2 = myMap.getMap()
@@ -64,3 +64,10 @@ $('#butBar-playTest')[0].onclick = function(){
 //   "url": "http://zombie-attack.aws.af.cm/simulate.html?id=78fcda8a717151e1a2e116b21c0114f3",
 //   "report": "<div class='success'>Congrats. Your map JSON is valid</div>"
 // }
+
+// tools --> resizeMap
+$('#butBar-resizeMap')[0].onclick = function(){
+    $('#resizeModal').modal()
+    $('#resizeWidth').val(myMap.width);
+    $('#resizeHeight').val(myMap.height);
+}

@@ -40,6 +40,7 @@
         <div class="container unselectable" >
         <!--  adding the navbar to the page and selecting current tab-->
         <?php include("views/templates/footer.php"); ?>
+        <?php include("views/mapEditor/modals.php"); ?>
 
             <!-- selecting current tab-->
         <script type="text/javascript"> 
