@@ -11,7 +11,7 @@
         position: absolute;
         left: 0px;
         float: left;
-        top: 20%;
+        top: 15%;
         width: 30px;
         height: 500px;
         text-align: center;
