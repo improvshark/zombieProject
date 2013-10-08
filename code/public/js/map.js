@@ -130,15 +130,15 @@ Map.prototype.draw = function() {
 };
 
 Map.prototype.shrinkHeight = function(height){
-	for (var i = this.height; i > height; i--) {
-		console.log(this.data.bottom[i]);
-		this.data.bottom[i] = null;
-	};
-	this.pixelHeight -= (this.pixelHeight/ this.height) * (this.height -height);
+	console.log('my height: ' + this.height + " shrinking to: "+ height);
+	var diff = this.height - height;
+    this.data.bottom.splice(height, diff);
+	this.pixelHeight -= (this.pixelHeight/ this.height) * (this.height - height);
 	this.height = height;
 }
 
 Map.prototype.growHeight = function(height){
+	console.log('my height: ' + this.height + " growing to: "+ height);
 	for (var i = this.height; i < height; i++) {
 		this.data.bottom[i] = []; // make new array
 		for (var j = 0; j < this.width; j++) {
@@ -150,19 +150,20 @@ Map.prototype.growHeight = function(height){
 }
 
 Map.prototype.shrinkWidth = function(width){
+	console.log('my width: ' + this.width + " shrinking to: "+ width);
+	var diff =  this.width - width;
 	for (var i = 0; i < this.height; i++) {
-		for (var j = this.width; j > width; j--) {
-			this.data.bottom[i][j] = null;  // doesnt actuall remove elements of array...look into this
-		};
+    	this.data.bottom[i].splice(width, diff);
 	};
-	this.pixelWidth -= (this.pixelWidth/ this.width) * (this.width - width);
+	this.pixelWidth -= (this.pixelWidth/ this.width) * diff;
 	this.width = width;
 }
 
 Map.prototype.growWidth = function(width){
+	console.log('my width: ' + this.width + " growing to: "+ width);
 	for (var i = 0; i < this.height; i++) {
 		for (var j = this.width; j < width; j++) {
-			this.data.bottom[i][j] = this.terrainTile;  // doesnt actuall remove elements of array...look into this
+			this.data.bottom[i][j] = this.terrainTile;  
 		};
 	};
 	this.pixelWidth += (this.pixelWidth/ this.width) * (width - this.width);
@@ -170,19 +171,19 @@ Map.prototype.growWidth = function(width){
 }
 
 Map.prototype.resize = function(width, height){
-	console.log('resizeing from: x:' + this.width + " y:" + this.height + "  to x:" +width + " y:" + height);
+	console.log('current: x:' + this.width + " y:" + this.height)
+	console.log("going to x:" + width + " y:" + height);
+	console.log(this.data.bottom);
 
-	if (height > this.height){
-		this.growHeight(height);
-	} else if (height < this.height ) {
-		this.shrinkHeight(height);
-	}
-	if (width > this.width){
-		this.growWidth(width);
-	} else if (width < this.width ) {
-		this.shrinkWidth(width);
-	}
+	width = parseInt(width);
+	height = parseInt(height);
 
+	if (height > this.height){ this.growHeight(height); }
+	else if (height < this.height ) { this.shrinkHeight(height); }
+
+	if (width > this.width){ this.growWidth(width); }
+	else if (width < this.width ) { this.shrinkWidth(width); }
+	console.log(this.data.bottom);
 	this.draw();
 }
 
@@ -212,7 +213,7 @@ Map.prototype.isOverMap = function(mousePos) {
 		return false;
 	} else {
 		console.log('over map!')
-		return true;
+		return true;5
 	}
 };
 
