@@ -164,35 +164,42 @@ $('#myCanvas').mousedown(function(evt){
 $('#myCanvas').mousedown(function(evt){
     console.log('MOUSEBUTTON: ' + evt.which);
     if (evt.ctrlKey == true){
+        evt.preventDefault();
         if (evt.which == 1) {  myMap.dragStart();  }   
     }
 });
 
 // releases the drag
 $('#myCanvas').mouseup(function(evt){
+    evt.preventDefault();
     if (evt.which == 1) {  myMap.dragEnd(); }   
 });
 
 
 // makes pluss and minus zoom the map
-$(window).keypress(function(evt){
+$(document).keydown(function(evt){
     console.log('key: ' + evt.which);
     var change = 5;
-    if (evt.which == 43 || evt.which == 61){
+    var move = 20;
+    if (evt.which == 107 || evt.which == 187){
         
         myMap.pixelWidth += myMap.width*change;
         myMap.pixelHeight += myMap.height*change;
         myMap.x -= (myMap.width*change)/2;
         myMap.y -= (myMap.height*change)/2;
-        myMap.draw();
     }
-    else if (evt.which == 45){
+    else if (evt.which == 109 || evt.which == 189){
         myMap.pixelWidth -= myMap.width*change;
         myMap.pixelHeight -= myMap.height*change;
         myMap.x += (myMap.width*change)/2;
         myMap.y += (myMap.height*change)/2;
-        myMap.draw();
     }
+    else if (evt.which == 37) { evt.preventDefault(); myMap.x -= move }
+    else if (evt.which == 38) { evt.preventDefault(); myMap.y -= move }
+    else if (evt.which == 39) { evt.preventDefault(); myMap.x += move }
+    else if (evt.which == 40) { evt.preventDefault(); myMap.y += move }
+
+    myMap.draw();
 });
 
 

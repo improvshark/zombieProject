@@ -35,9 +35,8 @@ function Map(canvas, image, height, width ) {
 	this.data = {bottom: [], middle: [], top: []};
     for (var j = 0; j < this.height; j++) {
     	this.data.bottom[j] = [];
-        for (var i = 0; i < this.width; i++) {
-        	
-        	this.data.bottom[j][i] = 22;
+        for (var i = 0; i < this.width; i++) {  	
+        	this.data.bottom[j][i] = this.terrainTile;
         }
     }
 
@@ -83,6 +82,8 @@ Map.prototype.loadMap = function(map){
 	this.y = map.y;
 	this.data = map.data;
 	this.env = map.env;
+	this.pixelWidth = this.width*40;
+	this.pixelHeight = this.height*40;
 };
 
 // this function will draw it to the screen
@@ -129,6 +130,73 @@ Map.prototype.draw = function() {
 	}
 
 };
+
+Map.prototype.shrinkHeight = function(height){
+	console.log('my height: ' + this.height + " shrinking to: "+ height);
+	var diff = this.height - height;
+    this.data.bottom.splice(height, diff);
+	this.pixelHeight -= (this.pixelHeight/ this.height) * (this.height - height);
+	this.height = height;
+}
+
+Map.prototype.growHeight = function(height){
+	console.log('my height: ' + this.height + " growing to: "+ height);
+	for (var i = this.height; i < height; i++) {
+		this.data.bottom[i] = []; // make new array
+		for (var j = 0; j < this.width; j++) {
+			this.data.bottom[i][j] = this.terrainTile;
+		};
+	};
+	this.pixelHeight += (this.pixelHeight/ this.height) * (height - this.height);
+	this.height = height;
+}
+
+Map.prototype.shrinkWidth = function(width){
+	console.log('my width: ' + this.width + " shrinking to: "+ width);
+	var diff =  this.width - width;
+	for (var i = 0; i < this.height; i++) {
+    	this.data.bottom[i].splice(width, diff);
+	};
+	this.pixelWidth -= (this.pixelWidth/ this.width) * diff;
+	this.width = width;
+}
+
+Map.prototype.growWidth = function(width){
+	console.log('my width: ' + this.width + " growing to: "+ width);
+	for (var i = 0; i < this.height; i++) {
+		for (var j = this.width; j < width; j++) {
+			this.data.bottom[i][j] = this.terrainTile;  
+		};
+	};
+	this.pixelWidth += (this.pixelWidth/ this.width) * (width - this.width);
+	this.width = width;
+}
+
+Map.prototype.resize = function(width, height){
+	console.log('current: x:' + this.width + " y:" + this.height)
+	console.log("going to x:" + width + " y:" + height);
+	console.log(this.data.bottom);
+
+	width = parseInt(width);
+	height = parseInt(height);
+
+	if (height > this.height){ this.growHeight(height); }
+	else if (height < this.height ) { this.shrinkHeight(height); }
+
+	if (width > this.width){ this.growWidth(width); }
+	else if (width < this.width ) { this.shrinkWidth(width); }
+	console.log(this.data.bottom);
+	this.draw();
+}
+
+Map.prototype.fill = function(tile){
+    for (var j = 0; j < this.height; j++) {
+    	this.data.bottom[j] = [];
+        for (var i = 0; i < this.width; i++) {  	
+        	this.data.bottom[j][i] = tile;
+        }
+    }
+}
 
 Map.prototype.getMap = function(){
 	return {

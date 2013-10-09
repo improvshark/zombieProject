@@ -71,8 +71,8 @@
 
                 // important makes pixel ratio and canvas size correct
                 var resize=function(){
-                    document.getElementById('myCanvas').width =window.innerWidth;
-                    document.getElementById('myCanvas').height =window.innerHeight-110;
+                    $('#myCanvas')[0].width =window.innerWidth;
+                    $('#myCanvas')[0].height =window.innerHeight-110;
                     myMap.x = (window.innerWidth/2)-(myMap.pixelWidth/2);
                     myMap.draw();
 

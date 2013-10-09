@@ -41,7 +41,7 @@ $('#butBar-toolbox')[0].onclick = function(){
     }
 }
 
-// playTest
+// tools --> playTest
 $('#butBar-playTest')[0].onclick = function(){
     console.log('sending report');
     var map2 = myMap.getMap()
@@ -64,3 +64,37 @@ $('#butBar-playTest')[0].onclick = function(){
 //   "url": "http://zombie-attack.aws.af.cm/simulate.html?id=78fcda8a717151e1a2e116b21c0114f3",
 //   "report": "<div class='success'>Congrats. Your map JSON is valid</div>"
 // }
+
+// tools --> resizeMap
+$('#butBar-resizeMap')[0].onclick = function(){
+    $('#resizeModal').modal()
+    $('#resizeWidth').val(myMap.width);
+    $('#resizeHeight').val(myMap.height);
+}
+
+// tools --> fill
+$('#butBar-fill')[0].onclick = function(){
+    var fillSelected = 0;
+    
+    // load tiles image
+    var fillTiles = new Image()
+    fillTiles.src = 'public/img/tiles.png';
+
+    fillBrowser = new TileBrowser( $('#fillTool')[0], fillTiles, 6, 8);
+    fillBrowser.pixelWidth = $('#fillTool')[0].width;
+    fillBrowser.pixelHeight = $('#fillTool')[0].height;
+    fillBrowser.draw();
+
+    // get tile selected from tile browser
+    $('#fillTool')[0].onclick = function(evt){
+        fillSelected  = fillBrowser.getTile(evt);
+    }
+    $('#fillBtn')[0].onclick = function(evt){
+        myMap.terrainTile = fillSelected;
+        myMap.fill(fillSelected);
+        myMap.draw();
+    }
+
+    $('#fillModal').modal()
+
+}

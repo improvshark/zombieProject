@@ -42,10 +42,10 @@
                 <li id="butBar-file" class="dropdown">
                     <a href="" class="" data-toggle="dropdown"> File </a>
                     <ul class="dropdown-menu">
-                        <li><a id="butBar-new" class="" href="#"> New</a></li>
-                        <li><a id="butBar-open" class="" href="#"> Open</a></li>
-                        <li><a id="butBar-save" class="" href="#"> Save</a></li>
-                        <li><a id="butBar-download" class="" href="#"> Download</a></li>
+                        <li><a id="butBar-new" class="" > New</a></li>
+                        <li><a id="butBar-open" class="" > Open</a></li>
+                        <li><a id="butBar-save" class="" > Save</a></li>
+                        <li><a id="butBar-download" class="" > Download</a></li>
                         <li><a id="butBar-close" class="" href="index.php"> Close</a></li>
                         <li><a id="butBar-exit" class="" href="index.php"> Exit</a></li>
                     </ul>
@@ -54,40 +54,41 @@
                 <li id="butBar-edit" class="dropdown">
                     <a href="" class="" data-toggle="dropdown"> Edit </a>
                     <ul class="dropdown-menu">
-                        <li><a id="butBar-undo" class="" href="#"> Undo</a></li>
-                        <li><a id="butBar-redo" class="" href="#"> Redo</a></li>
-                        <li><a id="butBar-cut" class="" href="#"> Cut</a></li>
-                        <li><a id="butBar-copy" class="" href="#"> Copy</a></li>
-                        <li><a id="butBar-paste" class="" href="#"> Paste</a></li>
-                        <li><a id="butBar-Select All" class="" href="#"> Select All</a></li>
-                        <li><a id="butBar-delete" class="" href="#"> Delete</a></li>
-                        <li><a id="butBar-preferences" class="" href="#">Preferences</a></li>
+                        <li><a id="butBar-undo" class="" > Undo</a></li>
+                        <li><a id="butBar-redo" class="" > Redo</a></li>
+                        <li><a id="butBar-cut" class="" > Cut</a></li>
+                        <li><a id="butBar-copy" class="" > Copy</a></li>
+                        <li><a id="butBar-paste" class="" > Paste</a></li>
+                        <li><a id="butBar-Select All" class="" > Select All</a></li>
+                        <li><a id="butBar-delete" class="" > Delete</a></li>
+                        <li><a id="butBar-preferences" class="" >Preferences</a></li>
                     </ul>
                 </li>
 
                 <li id="butBar-view" class="dropdown">
                     <a href="" class="" data-toggle="dropdown"> View </a>
                     <ul class="dropdown-menu">
-                        <li><a id="butBar-zoom" class="" href="#"> Zoom</a></li>
-                        <li><a id="butBar-showGrid" class="" href="#"> Show Grid</a></li>
+                        <li><a id="butBar-zoom" class="" > Zoom</a></li>
+                        <li><a id="butBar-showGrid" class="" > Show Grid</a></li>
                     </ul>
                 </li>
 
                 <li id="butBar-tools" class="dropdown">
                     <a href="" class="" data-toggle="dropdown"> Tools </a>
                     <ul class="dropdown-menu">
-                        <li><a id="butBar-fill" class="" href="#"> Fill</a></li>
-                        <li><a id="butBar-playTest" class="" href="#"> Play Test</a></li>
+                        <li><a id="butBar-fill" class="" > Fill</a></li>
+                        <li><a id="butBar-resizeMap" class="" > Resize map</a></li>
+                        <li><a id="butBar-playTest" class="" > Play Test</a></li>
                     </ul>
                 </li>
                 <li id="butBar-windows" class="dropdown">
                     <a href="" class="" data-toggle="dropdown"> Windows </a>
                     <ul class="dropdown-menu">
-                        <li><a id="butBar-toolbox" class="" href="#"> Toolbox</a></li>
-                        <li><a id="butBar-tileBrowser" class="" href="#"> TileBrowser</a></li>
-                        <li><a id="butBar-palette" class="" href="#"> Palette</a></li>
-                        <li><a id="butBar-miniMap" class="" href="#"> Mini map</a></li>
-                        <li><a id="butBar-events" class="" href="#"> Events</a></li>
+                        <li><a id="butBar-toolbox" class="" > Toolbox</a></li>
+                        <li><a id="butBar-tileBrowser" class="" > TileBrowser</a></li>
+                        <li><a id="butBar-palette" class="" > Palette</a></li>
+                        <li><a id="butBar-miniMap" class="" > Mini map</a></li>
+                        <li><a id="butBar-events" class="" > Events</a></li>
                     </ul>
                 </li>
 
