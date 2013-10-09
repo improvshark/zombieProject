@@ -187,6 +187,15 @@ Map.prototype.resize = function(width, height){
 	this.draw();
 }
 
+Map.prototype.fill = function(tile){
+    for (var j = 0; j < this.height; j++) {
+    	this.data.bottom[j] = [];
+        for (var i = 0; i < this.width; i++) {  	
+        	this.data.bottom[j][i] = tile;
+        }
+    }
+}
+
 Map.prototype.getMap = function(){
 	return {
 		title: this.title,

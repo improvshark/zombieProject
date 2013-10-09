@@ -34,13 +34,13 @@
         </div>
         <div class="modal-body">
           <p>Fill map:</p>
-          <div style="width: 100%;" oncontextmenu="return false" class="unselectable">
-            <canvas id='myCanvas' width='900' height='650' style="border: 1px black solid; "></canvas>
+          <div style=";" oncontextmenu="return false" class="unselectable">
+            <canvas id='fillTool' width='530' height='300' style="border: 1px black solid; "></canvas>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" data-dismiss="modal" class="btn btn-primary" id="resizeBtn" onclick=" myMap.resize( $('#resizeWidth').val(), $('#resizeHeight').val() )">Resize</button>
+          <button type="button" data-dismiss="modal" class="btn btn-primary" id="fillBtn" >Fill</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

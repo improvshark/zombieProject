@@ -71,3 +71,30 @@ $('#butBar-resizeMap')[0].onclick = function(){
     $('#resizeWidth').val(myMap.width);
     $('#resizeHeight').val(myMap.height);
 }
+
+// tools --> fill
+$('#butBar-fill')[0].onclick = function(){
+    var fillSelected = 0;
+    
+    // load tiles image
+    var fillTiles = new Image()
+    fillTiles.src = 'public/img/tiles.png';
+
+    fillBrowser = new TileBrowser( $('#fillTool')[0], fillTiles, 6, 8);
+    fillBrowser.pixelWidth = $('#fillTool')[0].width;
+    fillBrowser.pixelHeight = $('#fillTool')[0].height;
+    fillBrowser.draw();
+
+    // get tile selected from tile browser
+    $('#fillTool')[0].onclick = function(evt){
+        fillSelected  = fillBrowser.getTile(evt);
+    }
+    $('#fillBtn')[0].onclick = function(evt){
+        myMap.terrainTile = fillSelected;
+        myMap.fill(fillSelected);
+        myMap.draw();
+    }
+
+    $('#fillModal').modal()
+
+}
