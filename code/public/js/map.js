@@ -82,6 +82,8 @@ Map.prototype.loadMap = function(map){
 	this.y = map.y;
 	this.data = map.data;
 	this.env = map.env;
+	this.pixelWidth = this.width*40;
+	this.pixelHeight = this.height*40;
 };
 
 // this function will draw it to the screen
@@ -222,7 +224,7 @@ Map.prototype.isOverMap = function(mousePos) {
 		return false;
 	} else {
 		console.log('over map!')
-		return true;5
+		return true;
 	}
 };
 
