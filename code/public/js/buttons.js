@@ -48,7 +48,7 @@ $('#butBar-playTest')[0].onclick = function(){
     var report = $.post('tools/update.php', { mapObj: { map: map2}, send_map: true }, function(data){
 
         var obj = JSON.parse(data);
-        console.log(obj.url);
+        console.log(data);
         if (obj.success) {
             var win=window.open(obj.url, '_blank');
             win.focus();
