@@ -50,8 +50,12 @@ $('#butBar-playTest')[0].onclick = function(){
         var obj = JSON.parse(data);
         console.log(data);
         if (obj.success) {
-            var win=window.open(obj.url, '_blank');
-            win.focus();
+            //var win=window.open(obj.url, '_blank');
+            //win.focus();
+           
+            $('#playTestModal').modal()
+            $('#playTestIframe')[0].src = obj.url;
+            $('#playTestIframe').focus();
         } 
 
     });

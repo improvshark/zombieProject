@@ -45,3 +45,35 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+
+
+
+    <style type="text/css">
+      #playTestModal .modal-dialog {
+        /* new custom width */
+        width: 660px;
+        height: 900px;
+        /* must be half of the width, minus scrollbar on the left (30px) */
+        margin: 100px auto 100px auto;
+      }
+
+    </style>
+      <!-- fill Modal -->
+  <div class="modal fade" id="playTestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h3 class="text-info modal-title">Play Test</h3>
+        </div>
+        <div class="modal-body">
+          <div style="" oncontextmenu="return false" >
+            <iframe id="playTestIframe" width='606' height='606' style="border: 1px black solid>"</iframe>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
