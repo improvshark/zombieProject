@@ -44,16 +44,18 @@ $('#butBar-toolbox')[0].onclick = function(){
 // playTest
 $('#butBar-playTest')[0].onclick = function(){
     console.log('sending report');
-    var map2 = myMap.getMap()
-    var report = $.post('http://zombie-attack.aws.af.cm/uploadMap/6acf1540-14e5-3e29-bcd3-b4209f40e17e', { map: map2 });
+    var map2 = myMap.getMap() ;
+    var report = $.post('tools/update.php', { mapObj: { map: map2}, send_map: true }, function(data){
 
-    console.log(report.success);
-    console.log(map);
+        var obj = JSON.parse(data);
+        console.log(obj.url);
+        if (obj.success) {
+            var win=window.open(obj.url, '_blank');
+            win.focus();
+        } 
 
-    if (report.success) {
-        var win=window.open('', '_blank');
-        win.focus();
-    } 
+    });
+
     
 }
 
