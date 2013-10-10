@@ -204,8 +204,8 @@ Map.prototype.getMap = function(){
 		author: this.author,
 		width: this.width,
 		height: this.height,
-		x: this.x,
-		y: this.y,
+		x: 0,
+		y: 0,
 		data: this.data,
 		env: this.env,
 	}

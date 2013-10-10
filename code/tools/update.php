@@ -17,7 +17,7 @@
     require_once("../classes/Admin.php");
 
     $login = new Login();
-
+    $url = "http://zombie-attack.aws.af.cm/uploadMap/" . TOKEN;
     // make sure the user has admin
     if ($login->isUserLoggedIn() == true and $login->isAdmin() ) {
         $admin2 = new Admin();
@@ -57,6 +57,28 @@
                 }
             }
         echo "</div>";
+    }
+
+
+
+    if (!empty($_POST['send_map']) ) {
+
+        $map = json_encode($_POST['mapObj']);
+        //open connection
+        $ch = curl_init($url);
+        // set some settings 
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $map);                                                                  
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+            'Content-Type: application/json',                                                                                
+            'Content-Length: ' . strlen($map))                                                                       
+        );                                                                                                                   
+        // send it off
+        $result =  curl_exec($ch);
+
+        // give back result
+        echo $result ;
     }
 
 

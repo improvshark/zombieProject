@@ -1,5 +1,9 @@
 <?php
 
+
+
+
+define("TOKEN", "6acf1540-14e5-3e29-bcd3-b4209f40e17e");
 /**
  * Configuration file for: Database Connection
  * This is the place where your database login constants are saved
