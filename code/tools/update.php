@@ -63,7 +63,8 @@
 
     if (!empty($_POST['send_map']) ) {
 
-        $map = json_encode($_POST['mapObj']);
+        //$map = json_encode($_POST['mapObj']);
+        $map = $_POST['mapObj'];
         //open connection
         $ch = curl_init($url);
         // set some settings 
