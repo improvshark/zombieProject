@@ -44,8 +44,13 @@ $('#butBar-toolbox')[0].onclick = function(){
 // tools --> playTest
 $('#butBar-playTest')[0].onclick = function(){
     console.log('sending report');
-    var map2 = myMap.getMap() ;
-    var report = $.post('tools/update.php', { mapObj: JSON.stringify( { map: map2} ), send_map: true }, function(data){
+
+    console.dir(myMap.getMap());
+    var map =  JSON.stringify( { map: myMap.getMap()} ) ;
+
+    //console.log('seding this json: --->' + map);
+    
+    var report = $.post('tools/update.php', { mapObj: map, send_map: true }, function(data){
 
         var obj = JSON.parse(data);
         console.log(data);
