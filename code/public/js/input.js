@@ -3,6 +3,7 @@ var click1 = 0;	// left click
 var click2 = 1;	// right click
 
 var tool = 1; // tool selected from toolbar
+var tempTool = 1;//Temp tool to hold previous tool for picker
 
 var linin = false;//flag to control the line scketching
 var clickStart = {x: 0, y: 0};
@@ -12,9 +13,9 @@ var clickT = {x: 0, y: 0};//click variable for toolbar
 
 // get tile selected from tile browser
 $('#myTileBrowser').mousedown(function(evt){
-    if(tool == 2)//if after using the eraser you select a new tile then the tool is set to the pencil
+    if(tool == 2)//if after using the eraser you select a new tile then the tool is set to the previous tool
     {
-        tool = 1;
+        tool = tempTool;
     }
 
     if( evt.which == 1){
@@ -121,15 +122,6 @@ $('#myCanvas').mousedown(function(evt){
                      dy = clickEnd.y - clickStart.y;
                 }
 
-            
-                /*if(clickEnd.y > clickStart.y)
-                {
-                    
-                }else
-                {
-                    
-                }*/
-
             for(var i = clickStart.x; i<=clickEnd.x; i++)
             {
                 clickT.x = i;
@@ -152,7 +144,7 @@ $('#myCanvas').mousedown(function(evt){
 
         }
 
-    }else if (tool == 4 && !evt.ctrlKey)
+    }else if (tool == 4 && !evt.ctrlKey)//bucket tool
     {
             coord = myMap.getTilePos(evt);
             compTile = myMap.getTile(evt);
@@ -162,7 +154,12 @@ $('#myCanvas').mousedown(function(evt){
             rTileChanger(coord.x, coord.y, compTile, click1);
 
             myMap.draw();
-    }
+    }else if (tool == 5 && !evt.ctrlKey)//peecker (yes peecker)
+    {
+        click1 = myMap.getTile(evt);
+        tool = tempTool;
+
+    }//it was so hard to do this...
 
 });
 
@@ -290,6 +287,7 @@ $('#tileBrowserHandle').mouseout(function() {
 //This function changes tool according to the tile selected in the toolbar
 $('#myToolBar').mousedown(function(evt){
     var selTool = toolBar.getTile(evt);
+    tempTool = tool;
     tool = (selTool/8) ;//+ 1;
 
 })

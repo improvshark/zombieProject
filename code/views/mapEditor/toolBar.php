@@ -20,7 +20,7 @@
 </style>
 <div id="toolbarHandle">
     <div id="toolbar" oncontextmenu="return false">
-        <canvas id='myToolBar' width='80' height='350'></canvas> 
+        <canvas id='myToolBar' width='80' height='430'></canvas> 
     </div>
 
 </div>
