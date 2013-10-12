@@ -86,7 +86,7 @@ $('#myCanvas').mousedown(function(evt){
     else if (tool == 3 && !evt.ctrlKey)
     {
         console.log('linin: ' + linin);
-        if(linin == false){
+        if(linin == false){                                                
             linin = true;
             clickStart = myMap.getTilePos(evt);
         }else if (linin == true)
@@ -152,12 +152,40 @@ $('#myCanvas').mousedown(function(evt){
 
         }
 
+    }else if (tool == 4 && !evt.ctrlKey)
+    {
+            coord = myMap.getTilePos(evt);
+            compTile = myMap.getTile(evt);
+
+            console.log("Tile pos, x: " + coord.x + " y: " + coord.y + ". compTile: " + compTile);
+
+            rTileChanger(coord.x, coord.y, compTile, click1);
+
+            myMap.draw();
     }
 
-	
-
-	
 });
+
+var rTileChanger = function(varX, varY, compTile, chTile){
+
+    var currTile = myMap.getxyTile(varX, varY);
+    console.log("currTile: " + currTile + "compTile: " + compTile);
+
+    if(currTile != compTile)
+    {
+        return;
+    }
+    else if(currTile == compTile)
+    {
+        myMap.changeTile(varX, varY, chTile);
+
+        rTileChanger(varX + 1/*myMap.width*/, varY, compTile, chTile); //go right
+        rTileChanger(varX - 1/*myMap.width*/, varY, compTile, chTile); //go left
+        rTileChanger(varX, varY - 1/*myMap.height*/, compTile, chTile); //go up
+        rTileChanger(varX, varY + 1/*myMap.height*/, compTile, chTile); //go down
+    }
+
+};
 
 
 // starts the drag of the map

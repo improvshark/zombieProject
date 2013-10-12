@@ -259,6 +259,15 @@ Map.prototype.changeTile = function(x, y, tile){
 	this.data.bottom[y][x] = tile;
 };
 
+Map.prototype.getxyTile = function(x, y){
+	return this.data.bottom[y][x];
+};
+
+// this function will change the selected tile and redraw
+Map.prototype.changeTile = function(x, y, tile){
+	this.data.bottom[y][x] = tile;
+};
+
 Map.prototype.drag = function(evt){
 
 	var mousePos = {x: evt.clientX, y: evt.clientY};
