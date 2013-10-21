@@ -207,7 +207,7 @@ $(document).keydown(function(evt){
     var change = 5
     var changeX = (myMap.width *  change);
     var changeY = (myMap.height * change);
-    var move = 20;
+    var move = 30;
 
     if (evt.which == 107 || evt.which == 187){
         
