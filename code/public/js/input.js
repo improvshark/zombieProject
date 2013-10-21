@@ -42,7 +42,7 @@ $('#myCanvas').mousedown(function(evt){
 	        // check if we are on map...if we are change tile
 	        if (click != null) { myMap.changeTile(click.x, click.y, click2) }
 	    }
-		myMap.draw(); // redraw map so we can see changes
+		//myMap.draw(); // redraw map so we can see changes
 	}//end pencil tool
     //begin pen tool
 	else if (tool == 1 && !evt.ctrlKey ){  // if tool 1 is selected
@@ -60,7 +60,7 @@ $('#myCanvas').mousedown(function(evt){
                 // check if we are on map...if we are change tile
                 if (click != null) { myMap.changeTile(click.x, click.y, click2) }
             }
-        	myMap.draw(); // redraw map so we can see changes
+        	//myMap.draw(); // redraw map so we can see changes
 	    });
 	}//end pen tool
     //begin delete tool

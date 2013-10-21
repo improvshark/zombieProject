@@ -86,56 +86,54 @@ Map.prototype.loadMap = function(map){
 	this.pixelHeight = this.height*40;
 };
 
+Map.prototype.drawTile = function(x, y){
+
+	var divider = 8; // number of tiles in a row
+	var sourceX = (this.data.bottom[y][x]%divider) 
+	var sourceY = Math.floor(this.data.bottom[y][x]/divider)
+	var tileSize = 40;
+	var destX = this.x+((this.pixelWidth/this.width) *x);
+	var destY = this.y+((this.pixelHeight/this.height) *y);
+	var destWidth = this.pixelWidth/this.width
+	var destHeight=  this.pixelHeight/this.height;
+	if ( this.isInCanvas({x: destX, y: destY, height: destHeight, width: destWidth}) ) {
+		if (this.grid > 0) {
+			this.context.beginPath(); // telling the canvas that we are starting a draw of something
+			this.context.rect(
+				destX, destY, // x and y position of the rectangle
+				destWidth ,destHeight  // the height and width of the rectangle
+			);
+			this.context.lineWidth = this.grid; // the thickness of the rectangle
+			this.context.strokeStyle = this.gridColor; // the color of the rectangle
+			this.context.stroke(); // draw the rectangle
+		}
+
+		this.context.drawImage(
+			this.image, // the image we are croping to get our tile
+			(sourceX*tileSize), (sourceY*tileSize), // the x and y location we will crop in relation to the tile image
+			tileSize, tileSize,	// the height and width of our crop in relation to the tile image
+			destX+(this.grid/2), destY+(this.grid/2), // the x and y location we will be placing the cropped image on the canvas
+			destWidth-this.grid, destHeight-this.grid // the final height and width of our tile that will be drawn on the canvas
+		);
+	}
+
+}
+
 // this function will draw it to the screen
 Map.prototype.draw = function() {
 	// setting canvas demensions
 	this.context.width = this.canvas.width;
 	this.context.height = this.canvas.height;
-	this.context.clearRect(0, 0, this.canvas.width, this.canvas.height); // clearing out the canvas
-	// draw the tile grid
-	var divider = 8; // number of tiles in a row
-	var tileSize = 40;
-    var sourceWidth = 40;
-    var sourceHeight = 40;	        
+	this.context.clearRect(0, 0, this.canvas.width, this.canvas.height); // clearing out the canvas       
 
     if (this.imageLoaded) {
     	// cycle through the tiles one at a time to crop them from the tile image.
         for (var j = 0; j < this.height; j++) {
-	        for (var i = 0; i < this.width; i++) {
-
-	        	var sourceX = (this.data.bottom[j][i]%divider) 
-	        	var sourceY = Math.floor(this.data.bottom[j][i]/divider)
-
-	        	var destX = this.x+((this.pixelWidth/this.width) *i);
-	        	var destY = this.y+((this.pixelHeight/this.height) *j);
-	        	var destWidth = this.pixelWidth/this.width
-	        	var destHeight=  this.pixelHeight/this.height;
-
-	        	if ( this.isInCanvas({x: destX, y: destY, height: destHeight, width: destWidth}) ) {
-		        	// draw grid
-		        	if (this.grid > 0) {
-		        		this.context.beginPath(); // telling the canvas that we are starting a draw of something
-		        		this.context.rect(
-		        			destX, destY, // x and y position of the rectangle
-		        	 		destWidth ,destHeight  // the height and width of the rectangle
-		        		);
-		        		this.context.lineWidth = this.grid; // the thickness of the rectangle
-		 				this.context.strokeStyle = this.gridColor; // the color of the rectangle
-		 				this.context.stroke(); // draw the rectangle
-		        	}
-		        	// draw tile
-		        	this.context.drawImage(
-		        		this.image, // the image we are croping to get our tile
-		        		(sourceX*tileSize), (sourceY*tileSize), // the x and y location we will crop in relation to the tile image
-		        		sourceWidth, sourceHeight,	// the height and width of our crop in relation to the tile image
-		        		destX+(this.grid/2), destY+(this.grid/2), // the x and y location we will be placing the cropped image on the canvas
-		        		destWidth-this.grid, destHeight-this.grid // the final height and width of our tile that will be drawn on the canvas
-		        	);
-		        }
-	        }
+	        for (var i = 0; i < this.width; i++) {	        	
+	        	this.drawTile(i, j);
+	        }    
         }
 	}
-
 };
 
 Map.prototype.shrinkHeight = function(height){
@@ -280,9 +278,11 @@ Map.prototype.getxyTile = function(x, y){
 	return this.data.bottom[y][x];
 };
 
+
 // this function will change the selected tile and redraw
 Map.prototype.changeTile = function(x, y, tile){
 	this.data.bottom[y][x] = tile;
+	this.drawTile(x, y);
 };
 
 Map.prototype.drag = function(evt){
