@@ -206,6 +206,7 @@ $(document).keydown(function(evt){
     console.log('key: ' + evt.which);
     var change = 5;
     var move = 20;
+
     if (evt.which == 107 || evt.which == 187){
         
         myMap.pixelWidth += myMap.width*change;
@@ -214,10 +215,12 @@ $(document).keydown(function(evt){
         myMap.y -= (myMap.height*change)/2;
     }
     else if (evt.which == 109 || evt.which == 189){
-        myMap.pixelWidth -= myMap.width*change;
-        myMap.pixelHeight -= myMap.height*change;
-        myMap.x += (myMap.width*change)/2;
-        myMap.y += (myMap.height*change)/2;
+        if (myMap.pixelWidth - change > 100 || myMap.pixelHeight- change > 100){
+            myMap.pixelWidth -= myMap.width*change;
+            myMap.pixelHeight -= myMap.height*change;
+            myMap.x += (myMap.width*change)/2;
+            myMap.y += (myMap.height*change)/2;
+        }  
     }
     else if (evt.which == 37) { evt.preventDefault(); myMap.x -= move }
     else if (evt.which == 38) { evt.preventDefault(); myMap.y -= move }
