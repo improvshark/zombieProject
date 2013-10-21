@@ -15,6 +15,7 @@
     require_once("../classes/Login.php");
     // Load the admin class
     require_once("../classes/Admin.php");
+    require_once("../classes/Maps.php");
 
     $login = new Login();
     $url = "http://zombie-attack.aws.af.cm/uploadMap/" . TOKEN;
@@ -80,6 +81,11 @@
 
         // give back result
         echo $result ;
+    }
+    else if (!empty($_POST['saving_map']) ) {
+        $mapsObj = new Maps();
+        
+        $mapsObj->saveMap($_POST['data']);
     }
 
 

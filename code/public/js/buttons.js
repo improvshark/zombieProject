@@ -1,4 +1,10 @@
 
+// fle --> save
+$('#butBar-save')[0].onclick = function(){
+    var map =  JSON.stringify( { map: myMap.getMap()} ) ;
+    saveMap(map);
+}
+
 // view --> grid
 $('#butBar-showGrid')[0].onclick = function(){
     console.log('grid');

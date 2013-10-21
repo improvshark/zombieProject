@@ -29,6 +29,7 @@
 
          <!-- including javascript stuffs -->
 
+        <script src="public/js/ajax.js"></script>
         <script src="public/js/map.js"></script>
         <script src="public/js/tileBrowser.js"></script>
         <script src="public/js/toolBar.js"></script>
