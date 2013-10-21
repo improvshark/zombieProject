@@ -73,7 +73,7 @@
                 var resize=function(){
                     $('#myCanvas')[0].width =window.innerWidth;
                     $('#myCanvas')[0].height =window.innerHeight-110;
-                    myMap.x = (window.innerWidth/2)-(myMap.pixelWidth/2);
+                    myMap.centerMap();
                     myMap.draw();
 
                 };

@@ -136,6 +136,14 @@ Map.prototype.draw = function() {
 	}
 };
 
+Map.prototype.centerMap = function(){
+	var x = this.canvas.width / 2;
+    var y = this.canvas.height / 2;
+
+    this.x = x - this.pixelWidth / 2;
+    this.y = y - this.pixelHeight / 2;
+}
+
 Map.prototype.shrinkHeight = function(height){
 	console.log('my height: ' + this.height + " shrinking to: "+ height);
 	var diff = this.height - height;
@@ -191,6 +199,7 @@ Map.prototype.resize = function(width, height){
 	if (width > this.width){ this.growWidth(width); }
 	else if (width < this.width ) { this.shrinkWidth(width); }
 	console.log(this.data.bottom);
+	this.centerMap();
 	this.draw();
 }
 
