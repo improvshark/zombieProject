@@ -13,7 +13,16 @@ $('#butBar-showGrid')[0].onclick = function(){
     }
     myMap.draw();
 }
+// view --> center map
+$('#butBar-centerMap')[0].onclick = function(){
+    var x = $('#myCanvas')[0].width / 2;
+    var y = $('#myCanvas')[0].height / 2;
 
+    console.log('center to: x:' +x + ' y:' + y)
+    myMap.x = x - myMap.pixelWidth / 2;
+    myMap.y = y - myMap.pixelHeight / 2;
+    myMap.draw();
+}
 
 // window --> tilebrowser
 $('#butBar-tileBrowser')[0].onclick = function(){

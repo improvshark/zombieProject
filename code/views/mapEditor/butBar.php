@@ -69,6 +69,7 @@
                     <a href="" class="" data-toggle="dropdown"> View </a>
                     <ul class="dropdown-menu">
                         <li><a id="butBar-zoom" class="" > Zoom</a></li>
+                        <li><a id="butBar-centerMap" class="" > Center Map</a></li>
                         <li><a id="butBar-showGrid" class="" > Show Grid</a></li>
                     </ul>
                 </li>
