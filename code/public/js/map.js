@@ -106,25 +106,32 @@ Map.prototype.draw = function() {
 	        	var sourceX = (this.data.bottom[j][i]%divider) 
 	        	var sourceY = Math.floor(this.data.bottom[j][i]/divider)
 
-	        	// draw grid
-	        	if (this.grid > 0) {
-	        		this.context.beginPath(); // telling the canvas that we are starting a draw of something
-	        		this.context.rect(
-	        			this.x+((this.pixelWidth/this.width) *i), this.y+((this.pixelHeight/this.height) *j), // x and y position of the rectangle
-	        	 		this.pixelWidth/this.width, this.pixelHeight/this.height // the height and width of the rectangle
-	        		);
-	        		this.context.lineWidth = this.grid; // the thickness of the rectangle
-	 				this.context.strokeStyle = this.gridColor; // the color of the rectangle
-	 				this.context.stroke(); // draw the rectangle
-	        	}
-	        	// draw tile
-	        	this.context.drawImage(
-	        		this.image, // the image we are croping to get our tile
-	        		(sourceX*tileSize), (sourceY*tileSize), // the x and y location we will crop in relation to the tile image
-	        		sourceWidth, sourceHeight,	// the height and width of our crop in relation to the tile image
-	        		this.x+((this.pixelWidth/this.width) *i)+(this.grid/2), this.y+((this.pixelHeight/this.height) *j)+(this.grid/2), // the x and y location we will be placing the cropped image on the canvas
-	        		(this.pixelWidth/this.width)-this.grid, (this.pixelHeight/this.height)-this.grid // the final height and width of our tile that will be drawn on the canvas
-	        	);
+	        	var destX = this.x+((this.pixelWidth/this.width) *i);
+	        	var destY = this.y+((this.pixelHeight/this.height) *j);
+	        	var destWidth = this.pixelWidth/this.width
+	        	var destHeight=  this.pixelHeight/this.height;
+
+	        	if ( this.isInCanvas({x: destX, y: destY, height: destHeight, width: destWidth}) ) {
+		        	// draw grid
+		        	if (this.grid > 0) {
+		        		this.context.beginPath(); // telling the canvas that we are starting a draw of something
+		        		this.context.rect(
+		        			destX, destY, // x and y position of the rectangle
+		        	 		destWidth ,destHeight  // the height and width of the rectangle
+		        		);
+		        		this.context.lineWidth = this.grid; // the thickness of the rectangle
+		 				this.context.strokeStyle = this.gridColor; // the color of the rectangle
+		 				this.context.stroke(); // draw the rectangle
+		        	}
+		        	// draw tile
+		        	this.context.drawImage(
+		        		this.image, // the image we are croping to get our tile
+		        		(sourceX*tileSize), (sourceY*tileSize), // the x and y location we will crop in relation to the tile image
+		        		sourceWidth, sourceHeight,	// the height and width of our crop in relation to the tile image
+		        		destX+(this.grid/2), destY+(this.grid/2), // the x and y location we will be placing the cropped image on the canvas
+		        		destWidth-this.grid, destHeight-this.grid // the final height and width of our tile that will be drawn on the canvas
+		        	);
+		        }
 	        }
         }
 	}
@@ -227,6 +234,16 @@ Map.prototype.isOverMap = function(mousePos) {
 		return true;
 	}
 };
+
+Map.prototype.isInCanvas = function(obj) {
+	if ( (obj.x < this.canvas.width && obj.x > 0 - obj.width) 
+		&& (obj.y < this.canvas.height && obj.y > 0 - obj.height)){ 
+		return true;
+	} else {
+		return false;
+	}
+};
+
 
 // this function will give the x and y of the tile the mouese is over
 Map.prototype.getTilePos = function(evt) {
