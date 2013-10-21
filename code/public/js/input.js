@@ -204,25 +204,27 @@ $('#myCanvas').mouseup(function(evt){
 // makes pluss and minus zoom the map
 $(document).keydown(function(evt){
     console.log('key: ' + evt.which);
-    var change = 5;
+    var change = 5
+    var changeX = (myMap.width *  change);
+    var changeY = (myMap.height * change);
     var move = 20;
 
     if (evt.which == 107 || evt.which == 187){
         
-        myMap.pixelWidth += myMap.width*change;
-        myMap.pixelHeight += myMap.height*change;
-        myMap.x -= (myMap.width*change)/2;
-        myMap.y -= (myMap.height*change)/2;
+        myMap.pixelWidth += changeX;
+        myMap.pixelHeight += changeY;
+        myMap.x -= (myMap.width * change)/2;
+        myMap.y -= (myMap.height * change)/2;
     }
     else if (evt.which == 109 || evt.which == 189){
-        if (myMap.pixelWidth - change > 100 || myMap.pixelHeight- change > 100){
-            myMap.pixelWidth -= myMap.width*change;
-            myMap.pixelHeight -= myMap.height*change;
-            myMap.x += (myMap.width*change)/2;
-            myMap.y += (myMap.height*change)/2;
+        if (myMap.pixelWidth - changeX > 100 || myMap.pixelHeight- changeY > 100){
+            myMap.pixelWidth -= changeX;
+            myMap.pixelHeight -= changeY;
+            myMap.x += (myMap.width * change)/2;
+            myMap.y += (myMap.height * change)/2;
         }  
     }
-    else if (evt.which == 37) { evt.preventDefault(); myMap.x -= move }
+    else if (evt.which == 37) { evt.preventDefault(); myMap.x -= move } // arrow keys
     else if (evt.which == 38) { evt.preventDefault(); myMap.y -= move }
     else if (evt.which == 39) { evt.preventDefault(); myMap.x += move }
     else if (evt.which == 40) { evt.preventDefault(); myMap.y += move }
