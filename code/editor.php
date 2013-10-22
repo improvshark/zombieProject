@@ -30,6 +30,10 @@
          <!-- including javascript stuffs -->
 
         <script src="public/js/ajax.js"></script>
+        <script type="text/javascript">
+            // passing the user login data via session to the client
+            var userData = JSON.parse(<?php echo json_encode($_SESSION); ?>);
+        </script>
         <script src="public/js/map.js"></script>
         <script src="public/js/tileBrowser.js"></script>
         <script src="public/js/toolBar.js"></script>
