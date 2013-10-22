@@ -242,6 +242,15 @@ Map.prototype.isOverMap = function(mousePos) {
 	}
 };
 
+Map.prototype.isOverMapXY = function(mousePosX, mousePosY) {
+	if ( (mousePosX < this.x || mousePosX > this.x + this.pixelWidth) || (mousePosY < this.y || mousePosY > this.y + this.pixelHeight)){	
+		return false;
+	} else {
+		console.log('over map!')
+		return true;
+	}
+};
+
 Map.prototype.isInCanvas = function(obj) {
 	if ( (obj.x < this.canvas.width && obj.x > 0 - obj.width) 
 		&& (obj.y < this.canvas.height && obj.y > 0 - obj.height)){ 
