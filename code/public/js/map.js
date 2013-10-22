@@ -14,6 +14,8 @@ function Map(canvas, image, height, width ) {
 	this.x = 0;
 	this.y = 0;
 
+
+	//TODO !!!!!!!!!!!!!!!!!!!!! SET TITLE AND AUTHOR HERE
 	//the name of the map
 	this.title = "";
 	// creator user id

@@ -2,7 +2,19 @@
 // fle --> save
 $('#butBar-save')[0].onclick = function(){
     var map =  JSON.stringify( { map: myMap.getMap()} ) ;
-    saveMap(map);
+
+    if (myMapID == null){
+        console.log('setting id to:'+ myMapID)
+        createMap(map, function(data){
+            myMapID = data;
+            console.log('setting id to:'+ myMapID)
+        });
+        
+        
+    }
+    else {
+        saveMap(map, myMapID);
+    }
 }
 
 // view --> grid

@@ -18,6 +18,7 @@
     require_once("../classes/Maps.php");
 
     $login = new Login();
+    $mapsObj = new Maps();
     $url = "http://zombie-attack.aws.af.cm/uploadMap/" . TOKEN;
     // make sure the user has admin
     if ($login->isUserLoggedIn() == true and $login->isAdmin() ) {
@@ -33,33 +34,37 @@
 
 
         // alerts
-        echo "<div class='row col-sm-9'>";
+      
             // show negative messages
             if ($admin2->errors) {
                 foreach ($admin2->errors as $error) {
+                      echo "<div class='row col-sm-9'>";
                     echo "
                         <div class='alert alert-dismissable alert-danger '>
                             <button type='button' class='close' data-dismiss='alert'>&times;</button>
                             <strong>Warning! </strong>$error
                          </div>
-                    ";  
+                    "; 
+                    echo "</div>"; 
                 }
             }
 
             // show positive messages
             if ($admin2->messages) {
                 foreach ($admin2->messages as $message) {
-                echo "
+                    echo "<div class='row col-sm-9'>";
+                    echo "
                         <div class='alert alert-dismissable alert-info'>
                             <button type='button' class='close' data-dismiss='alert'>&times;</button>
                             $message
                         </div>
                     ";
+                    echo "</div>";
                 }
             }
-        echo "</div>";
+        
     }
-
+    
 
 
     if (!empty($_POST['send_map']) ) {
@@ -82,10 +87,12 @@
         // give back result
         echo $result ;
     }
+    else if (!empty($_POST['create_map']) ) {
+        echo $mapsObj->createMap($_POST['data']); 
+    }
     else if (!empty($_POST['saving_map']) ) {
-        $mapsObj = new Maps();
-        
-        $mapsObj->saveMap($_POST['data']);
+        echo "post: " . (int)$_POST['id'];
+        echo $mapsObj->saveMap($_POST['data'], (int )$_POST['id']);
     }
 
 

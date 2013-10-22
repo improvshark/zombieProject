@@ -60,14 +60,13 @@
                 tiles2.src = 'public/img/tiles.png';
 
                  // create map object pass canvase and tiles image  
+
+                var myMapID = null;
                 myMap = new Map( document.getElementById('myCanvas'), tiles2);
-                myMap.loadMap(map);
+                //myMap.loadMap(map);
                 myMap.draw();
 
                 tileBrowser.draw();
-
-
-
 
                 // important makes pixel ratio and canvas size correct
                 var resize=function(){

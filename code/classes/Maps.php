@@ -41,7 +41,18 @@ class Maps {
         }
     }	
 
+    public function getLastId(){
+                // if database connection opened
+        if ($this->databaseConnection()) {
+            // database query, getting all the info of the selected map
+            $result = $this->db_connection->query('SELECT mapID, timeStamp FROM map ORDER BY timeStamp DESC ');
 
+            return $result->fetchObject()->{'mapID'};
+
+        } else {
+            return false;
+        }
+    }
     public function getMap($mapID) {
         // if database connection opened
         if ($this->databaseConnection()) {
@@ -98,9 +109,10 @@ class Maps {
 
         // insert into table
         if ($this->databaseConnection()) {
-            echo "querying database";
 
-            return $this->db_connection->query("INSERT INTO map (author, name, data) VALUES ('$author', '$name', '$data')");
+            $this->db_connection->query("INSERT INTO map (author, name, data) VALUES ('$author', '$name', '$data')");
+
+            return $this->getLastId();
 
         }else {
             return false;
@@ -108,13 +120,11 @@ class Maps {
     }
 
     public function saveMap($data, $mapID) {
+        if ($this->databaseConnection()) {
 
-        if (empty($mapID)){
-            $this->createMap($data);
-        } 
-        else if ($this->databaseConnection()) {
+            echo "this is the map id:" . $mapID.":";
 
-            return $this->db_connection->query('UPDATE (data) VALUES ($data) WHERE mapID = $mapID');
+            $this->db_connection->query("UPDATE map set data = '$data' WHERE mapID = '$mapID'");
 
         }else {
             return false;
