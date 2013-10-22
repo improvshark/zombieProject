@@ -46,6 +46,20 @@ $('#myCanvas').mousedown(function(evt){
 	}//end pencil tool
     //begin pen tool
 	else if (tool == 1 && !evt.ctrlKey ){  // if tool 1 is selected
+        /*end code to fix mouse move bug*/
+        if(evt.which == 1) { 
+            // set location of mouse click to click object
+            click = myMap.getTilePos(evt);  
+            // check if we are on map...if we are change tile
+            if (click != null) { myMap.changeTile(click.x, click.y, click1) }
+        }
+        else if (evt.which == 3 ) {
+            // set location of mouse click to click object
+            click = myMap.getTilePos(evt);  
+            // check if we are on map...if we are change tile
+            if (click != null) { myMap.changeTile(click.x, click.y, click2) }
+        }
+        /*end code to fix mouse move bug*/
 	    $('#myCanvas').mousemove(function(evt){
 
             if(evt.which == 1) {
