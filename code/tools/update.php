@@ -67,6 +67,9 @@
     
 
 
+
+    // TODO : put loging protectino so one can only delete his own maps, except for admins !!!!!!!!!
+
     if (!empty($_POST['send_map']) ) {
 
         //$map = json_encode($_POST['mapObj']);
