@@ -144,7 +144,7 @@ $('#myCanvas').mousedown(function(evt){
 
         }
 
-    }else if (tool == 4 && !evt.ctrlKey)//bucket tool
+    }else if (tool == 5 && !evt.ctrlKey)//bucket tool
     {
             coord = myMap.getTilePos(evt);
             compTile = myMap.getTile(evt);
@@ -154,7 +154,7 @@ $('#myCanvas').mousedown(function(evt){
             rTileChanger(coord.x, coord.y, compTile, click1);
 
             myMap.draw();
-    }else if (tool == 5 && !evt.ctrlKey)//peecker (yes peecker)
+    }else if (tool == 4 && !evt.ctrlKey)//peecker (yes peecker)
     {
         click1 = myMap.getTile(evt);
         tool = tempTool;
