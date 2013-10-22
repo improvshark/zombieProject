@@ -34,6 +34,8 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <?php include("views/admin/user_table.php"); ?>
+                                <?php include("views/admin/modals.php"); ?>
+
                             </div>
                         </div>
                     </div>

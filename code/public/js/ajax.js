@@ -21,6 +21,26 @@ function changeUser(group, id) {
 	})
 }
 
+var deleteUser = function(id) {
+	console.log( 'deletingUser #' + id + " name: " + name);
+	var myData = {
+		delete_user: true,
+		user_id: id
+	}
+	request = $.ajax({
+		type: "POST",
+		url: "tools/update.php",
+		data: myData,
+        success: function(){
+        	console.log('successful submit');
+        },
+    	error:function(){
+        	console.log('fail submit');
+        },
+	})
+	$('#' + id).remove();
+}
+
 function saveMap (data, id) {
 	console.log( 'saving map...');
 
@@ -76,3 +96,4 @@ function createMap (data, setID) {
 
 	})
 }
+
