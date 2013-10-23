@@ -63,10 +63,11 @@
 
                 var myMapID = null;
                 myMap = new Map( document.getElementById('myCanvas'), tiles2);
-                //myMap.loadMap(map);
-                myMap.draw();
 
-                tileBrowser.draw();
+                myMap.author = userData.user_id;
+                myMap.title = "Map Name Here"
+
+                myMap.draw();
 
                 // important makes pixel ratio and canvas size correct
                 var resize=function(){
