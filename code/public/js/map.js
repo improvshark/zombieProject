@@ -28,6 +28,7 @@ function Map(canvas, image, height, width ) {
 	this.imageLoaded = false;
 	this.dragging = false;
 	this.dragPoint = {x: 0, y: 0};
+
 	// load map function
 
 	//default map terrain (ie. grass, sand, etc...)
@@ -226,6 +227,12 @@ Map.prototype.getMap = function(){
 		env: this.env,
 	}
 };
+
+Map.prototype.getThumb = function(){
+	var thumb = this.canvas.toDataURL();
+	console.dir(thumb);
+	return thumb;
+}
 
 Map.prototype.getMousePos = function (evt) {
     var rect = this.canvas.getBoundingClientRect();

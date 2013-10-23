@@ -100,29 +100,37 @@ class Maps {
 
     } 
 
-    public function createMap($data) {
-
-        // pull info from data
-        $map = json_decode ($data);
-
-        $author = $map->{'map'}->{'author'};
-        $name = $map->{'map'}->{'title'};
-
-        // insert into table
+    public function createMap() {
         if ($this->databaseConnection()) {
+
+            $data = $_POST['data'];
+            $thumb = $_POST['thumb'];
+            // pull info from data
+            $map = json_decode ($data);
+
+            $author = $map->{'map'}->{'author'};
+            $name = $map->{'map'}->{'title'};
+
+            // insert into table
 
             $this->db_connection->query("INSERT INTO map (author, name, data) VALUES ('$author', '$name', '$data')");
 
-            return $this->getLastId();
+            $lastId = $this->getLastId();
 
+            $this->db_connection->query("INSERT INTO mapPng (mapID, png) VALUES ('$lastId', '$thumb')");
+
+            return $lastId;
         }else {
             return false;
         }
     }
 
-    public function saveMap($data, $mapID) {
+    public function saveMap() {
         if ($this->databaseConnection()) {
 
+            $data = $_POST['data'];
+            $mapID = (int )$_POST['id'];
+            $thumb = $_POST['thumb'];
 
             // pull info from data
             $map = json_decode ($data);
@@ -133,6 +141,7 @@ class Maps {
             echo "this is the map id:" . $mapID.":";
 
             $this->db_connection->query("UPDATE map set data = '$data', author = '$author',name = '$name' WHERE mapID = '$mapID'");
+            $this->db_connection->query("UPDATE mapPng set png = '$thumb' WHERE mapID = '$mapID'");
 
         }else {
             return false;

@@ -61,13 +61,14 @@ var deleteMap = function(id) {
 	$('#map' + id).remove();
 }
 
-function saveMap (data, id) {
+function saveMap (data, id, thumb) {
 	console.log( 'saving map...');
 
 	var myData = {
 		saving_map: true,
 		data: data, 
-		id: id
+		id: id,
+		thumb: thumb
 	}
 
 	request = $.ajax({
@@ -89,13 +90,14 @@ function saveMap (data, id) {
 	return id;
 }
 
-function createMap (data, setID) {
+function createMap (data,thumb, setID) {
 	console.log( 'creating map...');
 
 
 	var myData = {
 		create_map: true,
-		data: data
+		data: data,
+		thumb: thumb
 	}
 
 	request = $.ajax({

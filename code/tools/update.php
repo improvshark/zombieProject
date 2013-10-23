@@ -98,11 +98,10 @@
         echo $result ;
     }
     else if (!empty($_POST['create_map']) ) {
-        echo $mapsObj->createMap($_POST['data']); 
+        echo $mapsObj->createMap(); 
     }
     else if (!empty($_POST['saving_map']) ) {
-        echo "post: " . (int)$_POST['id'];
-        echo $mapsObj->saveMap($_POST['data'], (int )$_POST['id']);
+        echo $mapsObj->saveMap();
     }
 
 
