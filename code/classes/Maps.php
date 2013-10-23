@@ -105,8 +105,6 @@ class Maps {
         // pull info from data
         $map = json_decode ($data);
 
-       //print_r($map->{'map'}->{'title'});
-
         $author = $map->{'map'}->{'author'};
         $name = $map->{'map'}->{'title'};
 
@@ -125,9 +123,16 @@ class Maps {
     public function saveMap($data, $mapID) {
         if ($this->databaseConnection()) {
 
+
+            // pull info from data
+            $map = json_decode ($data);
+
+            $author = $map->{'map'}->{'author'};
+            $name = $map->{'map'}->{'title'};
+
             echo "this is the map id:" . $mapID.":";
 
-            $this->db_connection->query("UPDATE map set data = '$data' WHERE mapID = '$mapID'");
+            $this->db_connection->query("UPDATE map set data = '$data', author = '$author',name = '$name' WHERE mapID = '$mapID'");
 
         }else {
             return false;

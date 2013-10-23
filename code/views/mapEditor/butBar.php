@@ -29,7 +29,10 @@
 <div class="navbar  navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <!-- <a href="index.php" class="navbar-brand">ZombieAttack</a> -->
+            <p href="" class="navbar-brand" id="mapName">Untitled Map</p>
+            <div class="navbar-form navbar-left" id="mapNameEditDiv">
+                <input type="text" class="form-control col-lg-8 " value="Untitled" id="mapNameEdit">
+            </div>
             <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
