@@ -86,12 +86,15 @@ class Maps {
     } 
 
     public function deleteMap($mapID) {
+
         // if database connection opened
         if ($this->databaseConnection()) {
             // write users new data into database
-             return $this->db_connection->query('DELETE FROM map WHERE mapID = $mapID');
+            echo "now deleting map!";
+            return $this->db_connection->query("DELETE FROM map WHERE mapID = '$mapID'");
         }
         else {
+
             return false;
         }
 

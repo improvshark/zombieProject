@@ -19,6 +19,7 @@
 
     $login = new Login();
     $mapsObj = new Maps();
+
     $url = "http://zombie-attack.aws.af.cm/uploadMap/" . TOKEN;
     // make sure the user has admin
     if ($login->isUserLoggedIn() == true and $login->isAdmin() ) {
@@ -31,6 +32,12 @@
         if (!empty($_POST['delete_user']) ){
             $admin2->deleteUser();
         }
+
+        if (!empty($_POST['delete_map']) ){
+            $mapsObj->deleteMap($_POST['map_id']);
+        }
+
+
 
 
         // alerts

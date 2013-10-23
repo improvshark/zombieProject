@@ -41,6 +41,26 @@ var deleteUser = function(id) {
 	$('#' + id).remove();
 }
 
+var deleteMap = function(id) {
+	console.log( 'deleting map #' + id );
+	var myData = {
+		delete_map: true,
+		map_id: id
+	}
+	request = $.ajax({
+		type: "POST",
+		url: "tools/update.php",
+		data: myData,
+        success: function(){
+        	console.log('successful submit');
+        },
+    	error:function(){
+        	console.log('fail submit');
+        },
+	})
+	$('#map' + id).remove();
+}
+
 function saveMap (data, id) {
 	console.log( 'saving map...');
 
