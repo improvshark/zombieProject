@@ -57,7 +57,9 @@ class Maps {
         // if database connection opened
         if ($this->databaseConnection()) {
             // database query, getting all the info of the selected map
-            return $this->db_connection->query('SELECT * FROM map WHERE mapID = $mapID' );
+            $result =  $this->db_connection->query('SELECT * FROM map WHERE mapID = $mapID' );
+
+            return $result->fetchObject();
         } else {
             return false;
         }

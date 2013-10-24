@@ -61,13 +61,32 @@ tiles2.src = 'public/img/tiles.png';
 
  // create map object pass canvase and tiles image  
 
-var myMapID = null;
+
 myMap = new Map( document.getElementById('myCanvas'), tiles2);
 
-myMap.author = userData.user_id;
-myMap.title = "Untitled Map"
 
-myMap.draw();
+
+
+// load map stuffs
+if (typeof mapData !='undefined' ){
+    console.log("loading map...")
+    console.log(map);
+    console.log(mapData);
+  $( "#mapName" ).text(mapData.title);
+  myMap.loadMap(mapData);
+  myMap.draw();
+  // also need to set myMapID 
+}
+else {
+  // new map info
+  var myMapID = null;
+  myMap.author = userData.user_id;
+  myMap.title = "Untitled Map"
+  $( "#mapName" ).text(myMap.title);
+  myMap.draw();
+}
+
+
 
 // important makes pixel ratio and canvas size correct
 var resize=function(){
@@ -83,8 +102,6 @@ resize();
 
 
 // name box Stuffs
-
-
 $( "#mapName" ).dblclick(function() {
   $( "#mapNameEdit" ).val( $('#mapName').text() );
   toggleName();

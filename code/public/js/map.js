@@ -81,12 +81,12 @@ Map.prototype.loadMap = function(map){
 	this.author = map.author;
 	this.width = map.width;
 	this.height = map.height;
-	this.x = map.x;
-	this.y = map.y;
 	this.data = map.data;
 	this.env = map.env;
 	this.pixelWidth = this.width*40;
 	this.pixelHeight = this.height*40;
+
+	this.centerMap();
 };
 
 Map.prototype.drawTile = function(x, y){

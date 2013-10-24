@@ -24,11 +24,17 @@
         </div>
 
          <!-- including javascript stuffs -->
-
         <script src="public/js/ajax.js"></script>
         <script type="text/javascript">
             // passing the user login data via session to the client
+           
             var userData = <?php echo json_encode($_SESSION); ?>;
+
+            <?php if (!empty($_POST['mapData']) ) {?>
+                var mapData =   <?php echo $_POST['mapData'];?>.map ;
+                var myMapID = <?php echo $_POST['mapID'];?>;
+            <?php } ?>
+
         </script>
         <script src="public/js/map.js"></script>
         <script src="public/js/tileBrowser.js"></script>
