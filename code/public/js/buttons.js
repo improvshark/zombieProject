@@ -65,29 +65,17 @@ $('#butBar-toolbox')[0].onclick = function(){
 
 // tools --> playTest
 $('#butBar-playTest')[0].onclick = function(){
-    console.log('sending report');
-
-    console.dir(myMap.getMap());
-    var map =  JSON.stringify( { map: myMap.getMap()} ) ;
-
-    //console.log('seding this json: --->' + map);
     
-    var report = $.post('tools/update.php', { mapObj: map, send_map: true }, function(data){
-
-        var obj = JSON.parse(data);
-        console.log(data);
-        if (obj.success) {
+    sendMap(myMap.getMap(), function(data){
+            if (data.success) {
             //var win=window.open(obj.url, '_blank');
             //win.focus();
-           
             $('#playTestModal').modal()
-            $('#playTestIframe')[0].src = obj.url;
+            $('#playTestIframe')[0].src = data.url;
             $('#playTestIframe').focus();
         } 
 
-    });
-
-    
+    });    
 }
 
 // Example Response:

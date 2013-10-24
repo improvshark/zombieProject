@@ -119,3 +119,15 @@ function createMap (data,thumb, setID) {
 	})
 }
 
+function sendMap(map, callback ){
+	console.log('sending Map');
+    console.dir(map);
+
+    var sendMap =  JSON.stringify( { map: map} ) ;
+    
+    var report = $.post('tools/update.php', { mapObj: sendMap, send_map: true }, function(data){
+        var obj = JSON.parse(data);
+        callback(obj);
+    });
+}
+
