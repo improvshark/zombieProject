@@ -62,6 +62,16 @@ class Maps {
             return false;
         }
     }
+    public function getThumb($mapID) {
+        // if database connection opened
+        if ($this->databaseConnection()) {
+            // database query, getting all the info of the selected map
+            $result = $this->db_connection->query("SELECT png FROM mapPng WHERE mapID = '$mapID' ");
+            return $result->fetchObject()->{'png'};
+        } else {
+            return false;
+        }
+    }
 
     public function getMaps() {
         // if database connection opened
