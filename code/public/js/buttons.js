@@ -5,7 +5,7 @@ $('#butBar-save')[0].onclick = function(){
 
     if (myMapID == null){
         console.log('setting id to:'+ myMapID)
-        createMap(map, myMap.getThumb(), function(data){
+        createMap(map, myMap.getImage(), function(data){
             myMapID = data;
             console.log('setting id to:'+ myMapID)
         });
@@ -13,7 +13,7 @@ $('#butBar-save')[0].onclick = function(){
         
     }
     else {
-        saveMap(map, myMapID, myMap.getThumb());
+        saveMap(map, myMapID, myMap.getImage());
     }
 }
 

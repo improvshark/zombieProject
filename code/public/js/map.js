@@ -228,7 +228,7 @@ Map.prototype.getMap = function(){
 	}
 };
 
-Map.prototype.getThumb = function(){
+Map.prototype.getImage = function(){
 	console.log("creating map image");
 	temp = { height: this.canvas.height, width: this.canvas.width, 
 		x: this.x, y: this.y};
