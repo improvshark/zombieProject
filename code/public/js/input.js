@@ -46,6 +46,20 @@ $('#myCanvas').mousedown(function(evt){
 	}//end pencil tool
     //begin pen tool
 	else if (tool == 1 && !evt.ctrlKey ){  // if tool 1 is selected
+        /*end code to fix mouse move bug*/
+        if(evt.which == 1) { 
+            // set location of mouse click to click object
+            click = myMap.getTilePos(evt);  
+            // check if we are on map...if we are change tile
+            if (click != null) { myMap.changeTile(click.x, click.y, click1) }
+        }
+        else if (evt.which == 3 ) {
+            // set location of mouse click to click object
+            click = myMap.getTilePos(evt);  
+            // check if we are on map...if we are change tile
+            if (click != null) { myMap.changeTile(click.x, click.y, click2) }
+        }
+        /*end code to fix mouse move bug*/
 	    $('#myCanvas').mousemove(function(evt){
 
             if(evt.which == 1) {
@@ -95,9 +109,56 @@ $('#myCanvas').mousedown(function(evt){
             linin = false;
             clickEnd = myMap.getTilePos(evt);
 
+            console.log('X0: ' + clickStart.x + ' Y0: ' + clickStart.y);
+            console.log('X1: ' + clickEnd.x + ' Y1: ' + clickEnd.y);
+
             var dx;
             var dy;
-            var tmpX;
+            var sx;
+            var sy;
+            var err;
+            var e2;
+
+            dx = Math.abs(clickEnd.x - clickStart.x);
+            dy = Math.abs(clickEnd.y - clickStart.y);
+
+            if(clickStart.x < clickEnd.x)
+            {
+                sx = 1;
+            }else
+            {
+                sx = -1;
+            }
+
+            if(clickStart.y < clickEnd.y)
+            {
+                sy = 1;
+            }else
+            {
+                sy = -1;
+            }
+
+            err = dx - dy;
+
+
+            while(true)
+            {
+                myMap.changeTile(clickStart.x, clickStart.y, click1);
+                if(clickStart.x == clickEnd.x && clickStart.y == clickEnd.y) break;
+                e2 = 2*err;
+                if (e2 > -dy)
+                {
+                    err = err - dy;
+                    clickStart.x = clickStart.x + sx;
+                }
+                if (e2 < dx)
+                {
+                    err = err + dx;
+                    clickStart.y = clickStart.y + sy;
+                }
+            }
+
+            /*var tmpX;
             var tmpY;
 
                 if(clickEnd.x > clickStart.x)
@@ -138,13 +199,13 @@ $('#myCanvas').mousedown(function(evt){
                 //clickT.y = Math.abs(clickT.y);
                 myMap.changeTile(clickT.x, clickT.y, click1);
                 myMap.draw();
-            }
+            }*/
 
 
 
         }
 
-    }else if (tool == 4 && !evt.ctrlKey)//bucket tool
+    }else if (tool == 5 && !evt.ctrlKey)//bucket tool
     {
             coord = myMap.getTilePos(evt);
             compTile = myMap.getTile(evt);
@@ -154,7 +215,7 @@ $('#myCanvas').mousedown(function(evt){
             rTileChanger(coord.x, coord.y, compTile, click1);
 
             myMap.draw();
-    }else if (tool == 5 && !evt.ctrlKey)//peecker (yes peecker)
+    }else if (tool == 4 && !evt.ctrlKey)//peecker (yes peecker)
     {
         click1 = myMap.getTile(evt);
         tool = tempTool;
@@ -165,21 +226,24 @@ $('#myCanvas').mousedown(function(evt){
 
 var rTileChanger = function(varX, varY, compTile, chTile){
 
-    var currTile = myMap.getxyTile(varX, varY);
-    console.log("currTile: " + currTile + "compTile: " + compTile);
-
-    if(currTile != compTile)
+    if(!myMap.isOverMapXY(varX, varY))
     {
-        return;
-    }
-    else if(currTile == compTile)
-    {
-        myMap.changeTile(varX, varY, chTile);
+        var currTile = myMap.getxyTile(varX, varY);
+        console.log("currTile: " + currTile + "compTile: " + compTile);
 
-        rTileChanger(varX + 1/*myMap.width*/, varY, compTile, chTile); //go right
-        rTileChanger(varX - 1/*myMap.width*/, varY, compTile, chTile); //go left
-        rTileChanger(varX, varY - 1/*myMap.height*/, compTile, chTile); //go up
-        rTileChanger(varX, varY + 1/*myMap.height*/, compTile, chTile); //go down
+        if(currTile != compTile || currTile == chTile)
+        {
+            return;
+        }
+        else if(currTile == compTile)
+        {
+            myMap.changeTile(varX, varY, chTile);
+
+            rTileChanger(varX + 1/*myMap.width*/, varY, compTile, chTile); //go right
+            rTileChanger(varX - 1/*myMap.width*/, varY, compTile, chTile); //go left
+            rTileChanger(varX, varY - 1/*myMap.height*/, compTile, chTile); //go up
+            rTileChanger(varX, varY + 1/*myMap.height*/, compTile, chTile); //go down
+        }
     }
 
 };
