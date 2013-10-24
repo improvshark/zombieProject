@@ -229,20 +229,26 @@ Map.prototype.getMap = function(){
 };
 
 Map.prototype.getThumb = function(){
+	console.log("creating map image");
+	temp = { height: this.canvas.height, width: this.canvas.width, 
+		x: this.x, y: this.y};
+
+	this.canvas.width = this.pixelWidth;
+	this.canvas.height = this.pixelHeight;
+	this.x = 0;
+	this.y = 0;
+
+	this.draw();
+
+	var thumb = this.canvas.toDataURL();
 	
+	this.canvas.width = temp.width;
+	this.canvas.height = temp.height;
+	this.x = temp.x;
+	this.y = temp.y;
 
-	var imgData = this.context.getImageData(this.x, this.y, this.pixelWidth, this.pixelHeight); // get image from current canvas
-	
-	// create a temp canvas to work with
-	var tempCanvas = document.createElement("canvas"),
-        tCtx = tempCanvas.getContext("2d");
-    tempCanvas.setAttribute('id',tempCanvas);
-	tempCanvas.width = this.pixelWidth;
-    tempCanvas.height = this.pixelHeight;
-    tCtx.putImageData(imgData,0,0);
+	this.draw();
 
-
-	var thumb = tempCanvas.toDataURL();
 	console.dir(thumb);
 	return thumb;
 }
