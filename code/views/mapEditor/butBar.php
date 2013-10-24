@@ -29,7 +29,7 @@
 <div class="navbar  navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <p href="" class="navbar-brand" id="mapName">Untitled Map</p>
+            <div href="" class="navbar-brand" id="mapName"></div>
             <div class="navbar-form navbar-left" id="mapNameEditDiv">
                 <input type="text" class="form-control col-lg-8 " value="Untitled" id="mapNameEdit">
             </div>
