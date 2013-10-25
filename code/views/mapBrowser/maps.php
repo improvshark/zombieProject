@@ -12,7 +12,9 @@
 						<input type="hidden" value="<?php echo str_replace("\"", "'", $row['data']	); ?>" name="mapData">
 						<input type="hidden" value="<?php echo $row['mapID']; ?>" name="mapID" >
 						<input type="submit" class="btn btn-default btn-sm" value="edit">
+						
 					</form>
+					<button  class="btn btn-default btn-sm" onclick="playMap(<?php echo str_replace("\"", "'", $row['data']	); ?>);">Play</button>
 				</div>
 			</div>
 		</div>

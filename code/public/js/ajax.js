@@ -127,6 +127,8 @@ function sendMap(map, callback ){
     
     var report = $.post('tools/update.php', { mapObj: sendMap, send_map: true }, function(data){
         var obj = JSON.parse(data);
+        console.log('responce');
+        console.dir(data);
         callback(obj);
     });
 }
