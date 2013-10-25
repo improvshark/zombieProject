@@ -116,6 +116,12 @@ $('#mapNameEdit').keypress(function(event) {
       }
 });
 
+$('#mapNameEdit').blur(function() {
+  toggleName();
+  $( "#mapName" ).text($('#mapNameEdit').val());
+  myMap.title = $('#mapNameEdit').val();
+});
+
 var toggleName = function()
 {
   if ( $('#mapName').is(":visible")){
