@@ -38,9 +38,7 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
-            <li class="#" id="navbar-play"> <a href="#">Play</a> </li>
-            <li class="" id="navbar-maps"><a href="mapBrowser.php">Maps</a></li>
-
+            <li class="#" id="navbar-play"> <a href="play.php">Play</a> </li>
                 <?php 
 				if ($login->isUserLoggedIn() == true and ($login->isDeveloper() or $login->isAdmin()) ) { ?>
 					<li id="navbar-designer" class="dropdown">
