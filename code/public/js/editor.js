@@ -116,17 +116,16 @@ $('#mapNameEdit').keypress(function(event) {
       }
 });
 
-$('#mapNameEdit').blur(function() {
-  toggleName();
-  $( "#mapName" ).text($('#mapNameEdit').val());
-  myMap.title = $('#mapNameEdit').val();
-});
-
 var toggleName = function()
 {
   if ( $('#mapName').is(":visible")){
     $('#mapName').hide();
     $('#mapNameEditDiv').show();
+    $('#mapNameEdit').blur(function() {
+      toggleName();
+      $( "#mapName" ).text($('#mapNameEdit').val());
+      myMap.title = $('#mapNameEdit').val();
+    });
   } else {
     $('#mapName').show();
     $('#mapNameEditDiv').hide();
