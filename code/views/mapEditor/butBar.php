@@ -49,7 +49,6 @@
                         <li><a id="butBar-open" class="" > Open</a></li>
                         <li><a id="butBar-save" class="" > Save</a></li>
                         <li><a id="butBar-download" class="" > Download</a></li>
-                        <li><a id="butBar-close" class="" href="index.php"> Close</a></li>
                         <li><a id="butBar-exit" class="" href="index.php"> Exit</a></li>
                     </ul>
                 </li>

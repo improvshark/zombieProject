@@ -60,12 +60,7 @@ var tiles2 = new Image()
 tiles2.src = 'public/img/tiles.png';
 
  // create map object pass canvase and tiles image  
-
-
 myMap = new Map( document.getElementById('myCanvas'), tiles2);
-
-
-
 
 // load map stuffs
 if (typeof mapData !='undefined' ){

@@ -1,3 +1,8 @@
+// fle --> new
+$('#butBar-new')[0].onclick = function(){
+    self.location=("editor.php");
+}
+
 
 // fle --> save
 $('#butBar-save')[0].onclick = function(){
