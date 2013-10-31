@@ -35,13 +35,18 @@ function Map(canvas, image, height, width ) {
 	this.terrainTile = 22; //default to 22 which is grass.
 
 	// filling the array of arrays
-	this.data = {bottom: [], middle: [], top: []};
+	this.data = [];
     for (var j = 0; j < this.height; j++) {
-    	this.data.bottom[j] = [];
+    	this.data[j] = [];
         for (var i = 0; i < this.width; i++) {  	
-        	this.data.bottom[j][i] = this.terrainTile;
+        	var obj = {};
+        	obj.tile = this.terrainTile;
+        	this.data[j][i] = obj;
         }
     }
+
+    console.log('data: ');
+    console.dir(this.data);
 
 
 	// there has to be a better way :(
@@ -81,33 +86,42 @@ Map.prototype.loadMap = function(map){
 	this.author = map.author;
 	this.width = map.width;
 	this.height = map.height;
-	this.data = map.data;
 	this.env = map.env;
 	this.pixelWidth = this.width*40;
 	this.pixelHeight = this.height*40;
 
+	for (var i = 0; i < map.width; i++) {
+		for (var j = 0; j < map.height; j++) {
+			this.data[i][j] = {};
+			this.data[i][j].tile = map.data.bottom[i][j];
+		};
+	};
 	this.centerMap();
 };
 
 Map.prototype.drawTile = function(x, y){
 
 	var divider = 8; // number of tiles in a row
-	var sourceX = (this.data.bottom[y][x]%divider) 
-	var sourceY = Math.floor(this.data.bottom[y][x]/divider)
+	var sourceX = (this.data[y][x].tile%divider) 
+	var sourceY = Math.floor(this.data[y][x].tile/divider)
 	var tileSize = 40;
 	var destX = this.x+((this.pixelWidth/this.width) *x);
 	var destY = this.y+((this.pixelHeight/this.height) *y);
 	var destWidth = this.pixelWidth/this.width
 	var destHeight=  this.pixelHeight/this.height;
+	var grid = this.grid;
+	var color = this.gridColor;
+
+
 	if ( this.isInCanvas({x: destX, y: destY, height: destHeight, width: destWidth}) ) {
-		if (this.grid > 0) {
+		if (grid > 0) {
 			this.context.beginPath(); // telling the canvas that we are starting a draw of something
 			this.context.rect(
 				destX, destY, // x and y position of the rectangle
 				destWidth ,destHeight  // the height and width of the rectangle
 			);
-			this.context.lineWidth = this.grid; // the thickness of the rectangle
-			this.context.strokeStyle = this.gridColor; // the color of the rectangle
+			this.context.lineWidth = grid; // the thickness of the rectangle
+			this.context.strokeStyle = color; // the color of the rectangle
 			this.context.stroke(); // draw the rectangle
 		}
 
@@ -115,8 +129,8 @@ Map.prototype.drawTile = function(x, y){
 			this.image, // the image we are croping to get our tile
 			(sourceX*tileSize), (sourceY*tileSize), // the x and y location we will crop in relation to the tile image
 			tileSize, tileSize,	// the height and width of our crop in relation to the tile image
-			destX+(this.grid/2), destY+(this.grid/2), // the x and y location we will be placing the cropped image on the canvas
-			destWidth-this.grid, destHeight-this.grid // the final height and width of our tile that will be drawn on the canvas
+			destX+(grid/2), destY+(grid/2), // the x and y location we will be placing the cropped image on the canvas
+			destWidth-grid, destHeight-grid // the final height and width of our tile that will be drawn on the canvas
 		);
 	}
 
@@ -150,7 +164,7 @@ Map.prototype.centerMap = function(){
 Map.prototype.shrinkHeight = function(height){
 	console.log('my height: ' + this.height + " shrinking to: "+ height);
 	var diff = this.height - height;
-    this.data.bottom.splice(height, diff);
+    this.data.splice(height, diff);
 	this.pixelHeight -= (this.pixelHeight/ this.height) * (this.height - height);
 	this.height = height;
 }
@@ -158,9 +172,10 @@ Map.prototype.shrinkHeight = function(height){
 Map.prototype.growHeight = function(height){
 	console.log('my height: ' + this.height + " growing to: "+ height);
 	for (var i = this.height; i < height; i++) {
-		this.data.bottom[i] = []; // make new array
+		this.data[i] = []; // make new array
 		for (var j = 0; j < this.width; j++) {
-			this.data.bottom[i][j] = this.terrainTile;
+			this.data[i][j] = {};
+			this.data[i][j].tile = this.terrainTile;
 		};
 	};
 	this.pixelHeight += (this.pixelHeight/ this.height) * (height - this.height);
@@ -171,7 +186,7 @@ Map.prototype.shrinkWidth = function(width){
 	console.log('my width: ' + this.width + " shrinking to: "+ width);
 	var diff =  this.width - width;
 	for (var i = 0; i < this.height; i++) {
-    	this.data.bottom[i].splice(width, diff);
+    	this.data[i].splice(width, diff);
 	};
 	this.pixelWidth -= (this.pixelWidth/ this.width) * diff;
 	this.width = width;
@@ -181,7 +196,9 @@ Map.prototype.growWidth = function(width){
 	console.log('my width: ' + this.width + " growing to: "+ width);
 	for (var i = 0; i < this.height; i++) {
 		for (var j = this.width; j < width; j++) {
-			this.data.bottom[i][j] = this.terrainTile;  
+			this.data[i][j] = this.terrainTile;
+			this.data[i][j] = {};
+			this.data[i][j].tile = this.terrainTile;  
 		};
 	};
 	this.pixelWidth += (this.pixelWidth/ this.width) * (width - this.width);
@@ -191,7 +208,7 @@ Map.prototype.growWidth = function(width){
 Map.prototype.resize = function(width, height){
 	console.log('current: x:' + this.width + " y:" + this.height)
 	console.log("going to x:" + width + " y:" + height);
-	console.log(this.data.bottom);
+	console.log(this.data);
 
 	width = parseInt(width);
 	height = parseInt(height);
@@ -201,21 +218,31 @@ Map.prototype.resize = function(width, height){
 
 	if (width > this.width){ this.growWidth(width); }
 	else if (width < this.width ) { this.shrinkWidth(width); }
-	console.log(this.data.bottom);
+	console.log(this.data);
 	this.centerMap();
 	this.draw();
 }
 
 Map.prototype.fill = function(tile){
     for (var j = 0; j < this.height; j++) {
-    	this.data.bottom[j] = [];
+    	this.data[j] = [];
         for (var i = 0; i < this.width; i++) {  	
-        	this.data.bottom[j][i] = tile;
+        	this.data[j][i] = tile;
         }
     }
 }
 
 Map.prototype.getMap = function(){
+
+	var mapData = {bottom: [], middle: [], top: []};
+
+	for (var i = 0; i < this.width; i++) {
+		mapData.bottom[i] = [];
+		for (var j = 0; j < this.height; j++) {
+			mapData.bottom[i][j] = this.data[i][j].tile;
+		};
+	};
+
 	return {
 		title: this.title,
 		author: this.author,
@@ -223,7 +250,7 @@ Map.prototype.getMap = function(){
 		height: this.height,
 		x: 0,
 		y: 0,
-		data: this.data,
+		data: mapData,
 		env: this.env,
 	}
 };
@@ -270,6 +297,7 @@ Map.prototype.isOverMap = function(mousePos) {
 	}
 };
 
+// why did you add this function??? its the same as isOverMap?????
 Map.prototype.isOverMapXY = function(mousePosX, mousePosY) {
 	if ( (mousePosX < this.x || mousePosX > this.x + this.pixelWidth) || (mousePosY < this.y || mousePosY > this.y + this.pixelHeight)){	
 		return false;
@@ -312,23 +340,27 @@ Map.prototype.getTilePos = function(evt) {
 Map.prototype.getTile = function(evt){
 	var tilePos = this.getTilePos(evt)
 	console.log('tilepos: x:'+tilePos.x + " y:" +tilePos.y )
-	console.log('this: '+ this.data.bottom[tilePos.y][tilePos.x])
-	return this.data.bottom[tilePos.y][tilePos.x];
+	console.log('this: '+ this.data[tilePos.y][tilePos.x])
+	return this.data[tilePos.y][tilePos.x].tile;
 }
-// this function will change the selected tile and redraw
-Map.prototype.changeTile = function(x, y, tile){
-	this.data.bottom[y][x] = tile;
-};
 
 Map.prototype.getxyTile = function(x, y){
-	return this.data.bottom[y][x];
+	return this.data[y][x].tile;
 };
 
 
 // this function will change the selected tile and redraw
 Map.prototype.changeTile = function(x, y, tile){
-	this.data.bottom[y][x] = tile;
+	this.data[y][x].tile = tile;
 	this.drawTile(x, y);
+};
+
+// this function will change the selected tile and redraw
+Map.prototype.selectTile = function(x, y){
+	console.log('selecting tile x:'+x + ' y:'+ y);
+	this.data[y][x].select = true;
+
+	console.log('seleceted: '+ this.data[y][x]);
 };
 
 Map.prototype.drag = function(evt){
