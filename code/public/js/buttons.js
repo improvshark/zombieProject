@@ -113,13 +113,19 @@ $('#butBar-fill')[0].onclick = function(){
 
     // get tile selected from tile browser
     $('#fillTool')[0].onclick = function(evt){
+
+       var pos = fillBrowser.getTilePos(evt);
+        fillBrowser.selectRight(pos.x, pos.y);
         fillSelected  = fillBrowser.getTile(evt);
+
     }
     $('#fillBtn')[0].onclick = function(evt){
         myMap.terrainTile = fillSelected;
         myMap.fill(fillSelected);
         myMap.draw();
     }
+
+
 
     $('#fillModal').modal()
 
