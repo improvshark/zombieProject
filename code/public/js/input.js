@@ -5,8 +5,11 @@ var click2 = 1;	// right click
 var tool = 1; // tool selected from toolbar
 var tempTool = 1;//Temp tool to hold previous tool for picker
 
+
 // TODO: move this to  toolbar.js 
-var linin = false;//flag to control the line scketching 
+var linin = false;//flag to control the line scketching
+var whichclick = "right";
+var whichclick2 = "right";
 var clickStart = {x: 0, y: 0};
 var clickEnd = {x: 0, y: 0};
 var clickT = {x: 0, y: 0};//click variable for toolbar
@@ -106,107 +109,43 @@ $('#myCanvas').mousedown(function(evt){
     else if (tool == 3 && !evt.ctrlKey)
     {
         console.log('linin: ' + linin);
-        if(linin == false){                                                
+        if(linin == false)
+        {                                                
             linin = true;
             clickStart = myMap.getTilePos(evt);
+            if(evt.which == 1){
+                whichclick = "right";
+            }else if (evt.which == 3){
+                whichclick = "left";
+            }
         }else if (linin == true)
         {
-            linin = false;
-            clickEnd = myMap.getTilePos(evt);
-
-            console.log('X0: ' + clickStart.x + ' Y0: ' + clickStart.y);
-            console.log('X1: ' + clickEnd.x + ' Y1: ' + clickEnd.y);
-
-            var dx;
-            var dy;
-            var sx;
-            var sy;
-            var err;
-            var e2;
-
-            dx = Math.abs(clickEnd.x - clickStart.x);
-            dy = Math.abs(clickEnd.y - clickStart.y);
-
-            if(clickStart.x < clickEnd.x)
-            {
-                sx = 1;
-            }else
-            {
-                sx = -1;
+            if(evt.which == 1){
+                whichclick2 = "right";
+            }else if (evt.which == 3){
+                whichclick2 = "left";
             }
 
-            if(clickStart.y < clickEnd.y)
+            if(whichclick == whichclick2)
             {
-                sy = 1;
-            }else
-            {
-                sy = -1;
-            }
-
-            err = dx - dy;
-
-
-            while(true)
-            {
-                myMap.changeTile(clickStart.x, clickStart.y, click1);
-                if(clickStart.x == clickEnd.x && clickStart.y == clickEnd.y) break;
-                e2 = 2*err;
-                if (e2 > -dy)
+                linin = false;
+                if(whichclick == "right")
                 {
-                    err = err - dy;
-                    clickStart.x = clickStart.x + sx;
-                }
-                if (e2 < dx)
-                {
-                    err = err + dx;
-                    clickStart.y = clickStart.y + sy;
-                }
-            }
-
-            /*var tmpX;
-            var tmpY;
-
-                if(clickEnd.x > clickStart.x)
-                {
-                    console.log('In && --> x1: '+clickStart.x+' y1: '+clickStart.y+' x2: '+clickEnd.x+' y2: '+clickEnd.y);
-                    dx = clickEnd.x - clickStart.x;
-                    dy = clickEnd.y - clickStart.y;
-
+                    drawLine(evt, click1, clickStart);
                 }else
                 {
-                    console.log('In !&& --> x1: '+clickStart.x+' y1: '+clickStart.y+' x2: '+clickEnd.x+' y2: '+clickEnd.y);
-                    tmpX = clickEnd.x;
-                    clickEnd.x = clickStart.x;
-                    clickStart.x = tmpX;
-
-                    dx = clickEnd.x - clickStart.x;
-
-                    tmpY = clickEnd.y;
-                    clickEnd.y = clickStart.y;
-                    clickStart.y = tmpY;
-
-                     dy = clickEnd.y - clickStart.y;
+                    drawLine(evt, click2, clickStart);
                 }
-
-            for(var i = clickStart.x; i<=clickEnd.x; i++)
-            {
-                clickT.x = i;
-                if(dx == 0)
-                {
-                    dx = 1;//protection for divide by 0
+                
+            }else
+            {  
+                clickStart = myMap.getTilePos(evt);
+                if(evt.which == 1){
+                    whichclick = "right";
+                }else if (evt.which == 3){
+                    whichclick = "left";
                 }
-                clickT.y = Math.floor(clickStart.y + (dy)*(i - clickStart.x)/(dx));
-
-                //console.log('x1: '+clickStart.x+' y1: '+clickStart.y+' x2: '+clickEnd.x+' y2: '+clickEnd.y);
-
-                //console.log('Changing tile; x: ' + clickT.x + ' y: ' + clickT.y + ' tile: ' +click1);
-                //clickT.x = Math.abs(clickT.x);
-                //clickT.y = Math.abs(clickT.y);
-                myMap.changeTile(clickT.x, clickT.y, click1);
-                myMap.draw();
-            }*/
-
-
+            }
 
         }
 
@@ -217,12 +156,22 @@ $('#myCanvas').mousedown(function(evt){
 
             console.log("Tile pos, x: " + coord.x + " y: " + coord.y + ". compTile: " + compTile);
 
-            rTileChanger(coord.x, coord.y, compTile, click1);
-
+            if(evt.which == 1){
+                rTileChanger(coord.x, coord.y, compTile, click1);
+            }else if (evt.which == 3){
+                rTileChanger(coord.x, coord.y, compTile, click2);
+            }
+            
             myMap.draw();
     }else if (tool == 4 && !evt.ctrlKey)//peecker (yes peecker)
     {
-        click1 = myMap.getTile(evt);
+
+        if(evt.which == 1){
+            click1 = myMap.getTile(evt);
+        }else if (evt.which == 3){
+            click2 = myMap.getTile(evt);
+        }
+        
         tool = tempTool;
 
     }//it was so hard to do this...
@@ -253,6 +202,60 @@ var rTileChanger = function(varX, varY, compTile, chTile){
     }
 
 };
+
+var drawLine = function(evt, side, clickStart)
+{
+    clickEnd = myMap.getTilePos(evt);
+
+    console.log('X0: ' + clickStart.x + ' Y0: ' + clickStart.y);
+    console.log('X1: ' + clickEnd.x + ' Y1: ' + clickEnd.y);
+
+    var dx;
+    var dy;
+    var sx;
+    var sy;
+    var err;
+    var e2;
+
+    dx = Math.abs(clickEnd.x - clickStart.x);
+    dy = Math.abs(clickEnd.y - clickStart.y);
+
+    if(clickStart.x < clickEnd.x)
+    {
+        sx = 1;
+    }else
+    {
+        sx = -1;
+    }
+
+    if(clickStart.y < clickEnd.y)
+    {
+        sy = 1;
+    }else
+    {
+        sy = -1;
+    }      
+
+    err = dx - dy;
+
+
+    while(true)
+    {
+        myMap.changeTile(clickStart.x, clickStart.y, side);
+        if(clickStart.x == clickEnd.x && clickStart.y == clickEnd.y) break;
+        e2 = 2*err;
+        if (e2 > -dy)
+        {
+            err = err - dy;
+            clickStart.x = clickStart.x + sx;
+        }
+        if (e2 < dx)
+        {
+            err = err + dx;
+            clickStart.y = clickStart.y + sy;
+        }
+    }
+}
 
 
 // starts the drag of the map
