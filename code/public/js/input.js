@@ -183,7 +183,7 @@ $('#myCanvas').mousedown(function(evt){
 // TODO: move this to  toolbar.js 
 var rTileChanger = function(varX, varY, compTile, chTile){
 
-    if(myMap.boundsCheck({varX, varY}))
+    if(myMap.boundsCheck(varX, varY))
     {
         var currTile = myMap.getxyTile(varX, varY);
         console.log("currTile: " + currTile + "compTile: " + compTile);
