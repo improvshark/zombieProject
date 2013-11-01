@@ -150,8 +150,12 @@ $('#myCanvas').mousedown(function(evt){
 
             console.log("Tile pos, x: " + coord.x + " y: " + coord.y + ". compTile: " + compTile);
 
-            rTileChanger(coord.x, coord.y, compTile, click1);
-
+            if(evt.which == 1){
+                rTileChanger(coord.x, coord.y, compTile, click1);
+            }else if (evt.which == 3){
+                rTileChanger(coord.x, coord.y, compTile, click2);
+            }
+            
             myMap.draw();
     }else if (tool == 4 && !evt.ctrlKey)//peecker (yes peecker)
     {
