@@ -320,7 +320,7 @@ Map.prototype.isOverMapXY = function(mousePosX, mousePosY) {
 };
 
 Map.prototype.boundsCheck = function(x, y){
-	return (x > 0 && x <= this.width) && (y > 0 && y <= this.height) 
+	return (x >= 0 && x < this.width) && (y >= 0 && y < this.height) 
 }
 
 Map.prototype.isInCanvas = function(obj) {
