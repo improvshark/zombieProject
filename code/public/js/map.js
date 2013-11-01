@@ -90,12 +90,16 @@ Map.prototype.loadMap = function(map){
 	this.pixelWidth = this.width*40;
 	this.pixelHeight = this.height*40;
 
-	for (var i = 0; i < map.width; i++) {
-		for (var j = 0; j < map.height; j++) {
-			this.data[i][j] = {};
-			this.data[i][j].tile = map.data.bottom[i][j];
-		};
-	};
+    for (var j = 0; j < this.height; j++) {
+    	this.data[j] = [];
+        for (var i = 0; i < this.width; i++) {  	
+        	var obj = {};
+        	obj.tile = map.data.bottom[j][i];
+        	this.data[j][i] = obj;
+        }
+    }
+
+	console.dir(this.data);
 	this.centerMap();
 };
 
@@ -224,10 +228,10 @@ Map.prototype.resize = function(width, height){
 }
 
 Map.prototype.fill = function(tile){
+
     for (var j = 0; j < this.height; j++) {
-    	this.data[j] = [];
         for (var i = 0; i < this.width; i++) {  	
-        	this.data[j][i] = tile;
+        	this.data[j][i].tile = tile;
         }
     }
 }
@@ -236,12 +240,12 @@ Map.prototype.getMap = function(){
 
 	var mapData = {bottom: [], middle: [], top: []};
 
-	for (var i = 0; i < this.width; i++) {
-		mapData.bottom[i] = [];
-		for (var j = 0; j < this.height; j++) {
-			mapData.bottom[i][j] = this.data[i][j].tile;
-		};
-	};
+    for (var j = 0; j < this.height; j++) {
+    	mapData.bottom[j] = [];
+        for (var i = 0; i < this.width; i++) { 
+        	mapData.bottom[j][i] = this.data[j][i].tile;
+        }
+    }
 
 	return {
 		title: this.title,
