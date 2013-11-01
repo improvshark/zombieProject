@@ -19,15 +19,15 @@ $('#myTileBrowser').mousedown(function(evt){
         tool = tempTool;
     }
     var pos = tileBrowser.getTilePos(evt);
-    tileBrowser.selectTile(pos.x, pos.y);
-    tileBrowser.draw();
 
     if( evt.which == 1){
         click1 = tileBrowser.getTile(evt);
+        tileBrowser.selectRight(pos.x, pos.y);
 
     }
     if ( evt.which == 3){
        click2 = tileBrowser.getTile(evt); 
+       tileBrowser.selectLeft(pos.x, pos.y);
     }
 })
 

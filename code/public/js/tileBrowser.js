@@ -2,6 +2,9 @@
  	Map.apply(this, arguments); // important
 	this.grid = 1;
 
+    this.rightClick = {x: null, y: null};
+    this.leftClick = {x: null, y: null};
+
 	// filling the map
 	this.data = [];
 	var count = 0;
@@ -21,3 +24,25 @@
 TileBrowser.prototype = new Map(); // inherit map
 TileBrowser.prototype.constructor = TileBrowser; // set correct constructor
 
+TileBrowser.prototype.selectRight = function(x, y){
+    this.selectTile(x, y, "blue");
+
+    if( (this.rightClick.x != null && this.rightClick.y != null))  {
+
+        this.unselectTile(this.rightClick.x, this.rightClick.y);
+    }
+
+    this.rightClick.x = x;
+    this.rightClick.y = y;
+};
+
+TileBrowser.prototype.selectLeft = function(x, y){
+    this.selectTile(x, y, "red");
+
+    if( this.leftClick.x != null && this.leftClick.y != null){
+        this.unselectTile(this.leftClick.x, this.leftClick.y);
+    }
+    
+    this.leftClick.x = x;
+    this.leftClick.y = y;
+};

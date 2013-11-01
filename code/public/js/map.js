@@ -103,7 +103,7 @@ Map.prototype.loadMap = function(map){
 	this.centerMap();
 };
 
-Map.prototype.drawTile = function(x, y){
+Map.prototype.drawTile = function(x, y, color){
 
 	var grid = this.grid;
 	var color = this.gridColor;
@@ -112,7 +112,7 @@ Map.prototype.drawTile = function(x, y){
 
 		console.log('drawing selected tile');
 		grid = 3;
-		color = "blue";
+		color = this.data[y][x].selectColor;
 	}
 
 	var divider = 8; // number of tiles in a row
@@ -125,6 +125,15 @@ Map.prototype.drawTile = function(x, y){
 	var destHeight=  this.pixelHeight/this.height - grid;
 
 	if ( this.isInCanvas({x: destX, y: destY, height: destHeight, width: destWidth}) ) {
+
+		this.context.drawImage(
+			this.image, // the image we are croping to get our tile
+			(sourceX*tileSize), (sourceY*tileSize), // the x and y location we will crop in relation to the tile image
+			tileSize, tileSize,	// the height and width of our crop in relation to the tile image
+			destX+(grid/2), destY+(grid/2), // the x and y location we will be placing the cropped image on the canvas
+			destWidth-grid, destHeight-grid // the final height and width of our tile that will be drawn on the canvas
+		);
+
 		if (grid > 0) {
 			this.context.beginPath(); // telling the canvas that we are starting a draw of something
 			this.context.rect(
@@ -135,14 +144,6 @@ Map.prototype.drawTile = function(x, y){
 			this.context.strokeStyle = color; // the color of the rectangle
 			this.context.stroke(); // draw the rectangle
 		}
-
-		this.context.drawImage(
-			this.image, // the image we are croping to get our tile
-			(sourceX*tileSize), (sourceY*tileSize), // the x and y location we will crop in relation to the tile image
-			tileSize, tileSize,	// the height and width of our crop in relation to the tile image
-			destX+(grid/2), destY+(grid/2), // the x and y location we will be placing the cropped image on the canvas
-			destWidth-grid, destHeight-grid // the final height and width of our tile that will be drawn on the canvas
-		);
 	}
 
 }
@@ -367,10 +368,23 @@ Map.prototype.changeTile = function(x, y, tile){
 };
 
 // this function will change the selected tile and redraw
-Map.prototype.selectTile = function(x, y){
+Map.prototype.selectTile = function(x, y, color){
 	console.log('selecting tile x:'+x + ' y:'+ y);
+
+	if( typeof color == undefined){
+		this.data[y][x].selectColor = "black";
+	} else {
+		this.data[y][x].selectColor = color;
+	}
+
 	this.data[y][x].select = true;
-	this.drawTile(x, y);
+	this.draw();
+};
+
+Map.prototype.unselectTile = function(x, y){
+	delete this.data[y][x].select;
+	delete this.data[y][x].selectColor;
+	this.draw();
 };
 
 Map.prototype.drag = function(evt){
