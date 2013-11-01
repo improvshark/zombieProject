@@ -12,6 +12,8 @@ var clickStart = {x: 0, y: 0};
 var clickEnd = {x: 0, y: 0};
 var clickT = {x: 0, y: 0};//click variable for toolbar
 
+var thickness = 10;
+
 
 // get tile selected from tile browser
 $('#myTileBrowser').mousedown(function(evt){
@@ -53,13 +55,13 @@ $('#myCanvas').mousedown(function(evt){
             // set location of mouse click to click object
             click = myMap.getTilePos(evt);  
             // check if we are on map...if we are change tile
-            if (click != null) { myMap.changeTile(click.x, click.y, click1) }
+            if (click != null) { rBigChanger(click.x, click.y, click1, thickness) }
         }
         else if (evt.which == 3 ) {
             // set location of mouse click to click object
             click = myMap.getTilePos(evt);  
             // check if we are on map...if we are change tile
-            if (click != null) { myMap.changeTile(click.x, click.y, click2) }
+            if (click != null) { rBigChanger(click.x, click.y, click2, thickness) }
         }
         /*end code to fix mouse move bug*/
 	    $('#myCanvas').mousemove(function(evt){
@@ -68,13 +70,13 @@ $('#myCanvas').mousedown(function(evt){
                 // set location of mouse click to click object
                 click = myMap.getTilePos(evt);  
                 // check if we are on map...if we are change tile
-                if (click != null) { myMap.changeTile(click.x, click.y, click1) }
+                if (click != null) { rBigChanger(click.x, click.y, click1, thickness) }
             }
             else if (evt.which == 3 ) {
                 // set location of mouse click to click object
                 click = myMap.getTilePos(evt);  
                 // check if we are on map...if we are change tile
-                if (click != null) { myMap.changeTile(click.x, click.y, click2) }
+                if (click != null) { rBigChanger(click.x, click.y, click1, thickness) }
             }
         	//myMap.draw(); // redraw map so we can see changes
 	    });
@@ -155,7 +157,7 @@ $('#myCanvas').mousedown(function(evt){
             }else if (evt.which == 3){
                 rTileChanger(coord.x, coord.y, compTile, click2);
             }
-            
+
             myMap.draw();
     }else if (tool == 4 && !evt.ctrlKey)//peecker (yes peecker)
     {
@@ -191,6 +193,28 @@ var rTileChanger = function(varX, varY, compTile, chTile){
             rTileChanger(varX - 1/*myMap.width*/, varY, compTile, chTile); //go left
             rTileChanger(varX, varY - 1/*myMap.height*/, compTile, chTile); //go up
             rTileChanger(varX, varY + 1/*myMap.height*/, compTile, chTile); //go down
+        }
+    }
+
+};
+
+var rBigChanger = function(varX, varY, chTile,timesThickness)
+{
+    if(!myMap.isOverMapXY(varX, varY))
+    {
+
+        if(timesThickness == 0)
+        {
+            return;
+        }
+        else
+        {
+            myMap.changeTile(varX, varY, chTile);
+
+            rBigChanger(varX + 1/*myMap.width*/, varY, chTile, timesThickness-1); //go right
+            rBigChanger(varX - 1/*myMap.width*/, varY, chTile, timesThickness-1); //go left
+            rBigChanger(varX, varY - 1/*myMap.height*/, chTile, timesThickness-1); //go up
+            rBigChanger(varX, varY + 1/*myMap.height*/, chTile, timesThickness-1); //go down
         }
     }
 
