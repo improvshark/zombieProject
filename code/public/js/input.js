@@ -64,7 +64,7 @@ $('#myCanvas').mousedown(function(evt){
             click = myMap.getTilePos(evt);  
             // check if we are on map...if we are change tile
             console.log("About to brush");
-            if (click != null) { rBigChanger(click.x, click.y, click1, thickness) }
+            if (click != null) { rBigChanger(click, click1, thickness) }
 
         }
         else if (evt.which == 3 ) {
@@ -72,7 +72,7 @@ $('#myCanvas').mousedown(function(evt){
             click = myMap.getTilePos(evt);  
             // check if we are on map...if we are change tile
             console.log("About to brush");
-            if (click != null) { rBigChanger(click.x, click.y, click2, thickness) }
+            if (click != null) { rBigChanger(click, click2, thickness) }
         }
         /*end code to fix mouse move bug*/
 	    $('#myCanvas').mousemove(function(evt){
@@ -81,13 +81,13 @@ $('#myCanvas').mousedown(function(evt){
                 // set location of mouse click to click object
                 click = myMap.getTilePos(evt);  
                 // check if we are on map...if we are change tile
-                if (click != null) { rBigChanger(click.x, click.y, click1, thickness) }
+                if (click != null) { rBigChanger(click, click1, thickness) }
             }
             else if (evt.which == 3 ) {
                 // set location of mouse click to click object
                 click = myMap.getTilePos(evt);  
                 // check if we are on map...if we are change tile
-                if (click != null) { rBigChanger(click.x, click.y, click1, thickness) }
+                if (click != null) { rBigChanger(click, click1, thickness) }
             }
         	//myMap.draw(); // redraw map so we can see changes
 	    });
@@ -98,12 +98,11 @@ $('#myCanvas').mousedown(function(evt){
         //This gets the default tile (ie. grass, sand,...) to simulate the erase tool.
         var defaultTile = myMap.getDefaultTile();
 
-        if (click != null) { rBigChanger(click.x, click.y, defaultTile, thickness);}
+        if (click != null) { rBigChanger(click, defaultTile, thickness);}
         
         $('#myCanvas').mousemove(function(evt){
         click = myMap.getTilePos(evt);  
-        mouse = myMap.getMousePos(evt);  
-        if (click != null) { rBigChanger(click, mouse, defaultTile, thickness);}
+        if (click != null) { rBigChanger(click, defaultTile, thickness);}
         
 
         });
@@ -184,7 +183,7 @@ $('#myCanvas').mousedown(function(evt){
 // TODO: move this to  toolbar.js 
 var rTileChanger = function(varX, varY, compTile, chTile){
 
-    if(myMap.bounceCheck(varX, varY))
+    if(myMap.boundsCheck({varX, varY}))
     {
         var currTile = myMap.getxyTile(varX, varY);
         console.log("currTile: " + currTile + "compTile: " + compTile);
@@ -209,7 +208,7 @@ var rTileChanger = function(varX, varY, compTile, chTile){
 var rBigChanger = function(click, chTile,timesThickness)
 {
 
-    if(myMap.bounceCheck(click.x, click.y))
+    if(myMap.boundsCheck(click.x, click.y))
     {
 
         if(timesThickness == 0)
