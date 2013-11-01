@@ -25,7 +25,7 @@ TileBrowser.prototype = new Map(); // inherit map
 TileBrowser.prototype.constructor = TileBrowser; // set correct constructor
 
 TileBrowser.prototype.selectRight = function(x, y){
-    this.selectTile(x, y, "blue");
+    this.selectTile(x, y, "#62c462");
 
     if( (this.rightClick.x != null && this.rightClick.y != null))  {
 
@@ -37,7 +37,7 @@ TileBrowser.prototype.selectRight = function(x, y){
 };
 
 TileBrowser.prototype.selectLeft = function(x, y){
-    this.selectTile(x, y, "red");
+    this.selectTile(x, y, "#5bc0de");
 
     if( this.leftClick.x != null && this.leftClick.y != null){
         this.unselectTile(this.leftClick.x, this.leftClick.y);

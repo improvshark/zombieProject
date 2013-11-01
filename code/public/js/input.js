@@ -394,5 +394,8 @@ $('#myToolBar').mousedown(function(evt){
     tempTool = tool;
     tool = (selTool/8) ;//+ 1;
 
+    var pos = toolBar.getTilePos(evt);
+    toolBar.selectTool(pos.x, pos.y);
+
 })
 
