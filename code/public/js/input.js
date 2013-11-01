@@ -14,7 +14,7 @@ var clickStart = {x: 0, y: 0};
 var clickEnd = {x: 0, y: 0};
 var clickT = {x: 0, y: 0};//click variable for toolbar
 
-var thickness = 10;
+var thickness = 6;
 
 
 // get tile selected from tile browser
@@ -44,12 +44,14 @@ $('#myCanvas').mousedown(function(evt){
 	        // set location of mouse click to click object
 	        click = myMap.getTilePos(evt);  
 	        // check if we are on map...if we are change tile
+            console.log("About to brush");
 	        if (click != null) { myMap.changeTile(click.x, click.y, click1) }
 	    }
 	    else if (evt.which == 3 ) {
 	        // set location of mouse click to click object
 	        click = myMap.getTilePos(evt);  
 	        // check if we are on map...if we are change tile
+            console.log("About to brush");
 	        if (click != null) { myMap.changeTile(click.x, click.y, click2) }
 	    }
 		//myMap.draw(); // redraw map so we can see changes
@@ -61,12 +63,15 @@ $('#myCanvas').mousedown(function(evt){
             // set location of mouse click to click object
             click = myMap.getTilePos(evt);  
             // check if we are on map...if we are change tile
+            console.log("About to brush");
             if (click != null) { rBigChanger(click.x, click.y, click1, thickness) }
+
         }
         else if (evt.which == 3 ) {
             // set location of mouse click to click object
             click = myMap.getTilePos(evt);  
             // check if we are on map...if we are change tile
+            console.log("About to brush");
             if (click != null) { rBigChanger(click.x, click.y, click2, thickness) }
         }
         /*end code to fix mouse move bug*/
@@ -93,17 +98,13 @@ $('#myCanvas').mousedown(function(evt){
         //This gets the default tile (ie. grass, sand,...) to simulate the erase tool.
         var defaultTile = myMap.getDefaultTile();
 
-        console.log('Terrain: ' + defaultTile);
-
+        if (click != null) { rBigChanger(click.x, click.y, defaultTile, thickness);}
+        
         $('#myCanvas').mousemove(function(evt){
-        if(evt.which == 1){
-            click = myMap.getTilePos(evt);  
-            if (click != null) { myMap.changeTile(click.x, click.y, defaultTile);}
-        }else if (evt.which == 3){
-           click = myMap.getTilePos(evt);  
-            if (click != null) { myMap.changeTile(click.x, click.y, defaultTile);}
-        }
-        myMap.draw();
+        click = myMap.getTilePos(evt);  
+        mouse = myMap.getMousePos(evt);  
+        if (click != null) { rBigChanger(click, mouse, defaultTile, thickness);}
+        
 
         });
     }//end delete tool
@@ -183,7 +184,7 @@ $('#myCanvas').mousedown(function(evt){
 // TODO: move this to  toolbar.js 
 var rTileChanger = function(varX, varY, compTile, chTile){
 
-    if(!myMap.isOverMapXY(varX, varY))
+    if(myMap.bounceCheck(varX, varY))
     {
         var currTile = myMap.getxyTile(varX, varY);
         console.log("currTile: " + currTile + "compTile: " + compTile);
@@ -205,9 +206,10 @@ var rTileChanger = function(varX, varY, compTile, chTile){
 
 };
 
-var rBigChanger = function(varX, varY, chTile,timesThickness)
+var rBigChanger = function(click, chTile,timesThickness)
 {
-    if(!myMap.isOverMapXY(varX, varY))
+
+    if(myMap.bounceCheck(click.x, click.y))
     {
 
         if(timesThickness == 0)
@@ -216,12 +218,12 @@ var rBigChanger = function(varX, varY, chTile,timesThickness)
         }
         else
         {
-            myMap.changeTile(varX, varY, chTile);
+            myMap.changeTile(click.x, click.y, chTile);
 
-            rBigChanger(varX + 1/*myMap.width*/, varY, chTile, timesThickness-1); //go right
-            rBigChanger(varX - 1/*myMap.width*/, varY, chTile, timesThickness-1); //go left
-            rBigChanger(varX, varY - 1/*myMap.height*/, chTile, timesThickness-1); //go up
-            rBigChanger(varX, varY + 1/*myMap.height*/, chTile, timesThickness-1); //go down
+            rBigChanger({x: click.x+1, y: click.y}, chTile, timesThickness-1); //go right
+            rBigChanger({x: click.x-1, y: click.y}, chTile, timesThickness-1); //go left
+            rBigChanger({x: click.x  , y: click.y-1}, chTile, timesThickness-1); //go up
+            rBigChanger({x: click.x  , y: click.y+1}, chTile, timesThickness-1); //go down
         }
     }
 
