@@ -105,17 +105,24 @@ Map.prototype.loadMap = function(map){
 
 Map.prototype.drawTile = function(x, y){
 
+	var grid = this.grid;
+	var color = this.gridColor;
+
+	if( typeof this.data[y][x].select != undefined && this.data[y][x].select == true){
+
+		console.log('drawing selected tile');
+		grid = 3;
+		color = "blue";
+	}
+
 	var divider = 8; // number of tiles in a row
 	var sourceX = (this.data[y][x].tile%divider) 
 	var sourceY = Math.floor(this.data[y][x].tile/divider)
 	var tileSize = 40;
 	var destX = this.x+((this.pixelWidth/this.width) *x);
 	var destY = this.y+((this.pixelHeight/this.height) *y);
-	var destWidth = this.pixelWidth/this.width
-	var destHeight=  this.pixelHeight/this.height;
-	var grid = this.grid;
-	var color = this.gridColor;
-
+	var destWidth = this.pixelWidth/this.width - grid;
+	var destHeight=  this.pixelHeight/this.height - grid;
 
 	if ( this.isInCanvas({x: destX, y: destY, height: destHeight, width: destWidth}) ) {
 		if (grid > 0) {
@@ -344,7 +351,7 @@ Map.prototype.getTilePos = function(evt) {
 Map.prototype.getTile = function(evt){
 	var tilePos = this.getTilePos(evt)
 	console.log('tilepos: x:'+tilePos.x + " y:" +tilePos.y )
-	console.log('this: '+ this.data[tilePos.y][tilePos.x])
+	console.dir(this.data[tilePos.y][tilePos.x])
 	return this.data[tilePos.y][tilePos.x].tile;
 }
 
@@ -363,8 +370,7 @@ Map.prototype.changeTile = function(x, y, tile){
 Map.prototype.selectTile = function(x, y){
 	console.log('selecting tile x:'+x + ' y:'+ y);
 	this.data[y][x].select = true;
-
-	console.log('seleceted: '+ this.data[y][x]);
+	this.drawTile(x, y);
 };
 
 Map.prototype.drag = function(evt){

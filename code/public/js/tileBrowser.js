@@ -1,6 +1,6 @@
  function TileBrowser(canvas, image, height, width){
  	Map.apply(this, arguments); // important
-	this.grid = 3;
+	this.grid = 1;
 
 	// filling the map
 	this.data = [];

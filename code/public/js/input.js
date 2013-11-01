@@ -5,7 +5,8 @@ var click2 = 1;	// right click
 var tool = 1; // tool selected from toolbar
 var tempTool = 1;//Temp tool to hold previous tool for picker
 
-var linin = false;//flag to control the line scketching
+// TODO: move this to  toolbar.js 
+var linin = false;//flag to control the line scketching 
 var clickStart = {x: 0, y: 0};
 var clickEnd = {x: 0, y: 0};
 var clickT = {x: 0, y: 0};//click variable for toolbar
@@ -228,6 +229,7 @@ $('#myCanvas').mousedown(function(evt){
 
 });
 
+// TODO: move this to  toolbar.js 
 var rTileChanger = function(varX, varY, compTile, chTile){
 
     if(!myMap.isOverMapXY(varX, varY))
