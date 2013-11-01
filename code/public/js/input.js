@@ -155,7 +155,13 @@ $('#myCanvas').mousedown(function(evt){
             myMap.draw();
     }else if (tool == 4 && !evt.ctrlKey)//peecker (yes peecker)
     {
-        click1 = myMap.getTile(evt);
+
+        if(evt.which == 1){
+            click1 = myMap.getTile(evt);
+        }else if (evt.which == 3){
+            click2 = myMap.getTile(evt);
+        }
+        
         tool = tempTool;
 
     }//it was so hard to do this...
