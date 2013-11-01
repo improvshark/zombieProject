@@ -2,8 +2,7 @@
     #toolbar {
         position: absolute;
         width: 85px;
-        height: 300px;
-        background: #000;
+        height: 500px;
         left: -200px;
 
     }
