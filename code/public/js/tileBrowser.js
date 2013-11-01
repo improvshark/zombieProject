@@ -1,15 +1,19 @@
  function TileBrowser(canvas, image, height, width){
  	Map.apply(this, arguments); // important
-	this.grid = 3;
+	this.grid = 1;
+
+    this.rightClick = {x: null, y: null};
+    this.leftClick = {x: null, y: null};
 
 	// filling the map
-	this.data = {bottom: [], middle: [], top: []};
+	this.data = [];
 	var count = 0;
     for (var j = 0; j < this.height; j++) {
-    	this.data.bottom[j] = [];
+    	this.data[j] = [];
         for (var i = 0; i < this.width; i++) {
-        	
-        	this.data.bottom[j][i] = count;
+        	var obj = {};
+            obj.tile = count;
+            this.data[j][i] = obj;
         	count += 1;
         }
     }
@@ -20,3 +24,25 @@
 TileBrowser.prototype = new Map(); // inherit map
 TileBrowser.prototype.constructor = TileBrowser; // set correct constructor
 
+TileBrowser.prototype.selectRight = function(x, y){
+    this.selectTile(x, y, "blue");
+
+    if( (this.rightClick.x != null && this.rightClick.y != null))  {
+
+        this.unselectTile(this.rightClick.x, this.rightClick.y);
+    }
+
+    this.rightClick.x = x;
+    this.rightClick.y = y;
+};
+
+TileBrowser.prototype.selectLeft = function(x, y){
+    this.selectTile(x, y, "red");
+
+    if( this.leftClick.x != null && this.leftClick.y != null){
+        this.unselectTile(this.leftClick.x, this.leftClick.y);
+    }
+    
+    this.leftClick.x = x;
+    this.leftClick.y = y;
+};

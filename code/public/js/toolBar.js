@@ -3,11 +3,13 @@
 	this.grid = 3;
 
 	// filling the map
-	this.data = {bottom: [], middle: [], top: []};
+	this.data = [];
 	var count = 0;
     for (var j = 0; j < this.height; j++) {
-    	this.data.bottom[j] = [];
-        this.data.bottom[j][0] = count;
+    	var obj = {};
+    	obj.tile = count;
+    	this.data[j] = [];
+        this.data[j][0] = obj;
         count += 8;
     }
 

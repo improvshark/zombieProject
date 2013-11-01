@@ -5,6 +5,8 @@ var click2 = 1;	// right click
 var tool = 1; // tool selected from toolbar
 var tempTool = 1;//Temp tool to hold previous tool for picker
 
+
+// TODO: move this to  toolbar.js 
 var linin = false;//flag to control the line scketching
 var whichclick = "right";
 var whichclick2 = "right";
@@ -21,12 +23,16 @@ $('#myTileBrowser').mousedown(function(evt){
     {
         tool = tempTool;
     }
+    var pos = tileBrowser.getTilePos(evt);
 
     if( evt.which == 1){
         click1 = tileBrowser.getTile(evt);
+        tileBrowser.selectRight(pos.x, pos.y);
+
     }
     if ( evt.which == 3){
        click2 = tileBrowser.getTile(evt); 
+       tileBrowser.selectLeft(pos.x, pos.y);
     }
 })
 
@@ -174,6 +180,7 @@ $('#myCanvas').mousedown(function(evt){
 
 });
 
+// TODO: move this to  toolbar.js 
 var rTileChanger = function(varX, varY, compTile, chTile){
 
     if(!myMap.isOverMapXY(varX, varY))
