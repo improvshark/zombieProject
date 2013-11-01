@@ -87,7 +87,7 @@ $('#myCanvas').mousedown(function(evt){
                 // set location of mouse click to click object
                 click = myMap.getTilePos(evt);  
                 // check if we are on map...if we are change tile
-                if (click != null) { rBigChanger(click, click1, thickness) }
+                if (click != null) { rBigChanger(click, click2, thickness) }
             }
         	//myMap.draw(); // redraw map so we can see changes
 	    });
