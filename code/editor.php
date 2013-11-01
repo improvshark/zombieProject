@@ -17,7 +17,9 @@
         <!--  adding the tile browser-->
         <?php include("views/mapEditor/tileBrowser.php"); ?>
         <!--  adding the toolbar-->
-        <?php include("views/mapEditor/toolBar.php"); ?>        
+        <?php include("views/mapEditor/toolBar.php"); ?>      
+          
+        <?php include("views/mapEditor/slider.php"); ?>        
 
         <div style="width: 100%;" oncontextmenu="return false" class="unselectable">
             <canvas id='myCanvas' width='900' height='650' style="border: 1px black solid; "></canvas>
