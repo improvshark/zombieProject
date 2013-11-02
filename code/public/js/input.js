@@ -16,6 +16,8 @@ var clickT = {x: 0, y: 0};//click variable for toolbar
 
 var thickness = 6;
 
+$('#sliderBar').val();
+
 
 // get tile selected from tile browser
 $('#myTileBrowser').mousedown(function(evt){
@@ -38,6 +40,7 @@ $('#myTileBrowser').mousedown(function(evt){
 
 // placement of tiles
 $('#myCanvas').mousedown(function(evt){
+    thickness = $('#sliderBar').val();;
     //begin pencil tool
 	if (tool == 0 && !evt.ctrlKey ){  // if tool 0 is selected
 	    if(evt.which == 1) { 
@@ -334,6 +337,7 @@ $(document).keydown(function(evt){
 // this stuff is to hide and show the toolbar and tile Broweser
 var toolbarVisable = true;
 var tileBrowserVisable = true;
+var sliderVisable = false;
 
 var showToolbar = function (){
     $('#toolbar').show();
@@ -356,9 +360,37 @@ var hideTileBrowser = function (){
     $('#butBar-tileBrowser')[0].setAttribute("class", ""); // remove checkmark 
 }
 
-if (toolbarVisable){ showToolbar() } else { hideToolbar() };
-if (tileBrowserVisable) { showTileBrowser() } else { hideTileBrowser };
+var hideSlider = function (){
+    $('#slider').animate({'left' :  -300}, {duration: 200, queue: false, easing: 'linear'})
+    $('#slider').hide();
+    //$('#butBar-toolbox')[0].setAttribute("class", ""); // remove checkmark 
+}
 
+var showSlider = function (){
+    $('#slider').show();
+    $('#slider').animate({'left' : 10 }, {duration: 200, queue: false, easing: 'linear'})
+    //$('#butBar-tileBrowser')[0].setAttribute("class", "glyphicon glyphicon-ok"); // add checkmark 
+}
+
+
+
+if (toolbarVisable){ showToolbar() } else { hideToolbar() };
+if (tileBrowserVisable) { showTileBrowser() } else { hideTileBrowser() };
+//if (sliderVisable) { showSlider(); } else { hideSlider() };
+
+// show toolbar when mouse over
+$('#sliderHandle').mouseover(function() {
+    if (!sliderVisable) {
+        showSlider();
+    }
+});
+
+// hide toolbar on mouse out
+$('#sliderHandle').mouseout(function() {
+    if (!sliderVisable) {
+        hideSlider();
+    }
+});
 // show toolbar when mouse over
 $('#toolbarHandle').mouseover(function() {
 	if (!toolbarVisable) {
