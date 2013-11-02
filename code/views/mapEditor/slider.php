@@ -1,7 +1,7 @@
 <style>
     #slider {
         position: absolute;
-        width: 100px;
+        width: 70px;
         height: 46px;
         left: -300px;
 
@@ -11,7 +11,7 @@
         left: 0px;
         float: left;
         top: 8%;
-        width: 150px;
+        width: 70px;
         height: 46px;
         text-align: center;
     }
@@ -19,6 +19,6 @@
 <div id="sliderHandle">
 	<div id="slider">
 		<br/>
-    	<input id="sliderBar" type="range" name="points" value="1" min="1" max="8">
+    	<input id="sliderBar" type="range" name="points" value="1" min="1" max="8" style="width: 70px">
     </div>
 </div>

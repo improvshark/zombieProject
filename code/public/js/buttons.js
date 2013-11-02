@@ -68,6 +68,18 @@ $('#butBar-toolbox')[0].onclick = function(){
     }
 }
 
+// window --> slider
+$('#butBar-slider')[0].onclick = function(){
+    if (!sliderVisable){
+        sliderVisable = true;
+        showSlider();
+
+    } else {
+        sliderVisable = false;
+        hideSlider();
+    }
+}
+
 // tools --> playTest
 $('#butBar-playTest')[0].onclick = function(){
     

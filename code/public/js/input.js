@@ -337,7 +337,7 @@ $(document).keydown(function(evt){
 // this stuff is to hide and show the toolbar and tile Broweser
 var toolbarVisable = true;
 var tileBrowserVisable = true;
-var sliderVisable = false;
+var sliderVisable = true;
 
 var showToolbar = function (){
     $('#toolbar').show();
@@ -363,20 +363,20 @@ var hideTileBrowser = function (){
 var hideSlider = function (){
     $('#slider').animate({'left' :  -300}, {duration: 200, queue: false, easing: 'linear'})
     $('#slider').hide();
-    //$('#butBar-toolbox')[0].setAttribute("class", ""); // remove checkmark 
+    $('#butBar-slider')[0].setAttribute("class", ""); // remove checkmark 
 }
 
 var showSlider = function (){
     $('#slider').show();
-    $('#slider').animate({'left' : 10 }, {duration: 200, queue: false, easing: 'linear'})
-    //$('#butBar-tileBrowser')[0].setAttribute("class", "glyphicon glyphicon-ok"); // add checkmark 
+    $('#slider').animate({'left' : 6 }, {duration: 200, queue: false, easing: 'linear'})
+    $('#butBar-slider')[0].setAttribute("class", "glyphicon glyphicon-ok"); // add checkmark 
 }
 
 
 
 if (toolbarVisable){ showToolbar() } else { hideToolbar() };
 if (tileBrowserVisable) { showTileBrowser() } else { hideTileBrowser() };
-//if (sliderVisable) { showSlider(); } else { hideSlider() };
+if (sliderVisable) { showSlider(); } else { hideSlider() };
 
 // show toolbar when mouse over
 $('#sliderHandle').mouseover(function() {
