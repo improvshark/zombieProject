@@ -2,6 +2,10 @@
 $('#butBar-new')[0].onclick = function(){
     self.location=("editor.php");
 }
+// fle --> open
+$('#butBar-open')[0].onclick = function(){
+    self.location=("dev_index.php");
+}
 
 
 // fle --> save
