@@ -14,6 +14,8 @@ function Map(canvas, image, height, width ) {
 	this.x = 0;
 	this.y = 0;
 
+	this.undoManager = new UndoManager();
+
 
 	//TODO !!!!!!!!!!!!!!!!!!!!! SET TITLE AND AUTHOR HERE
 	//the name of the map
@@ -367,8 +369,30 @@ Map.prototype.getxyTile = function(x, y){
 
 // this function will change the selected tile and redraw
 Map.prototype.changeTile = function(x, y, tile){
-	this.data[y][x].tile = tile;
-	this.drawTile(x, y);
+
+	var beforeChange = this.data[y][x].tile;
+
+
+	if (beforeChange != tile){
+		var obj = this;
+
+		this.data[y][x].tile = tile;
+		this.drawTile(x, y);
+
+		
+
+		this.undoManager.add({
+			undo: function(){
+				console.dir(obj);
+				obj.data[y][x].tile = beforeChange;
+				obj.drawTile(x, y);
+			},
+			redo: function(){
+				obj.data[y][x].tile = tile;
+				obj.drawTile(x, y);
+			}
+		})
+	}
 };
 
 // this function will change the selected tile and redraw

@@ -329,6 +329,11 @@ $(document).keydown(function(evt){
     else if (evt.which == 38) { evt.preventDefault(); myMap.y -= move }
     else if (evt.which == 39) { evt.preventDefault(); myMap.x += move }
     else if (evt.which == 40) { evt.preventDefault(); myMap.y += move }
+    else if (evt.ctrlKey && evt.which == 90){ myMap.undoManager.undo();}
+    else if (evt.ctrlKey && evt.which == 82){
+        evt.preventDefault();
+        myMap.undoManager.redo();
+    }
 
     myMap.draw();
 });

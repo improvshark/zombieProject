@@ -26,6 +26,15 @@ $('#butBar-save')[0].onclick = function(){
     }
 }
 
+// edit --> undo
+$('#butBar-undo')[0].onclick = function(){
+    myMap.undoManager.undo();
+}
+// edit --> redo
+$('#butBar-redo')[0].onclick = function(){
+    myMap.undoManager.redo();
+}
+
 // view --> grid
 $('#butBar-showGrid')[0].onclick = function(){
     console.log('grid');
