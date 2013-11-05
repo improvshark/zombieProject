@@ -89,6 +89,7 @@
                     <ul class="dropdown-menu">
                         <li><a id="butBar-toolbox" class="" > Toolbox</a></li>
                         <li><a id="butBar-tileBrowser" class="" > TileBrowser</a></li>
+                        <li><a id="butBar-slider" class="" > size Slider</a></li>
                         <li><a id="butBar-palette" class="" > Palette</a></li>
                         <li><a id="butBar-miniMap" class="" > Mini map</a></li>
                         <li><a id="butBar-events" class="" > Events</a></li>

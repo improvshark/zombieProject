@@ -1,22 +1,24 @@
 <style>
     #slider {
         position: absolute;
-        width: 85px;
-        height: 500px;
-        left: -200px;
+        width: 70px;
+        height: 46px;
+        left: -300px;
 
     }
     #sliderHandle{
         position: absolute;
         left: 0px;
         float: left;
-        top: 15%;
-        width: 30px;
-        height: 500px;
+        top: 8%;
+        width: 70px;
+        height: 46px;
         text-align: center;
-
     }
 </style>
 <div id="sliderHandle">
-    <input id="slider" type="range" name="points" min="1" max="10">
+	<div id="slider">
+		<br/>
+    	<input id="sliderBar" type="range" name="points" value="1" min="1" max="8" style="width: 70px">
+    </div>
 </div>

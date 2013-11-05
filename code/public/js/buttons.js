@@ -2,6 +2,10 @@
 $('#butBar-new')[0].onclick = function(){
     self.location=("editor.php");
 }
+// fle --> open
+$('#butBar-open')[0].onclick = function(){
+    self.location=("dev_index.php");
+}
 
 
 // fle --> save
@@ -20,6 +24,15 @@ $('#butBar-save')[0].onclick = function(){
     else {
         saveMap(map, myMapID, myMap.getImage());
     }
+}
+
+// edit --> undo
+$('#butBar-undo')[0].onclick = function(){
+    myMap.undoManager.undo();
+}
+// edit --> redo
+$('#butBar-redo')[0].onclick = function(){
+    myMap.undoManager.redo();
 }
 
 // view --> grid
@@ -65,6 +78,18 @@ $('#butBar-toolbox')[0].onclick = function(){
     } else {
         toolbarVisable = false;
         hideToolbar();
+    }
+}
+
+// window --> slider
+$('#butBar-slider')[0].onclick = function(){
+    if (!sliderVisable){
+        sliderVisable = true;
+        showSlider();
+
+    } else {
+        sliderVisable = false;
+        hideSlider();
     }
 }
 
