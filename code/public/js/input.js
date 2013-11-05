@@ -45,14 +45,14 @@ $('#myCanvas').mousedown(function(evt){
 	        click = myMap.getTilePos(evt);  
 	        // check if we are on map...if we are change tile
             console.log("About to brush");
-	        if (click != null) { myMap.changeTile(click.x, click.y, click1) }
+	        if (click != null) { rBigChanger(click, click1, thickness) }
 	    }
 	    else if (evt.which == 3 ) {
 	        // set location of mouse click to click object
 	        click = myMap.getTilePos(evt);  
 	        // check if we are on map...if we are change tile
             console.log("About to brush");
-	        if (click != null) { myMap.changeTile(click.x, click.y, click2) }
+	        if (click != null) { rBigChanger(click, click2, thickness) }
 	    }
 		//myMap.draw(); // redraw map so we can see changes
 	}//end pencil tool
@@ -266,7 +266,8 @@ var drawLine = function(evt, side, clickStart)
 
     while(true)
     {
-        myMap.changeTile(clickStart.x, clickStart.y, side);
+        //myMap.changeTile(clickStart.x, clickStart.y, side);
+        rBigChanger({x: clickStart.x, y: clickStart.y}, side, thickness);
         if(clickStart.x == clickEnd.x && clickStart.y == clickEnd.y) break;
         e2 = 2*err;
         if (e2 > -dy)
