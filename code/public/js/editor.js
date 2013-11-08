@@ -32,21 +32,35 @@ var map = {
 };
 
 
-// load tiles image
+
+
+// create bottom tileBrowser
 var tiles = new Image()
 tiles.src = 'public/img/tiles.png';
-
-// create tileBrowser
 tileBrowser = new TileBrowser( $('#myTileBrowser')[0], tiles, 6, 8);
 tileBrowser.pixelWidth = $('#myTileBrowser')[0].width;
 tileBrowser.pixelHeight = $('#myTileBrowser')[0].height;
 tileBrowser.draw();
 
-//load image for ToolBarr
-var TBTiles = new Image();
-TBTiles.src = 'public/img/tooltiles.png';
+// create middle tile Browser
+var middleImg = new Image()
+middleImg.src = 'public/img/middle.png';
+middleBrowser = new TileBrowser( $('#myMiddleTileBrowser')[0], middleImg, 9, 8);
+middleBrowser.pixelWidth = $('#myMiddleTileBrowser')[0].width;
+middleBrowser.pixelHeight = $('#myMiddleTileBrowser')[0].height;
+middleBrowser.draw();
+
+// create upper tile Browser
+var upperImg = new Image()
+upperImg.src = 'public/img/upper.png';
+upperBrowser = new TileBrowser( $('#myUpperTileBrowser')[0], upperImg, 1, 8 );
+upperBrowser.pixelWidth = $('#myUpperTileBrowser')[0].width;
+upperBrowser.pixelHeight = $('#myUpperTileBrowser')[0].height;
+upperBrowser.draw();
 
 //Create Toolbar
+var TBTiles = new Image();
+TBTiles.src = 'public/img/tooltiles.png';
 toolBar = new ToolBar($('#myToolBar')[0], TBTiles, 6, 1);
 toolBar.pixelWidth = $('#myToolBar')[0].width;
 toolBar.pixelHeight = $('#myToolBar')[0].height;
