@@ -24,8 +24,11 @@ var map = {
           [22,22,22,22,22,22,22,22,22,22,22,22,22,22,22],
           [22,22,22,22,22,22,22,22,22,22,22,22,22,22,22]
         ],
-        middle:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]],
-        top:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
+        middle:[[],
+        [0, 1, 2,3,4,5,6,7,8,9,10,11,12,13,14],
+        [-1, -1,-1,-1,-1,-1, -1,-1,-1,-1,-1, -1,-1,-1,-1],
+        [],[],[],[],[],[],[],[],[],[],[],[]],
+        top:[[],[],[],[],[],[],[],[],[],[],[0, 1, 2,3,4,5,6,7,8,9,10,11,12,13,14],[],[],[],[]]
     },
     events: [],
     env: "normal"
@@ -73,8 +76,13 @@ toolBar.draw();
 var tiles2 = new Image()
 tiles2.src = 'public/img/tiles.png';
 
+var middleTiles = new Image();
+middleTiles.src = 'public/img/middle.png';
+var upperTiles = new Image();
+upperTiles.src = 'public/img/upper.png';
+
  // create map object pass canvase and tiles image  
-myMap = new Map( document.getElementById('myCanvas'), tiles2);
+myMap = new Map( document.getElementById('myCanvas'), tiles2, 10, 10, middleTiles, upperTiles);
 
 // load map stuffs
 if (typeof mapData !='undefined' ){
@@ -92,6 +100,7 @@ else {
   myMap.author = userData.user_id;
   myMap.title = "Untitled Map"
   $( "#mapName" ).text(myMap.title);
+  myMap.loadMap(map);
   myMap.draw();
 }
 
