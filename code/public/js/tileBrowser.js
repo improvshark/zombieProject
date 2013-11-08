@@ -46,3 +46,16 @@ TileBrowser.prototype.selectLeft = function(x, y){
     this.leftClick.x = x;
     this.leftClick.y = y;
 };
+
+
+TileBrowser.prototype.unselectLeft = function(){
+    if( (this.leftClick.x != null && this.leftClick.y != null))  {
+        this.unselectTile(this.leftClick.x, this.leftClick.y); 
+    }
+};
+
+TileBrowser.prototype.unselectRight = function(){
+    if( (this.rightClick.x != null && this.rightClick.y != null))  {
+        this.unselectTile(this.rightClick.x, this.rightClick.y);
+    }
+};

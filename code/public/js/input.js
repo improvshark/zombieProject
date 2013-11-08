@@ -1,6 +1,5 @@
-
-var click1 = 0;	// left click
-var click2 = 1;	// right click
+var click1 = {tile: 0, layer: "bottom"};	// left click
+var click2 = {tile: 1, layer: "bottom"};	// right click
 
 var tool = 1; // tool selected from toolbar
 var tempTool = 1;//Temp tool to hold previous tool for picker
@@ -28,13 +27,40 @@ $('#myTileBrowser').mousedown(function(evt){
     var pos = tileBrowser.getTilePos(evt);
 
     if( evt.which == 1){
-        click1 = tileBrowser.getTile(evt);
+        click1.tile = tileBrowser.getTile(evt);
+        click1.layer = "bottom";
+        middleBrowser.unselectRight();
         tileBrowser.selectRight(pos.x, pos.y);
 
     }
     if ( evt.which == 3){
-       click2 = tileBrowser.getTile(evt); 
+        click2.layer = "bottom";
+       click2.tile = tileBrowser.getTile(evt); 
+       middleBrowser.unselectLeft();
        tileBrowser.selectLeft(pos.x, pos.y);
+    }
+})
+
+// get tile selected from middle tile browser
+$('#myMiddleTileBrowser').mousedown(function(evt){
+    if(tool == 2)//if after using the eraser you select a new tile then the tool is set to the previous tool
+    {
+        tool = tempTool;
+    }
+    var pos = middleBrowser.getTilePos(evt);
+
+    if( evt.which == 1){
+        click1.layer = "middle";
+        click1.tile = middleBrowser.getTile(evt);
+        tileBrowser.unselectRight();
+        middleBrowser.selectRight(pos.x, pos.y);
+
+    }
+    if ( evt.which == 3){
+        click2.layer = "middle";
+       click2.tile = middleBrowser.getTile(evt); 
+       tileBrowser.unselectLeft();
+       middleBrowser.selectLeft(pos.x, pos.y);
     }
 })
 
@@ -48,14 +74,14 @@ $('#myCanvas').mousedown(function(evt){
 	        click = myMap.getTilePos(evt);  
 	        // check if we are on map...if we are change tile
             console.log("About to brush");
-	        if (click != null) { rBigChanger(click, click1, thickness) }
+	        if (click != null) { rBigChanger(click, click1.tile, thickness) }
 	    }
 	    else if (evt.which == 3 ) {
 	        // set location of mouse click to click object
 	        click = myMap.getTilePos(evt);  
 	        // check if we are on map...if we are change tile
             console.log("About to brush");
-	        if (click != null) { rBigChanger(click, click2, thickness) }
+	        if (click != null) { rBigChanger(click, click2.tile, thickness) }
 	    }
 		//myMap.draw(); // redraw map so we can see changes
 	}//end pencil tool
@@ -67,7 +93,7 @@ $('#myCanvas').mousedown(function(evt){
             click = myMap.getTilePos(evt);  
             // check if we are on map...if we are change tile
             console.log("About to brush");
-            if (click != null) { rBigChanger(click, click1, thickness) }
+            if (click != null) { rBigChanger(click, click1.tile, thickness) }
 
         }
         else if (evt.which == 3 ) {
@@ -75,7 +101,7 @@ $('#myCanvas').mousedown(function(evt){
             click = myMap.getTilePos(evt);  
             // check if we are on map...if we are change tile
             console.log("About to brush");
-            if (click != null) { rBigChanger(click, click2, thickness) }
+            if (click != null) { rBigChanger(click, click2.tile, thickness) }
         }
         /*end code to fix mouse move bug*/
 	    $('#myCanvas').mousemove(function(evt){
@@ -84,13 +110,13 @@ $('#myCanvas').mousedown(function(evt){
                 // set location of mouse click to click object
                 click = myMap.getTilePos(evt);  
                 // check if we are on map...if we are change tile
-                if (click != null) { rBigChanger(click, click1, thickness) }
+                if (click != null) { rBigChanger(click, click1.tile, thickness) }
             }
             else if (evt.which == 3 ) {
                 // set location of mouse click to click object
                 click = myMap.getTilePos(evt);  
                 // check if we are on map...if we are change tile
-                if (click != null) { rBigChanger(click, click2, thickness) }
+                if (click != null) { rBigChanger(click, click2.tile, thickness) }
             }
         	//myMap.draw(); // redraw map so we can see changes
 	    });
@@ -136,10 +162,10 @@ $('#myCanvas').mousedown(function(evt){
                 linin = false;
                 if(whichclick == "right")
                 {
-                    drawLine(evt, click1, clickStart);
+                    drawLine(evt, click1.tile, clickStart);
                 }else
                 {
-                    drawLine(evt, click2, clickStart);
+                    drawLine(evt, click2.tile, clickStart);
                 }
                 
             }else
@@ -162,9 +188,9 @@ $('#myCanvas').mousedown(function(evt){
             console.log("Tile pos, x: " + coord.x + " y: " + coord.y + ". compTile: " + compTile);
 
             if(evt.which == 1){
-                rTileChanger(coord.x, coord.y, compTile, click1);
+                rTileChanger(coord.x, coord.y, compTile, click1.tile);
             }else if (evt.which == 3){
-                rTileChanger(coord.x, coord.y, compTile, click2);
+                rTileChanger(coord.x, coord.y, compTile, click2.tile);
             }
 
             myMap.draw();
@@ -172,9 +198,9 @@ $('#myCanvas').mousedown(function(evt){
     {
 
         if(evt.which == 1){
-            click1 = myMap.getTile(evt);
+            click1.tile = myMap.getTile(evt);
         }else if (evt.which == 3){
-            click2 = myMap.getTile(evt);
+            click2.tile = myMap.getTile(evt);
         }
         
         tool = tempTool;

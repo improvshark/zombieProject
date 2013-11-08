@@ -26,7 +26,8 @@ function Map(canvas, image, height, width ) {
 	this.grid = 0;
 	this.gridColor = "black";
 
-	this.image = image;
+	this.images = {bottom: image, middle: null, upper: null};
+
 	this.imageLoaded = false;
 	this.dragging = false;
 	this.dragPoint = {x: 0, y: 0};
@@ -55,7 +56,15 @@ function Map(canvas, image, height, width ) {
 	var obj = this // this is a global object so that the draw function can see our variables
 
 	//make sure image is loaded
-	this.image.onload = function() {
+	this.images.bottom.onload = function() {
+		obj.imageLoaded = true;
+		obj.draw();
+	}
+	this.images.middle.onload = function() {
+		obj.imageLoaded = true;
+		obj.draw();
+	}
+	this.images.upper.onload = function() {
 		obj.imageLoaded = true;
 		obj.draw();
 	}
@@ -129,7 +138,7 @@ Map.prototype.drawTile = function(x, y, color){
 	if ( this.isInCanvas({x: destX, y: destY, height: destHeight, width: destWidth}) ) {
 
 		this.context.drawImage(
-			this.image, // the image we are croping to get our tile
+			this.image.bottom, // the image we are croping to get our tile
 			(sourceX*tileSize), (sourceY*tileSize), // the x and y location we will crop in relation to the tile image
 			tileSize, tileSize,	// the height and width of our crop in relation to the tile image
 			destX+(grid/2), destY+(grid/2), // the x and y location we will be placing the cropped image on the canvas
