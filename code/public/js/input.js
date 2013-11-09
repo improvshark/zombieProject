@@ -15,8 +15,17 @@ var clickT = {x: 0, y: 0};//click variable for toolbar
 
 var thickness = 6;
 
-$('#sliderBar').val();
 
+var unselectLeft = function() {
+    tileBrowser.unselectLeft();
+    middleBrowser.unselectLeft();
+    upperBrowser.unselectLeft();
+}
+var unselectRight = function() {
+    tileBrowser.unselectRight();
+    middleBrowser.unselectRight();
+    upperBrowser.unselectRight();
+}
 
 // get tile selected from tile browser
 $('#myTileBrowser').mousedown(function(evt){
@@ -29,14 +38,14 @@ $('#myTileBrowser').mousedown(function(evt){
     if( evt.which == 1){
         click1.tile = tileBrowser.getTile(evt);
         click1.layer = "bottom";
-        middleBrowser.unselectRight();
+        unselectRight();
         tileBrowser.selectRight(pos.x, pos.y);
 
     }
     if ( evt.which == 3){
         click2.layer = "bottom";
        click2.tile = tileBrowser.getTile(evt); 
-       middleBrowser.unselectLeft();
+       unselectRight();
        tileBrowser.selectLeft(pos.x, pos.y);
     }
 })
@@ -52,15 +61,38 @@ $('#myMiddleTileBrowser').mousedown(function(evt){
     if( evt.which == 1){
         click1.layer = "middle";
         click1.tile = middleBrowser.getTile(evt);
-        tileBrowser.unselectRight();
+        unselectRight();
         middleBrowser.selectRight(pos.x, pos.y);
 
     }
     if ( evt.which == 3){
         click2.layer = "middle";
        click2.tile = middleBrowser.getTile(evt); 
-       tileBrowser.unselectLeft();
+       unselectLeft();
        middleBrowser.selectLeft(pos.x, pos.y);
+    }
+})
+
+// get tile selected from middle tile browser
+$('#myUpperTileBrowser').mousedown(function(evt){
+    if(tool == 2)//if after using the eraser you select a new tile then the tool is set to the previous tool
+    {
+        tool = tempTool;
+    }
+    var pos = upperBrowser.getTilePos(evt);
+
+    if( evt.which == 1){
+        click1.layer = "upper";
+        click1.tile = upperBrowser.getTile(evt);
+        unselectRight();
+        upperBrowser.selectRight(pos.x, pos.y);
+
+    }
+    if ( evt.which == 3){
+        click2.layer = "upper";
+       click2.tile = upperBrowser.getTile(evt); 
+       unselectLeft();
+       upperBrowser.selectLeft(pos.x, pos.y);
     }
 })
 
@@ -74,14 +106,14 @@ $('#myCanvas').mousedown(function(evt){
 	        click = myMap.getTilePos(evt);  
 	        // check if we are on map...if we are change tile
             console.log("About to brush");
-	        if (click != null) { rBigChanger(click, click1.tile, thickness) }
+	        if (click != null) { rBigChanger(click, click1.tile, thickness, click1.layer) }
 	    }
 	    else if (evt.which == 3 ) {
 	        // set location of mouse click to click object
 	        click = myMap.getTilePos(evt);  
 	        // check if we are on map...if we are change tile
             console.log("About to brush");
-	        if (click != null) { rBigChanger(click, click2.tile, thickness) }
+	        if (click != null) { rBigChanger(click, click2.tile, thickness, click2.layer) }
 	    }
 		//myMap.draw(); // redraw map so we can see changes
 	}//end pencil tool
@@ -93,7 +125,7 @@ $('#myCanvas').mousedown(function(evt){
             click = myMap.getTilePos(evt);  
             // check if we are on map...if we are change tile
             console.log("About to brush");
-            if (click != null) { rBigChanger(click, click1.tile, thickness) }
+            if (click != null) { rBigChanger(click, click1.tile, thickness, click1.layer) }
 
         }
         else if (evt.which == 3 ) {
@@ -101,7 +133,7 @@ $('#myCanvas').mousedown(function(evt){
             click = myMap.getTilePos(evt);  
             // check if we are on map...if we are change tile
             console.log("About to brush");
-            if (click != null) { rBigChanger(click, click2.tile, thickness) }
+            if (click != null) { rBigChanger(click, click2.tile, thickness, click2.layer) }
         }
         /*end code to fix mouse move bug*/
 	    $('#myCanvas').mousemove(function(evt){
@@ -110,13 +142,13 @@ $('#myCanvas').mousedown(function(evt){
                 // set location of mouse click to click object
                 click = myMap.getTilePos(evt);  
                 // check if we are on map...if we are change tile
-                if (click != null) { rBigChanger(click, click1.tile, thickness) }
+                if (click != null) { rBigChanger(click, click1.tile, thickness, click1.layer) }
             }
             else if (evt.which == 3 ) {
                 // set location of mouse click to click object
                 click = myMap.getTilePos(evt);  
                 // check if we are on map...if we are change tile
-                if (click != null) { rBigChanger(click, click2.tile, thickness) }
+                if (click != null) { rBigChanger(click, click2.tile, thickness, click2.layer) }
             }
         	//myMap.draw(); // redraw map so we can see changes
 	    });
@@ -127,13 +159,15 @@ $('#myCanvas').mousedown(function(evt){
         //This gets the default tile (ie. grass, sand,...) to simulate the erase tool.
         var defaultTile = myMap.getDefaultTile();
 
-        if (click != null) { rBigChanger(click, defaultTile, thickness);}
+        if (click != null) { rBigChanger(click, defaultTile, thickness, "bottom");}
+        if (click != null) { rBigChanger(click, -1, thickness, "middle");}
+        if (click != null) { rBigChanger(click, -1, thickness, "upper");}
         
         $('#myCanvas').mousemove(function(evt){
-        click = myMap.getTilePos(evt);  
-        if (click != null) { rBigChanger(click, defaultTile, thickness);}
-        
-
+            click = myMap.getTilePos(evt);  
+            if (click != null) { rBigChanger(click, defaultTile, thickness, "bottom");}
+            if (click != null) { rBigChanger(click, -1, thickness, "middle");}
+            if (click != null) { rBigChanger(click, -1, thickness, "upper");}
         });
     }//end delete tool
     //begin line tool
@@ -210,7 +244,7 @@ $('#myCanvas').mousedown(function(evt){
 });
 
 // TODO: move this to  toolbar.js 
-var rTileChanger = function(varX, varY, compTile, chTile){
+var rTileChanger = function(varX, varY, compTile, chTile, layer){
 
     if(myMap.boundsCheck(varX, varY))
     {
@@ -223,18 +257,18 @@ var rTileChanger = function(varX, varY, compTile, chTile){
         }
         else if(currTile == compTile)
         {
-            myMap.changeTile(varX, varY, chTile);
+            myMap.changeTile(varX, varY, chTile, layer);
 
-            rTileChanger(varX + 1/*myMap.width*/, varY, compTile, chTile); //go right
-            rTileChanger(varX - 1/*myMap.width*/, varY, compTile, chTile); //go left
-            rTileChanger(varX, varY - 1/*myMap.height*/, compTile, chTile); //go up
-            rTileChanger(varX, varY + 1/*myMap.height*/, compTile, chTile); //go down
+            rTileChanger(varX + 1/*myMap.width*/, varY, compTile, chTile, layer); //go right
+            rTileChanger(varX - 1/*myMap.width*/, varY, compTile, chTile, layer); //go left
+            rTileChanger(varX, varY - 1/*myMap.height*/, compTile, chTile, layer); //go up
+            rTileChanger(varX, varY + 1/*myMap.height*/, compTile, chTile. layer); //go down
         }
     }
 
 };
 
-var rBigChanger = function(click, chTile,timesThickness)
+var rBigChanger = function(click, chTile,timesThickness, layer)
 {
 
     if(myMap.boundsCheck(click.x, click.y))
@@ -246,12 +280,12 @@ var rBigChanger = function(click, chTile,timesThickness)
         }
         else
         {
-            myMap.changeTile(click.x, click.y, chTile);
+            myMap.changeTile(click.x, click.y, chTile, layer);
 
-            rBigChanger({x: click.x+1, y: click.y}, chTile, timesThickness-1); //go right
-            rBigChanger({x: click.x-1, y: click.y}, chTile, timesThickness-1); //go left
-            rBigChanger({x: click.x  , y: click.y-1}, chTile, timesThickness-1); //go up
-            rBigChanger({x: click.x  , y: click.y+1}, chTile, timesThickness-1); //go down
+            rBigChanger({x: click.x+1, y: click.y}, chTile, timesThickness-1, layer); //go right
+            rBigChanger({x: click.x-1, y: click.y}, chTile, timesThickness-1, layer); //go left
+            rBigChanger({x: click.x  , y: click.y-1}, chTile, timesThickness-1, layer); //go up
+            rBigChanger({x: click.x  , y: click.y+1}, chTile, timesThickness-1, layer); //go down
         }
     }
 

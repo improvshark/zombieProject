@@ -412,7 +412,11 @@ Map.prototype.getxyTile = function(x, y){
 
 
 // this function will change the selected tile and redraw
-Map.prototype.changeTile = function(x, y, tile){
+Map.prototype.changeTile = function(x, y, tile, layer){
+
+	if(typeof layer == "undefined"){
+		layer = "bottom";
+	}
 
 	var beforeChange = this.data[y][x].tile;
 
@@ -420,7 +424,7 @@ Map.prototype.changeTile = function(x, y, tile){
 	if (beforeChange != tile){
 		var obj = this;
 
-		this.data[y][x].tile = tile;
+		this.setTile(x,y,tile,layer)
 		this.drawTile(x, y);
 
 		
@@ -428,16 +432,31 @@ Map.prototype.changeTile = function(x, y, tile){
 		this.undoManager.add({
 			undo: function(){
 				console.dir(obj);
-				obj.data[y][x].tile = beforeChange;
+				obj.setTile(x,y,beforeChange,layer);
 				obj.drawTile(x, y);
 			},
 			redo: function(){
-				obj.data[y][x].tile = tile;
+				obj.setTile(x,y,tile,layer);
 				obj.drawTile(x, y);
 			}
 		})
 	}
 };
+
+Map.prototype.setTile = function(x, y, tile, layer){
+	console.log('setting tile to:' + tile + ' on layer:' + layer);
+	switch(layer){
+		case "bottom":
+			this.data[y][x].tile = tile;
+			break;
+		case "middle":
+			this.data[y][x].middle = tile;
+			break;
+		case "upper":
+			this.data[y][x].upper = tile;
+			break;
+	}
+}
 
 // this function will change the selected tile and redraw
 Map.prototype.selectTile = function(x, y, color){
