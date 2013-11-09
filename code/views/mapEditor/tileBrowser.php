@@ -35,7 +35,7 @@
             </div>
 
             <div class="tab-pane fade" id="upper">
-                <canvas id='myUpperTileBrowser' width='500' height='50'></canvas>
+                <canvas id='myUpperTileBrowser' width='500' height='100'></canvas>
             </div>
 
         </div>

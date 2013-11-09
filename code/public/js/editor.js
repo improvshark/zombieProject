@@ -56,7 +56,7 @@ middleBrowser.draw();
 // create upper tile Browser
 var upperImg = new Image()
 upperImg.src = 'public/img/upper.png';
-upperBrowser = new TileBrowser( $('#myUpperTileBrowser')[0], upperImg, 1, 8 );
+upperBrowser = new TileBrowser( $('#myUpperTileBrowser')[0], upperImg, 2, 8 );
 upperBrowser.pixelWidth = $('#myUpperTileBrowser')[0].width;
 upperBrowser.pixelHeight = $('#myUpperTileBrowser')[0].height;
 upperBrowser.draw();
