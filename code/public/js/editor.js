@@ -99,8 +99,7 @@ else {
   var myMapID = null;
   myMap.author = userData.user_id;
   myMap.title = "Untitled Map"
-  $( "#mapName" ).text(myMap.title);
-  myMap.loadMap(map);
+  $( "#mapName" ).text(myMap.title);  
   myMap.draw();
 }
 
@@ -139,11 +138,11 @@ var toggleName = function()
   if ( $('#mapName').is(":visible")){
     $('#mapName').hide();
     $('#mapNameEditDiv').show();
-    $('#mapNameEdit').blur(function() {
-      toggleName();
-      $( "#mapName" ).text($('#mapNameEdit').val());
-      myMap.title = $('#mapNameEdit').val();
-    });
+    // $('#mapNameEdit').blur(function() {
+    //   toggleName();
+    //   $( "#mapName" ).text($('#mapNameEdit').val());
+    //   myMap.title = $('#mapNameEdit').val();
+    // });
   } else {
     $('#mapName').show();
     $('#mapNameEditDiv').hide();

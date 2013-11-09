@@ -417,9 +417,19 @@ Map.prototype.changeTile = function(x, y, tile, layer){
 	if(typeof layer == "undefined"){
 		layer = "bottom";
 	}
+	var beforeChange = null;
 
-	var beforeChange = this.data[y][x].tile;
-
+	switch(layer){
+		case "bottom":
+			beforeChange = this.data[y][x].tile;
+			break;
+		case "middle":
+			beforeChange = this.data[y][x].middle;
+			break;
+		case "upper":
+			beforeChange = this.data[y][x].upper;
+			break;
+	}
 
 	if (beforeChange != tile){
 		var obj = this;

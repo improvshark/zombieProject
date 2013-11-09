@@ -45,7 +45,7 @@ $('#myTileBrowser').mousedown(function(evt){
     if ( evt.which == 3){
         click2.layer = "bottom";
        click2.tile = tileBrowser.getTile(evt); 
-       unselectRight();
+       unselectLeft();
        tileBrowser.selectLeft(pos.x, pos.y);
     }
 })
