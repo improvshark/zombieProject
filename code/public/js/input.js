@@ -304,7 +304,7 @@ $('#myCanvas').mouseup(function(evt){
 
 
 // makes pluss and minus zoom the map
-$(document).keydown(function(evt){
+$(document).keydown (function(evt){
     console.log('key: ' + evt.which);
     var change = 5
     var changeX = (myMap.width *  change);
@@ -424,15 +424,5 @@ $('#tileBrowserHandle').mouseout(function() {
 });
 
 
-//TOOLBAR FUNCTIONS
-//This function changes tool according to the tile selected in the toolbar
-$('#myToolBar').mousedown(function(evt){
-    var selTool = toolBar.getTile(evt);
-    tempTool = tool;
-    tool = (selTool/8) ;//+ 1;
 
-    var pos = toolBar.getTilePos(evt);
-    toolBar.selectTool(pos.x, pos.y);
-
-})
 
