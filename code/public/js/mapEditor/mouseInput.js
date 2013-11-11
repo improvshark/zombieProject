@@ -159,6 +159,8 @@ $('#myCanvas').mousedown(function(evt){
         //This gets the default tile (ie. grass, sand,...) to simulate the erase tool.
         var defaultTile = myMap.getDefaultTile();
 
+         click = myMap.getTilePos(evt);
+
         if (click != null) { rBigChanger(click, defaultTile, thickness, "bottom");}
         if (click != null) { rBigChanger(click, -1, thickness, "middle");}
         if (click != null) { rBigChanger(click, -1, thickness, "upper");}
