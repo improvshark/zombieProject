@@ -24,29 +24,46 @@ var map = {
           [22,22,22,22,22,22,22,22,22,22,22,22,22,22,22],
           [22,22,22,22,22,22,22,22,22,22,22,22,22,22,22]
         ],
-        middle:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]],
-        top:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
+        middle:[[],
+        [0, 1, 2,3,4,5,6,7,8,9,10,11,12,13,14],
+        [-1, -1,-1,-1,-1,-1, -1,-1,-1,-1,-1, -1,-1,-1,-1],
+        [],[],[],[],[],[],[],[],[],[],[],[]],
+        top:[[],[],[],[],[],[],[],[],[],[],[0, 1, 2,3,4,5,6,7,8,9,10,11,12,13,14],[],[],[],[]]
     },
     events: [],
     env: "normal"
 };
 
 
-// load tiles image
+
+
+// create bottom tileBrowser
 var tiles = new Image()
 tiles.src = 'public/img/tiles.png';
-
-// create tileBrowser
 tileBrowser = new TileBrowser( $('#myTileBrowser')[0], tiles, 6, 8);
 tileBrowser.pixelWidth = $('#myTileBrowser')[0].width;
 tileBrowser.pixelHeight = $('#myTileBrowser')[0].height;
 tileBrowser.draw();
 
-//load image for ToolBarr
-var TBTiles = new Image();
-TBTiles.src = 'public/img/tooltiles.png';
+// create middle tile Browser
+var middleImg = new Image()
+middleImg.src = 'public/img/middle.png';
+middleBrowser = new TileBrowser( $('#myMiddleTileBrowser')[0], middleImg, 9, 8);
+middleBrowser.pixelWidth = $('#myMiddleTileBrowser')[0].width;
+middleBrowser.pixelHeight = $('#myMiddleTileBrowser')[0].height;
+middleBrowser.draw();
+
+// create upper tile Browser
+var upperImg = new Image()
+upperImg.src = 'public/img/upper.png';
+upperBrowser = new TileBrowser( $('#myUpperTileBrowser')[0], upperImg, 2, 8 );
+upperBrowser.pixelWidth = $('#myUpperTileBrowser')[0].width;
+upperBrowser.pixelHeight = $('#myUpperTileBrowser')[0].height;
+upperBrowser.draw();
 
 //Create Toolbar
+var TBTiles = new Image();
+TBTiles.src = 'public/img/tooltiles.png';
 toolBar = new ToolBar($('#myToolBar')[0], TBTiles, 6, 1);
 toolBar.pixelWidth = $('#myToolBar')[0].width;
 toolBar.pixelHeight = $('#myToolBar')[0].height;
@@ -59,8 +76,13 @@ toolBar.draw();
 var tiles2 = new Image()
 tiles2.src = 'public/img/tiles.png';
 
+var middleTiles = new Image();
+middleTiles.src = 'public/img/middle.png';
+var upperTiles = new Image();
+upperTiles.src = 'public/img/upper.png';
+
  // create map object pass canvase and tiles image  
-myMap = new Map( document.getElementById('myCanvas'), tiles2);
+myMap = new Map( document.getElementById('myCanvas'), tiles2, 10, 10, middleTiles, upperTiles);
 
 // load map stuffs
 if (typeof mapData !='undefined' ){
@@ -77,7 +99,7 @@ else {
   var myMapID = null;
   myMap.author = userData.user_id;
   myMap.title = "Untitled Map"
-  $( "#mapName" ).text(myMap.title);
+  $( "#mapName" ).text(myMap.title);  
   myMap.draw();
 }
 
@@ -116,11 +138,11 @@ var toggleName = function()
   if ( $('#mapName').is(":visible")){
     $('#mapName').hide();
     $('#mapNameEditDiv').show();
-    $('#mapNameEdit').blur(function() {
-      toggleName();
-      $( "#mapName" ).text($('#mapNameEdit').val());
-      myMap.title = $('#mapNameEdit').val();
-    });
+    // $('#mapNameEdit').blur(function() {
+    //   toggleName();
+    //   $( "#mapName" ).text($('#mapNameEdit').val());
+    //   myMap.title = $('#mapNameEdit').val();
+    // });
   } else {
     $('#mapName').show();
     $('#mapNameEditDiv').hide();

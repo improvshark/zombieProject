@@ -38,13 +38,15 @@
             <?php } ?>
 
         </script>
-        <script src="public/js/undomanager.js"></script>
-        <script src="public/js/map.js"></script>
-        <script src="public/js/tileBrowser.js"></script>
-        <script src="public/js/toolBar.js"></script>
-        <script src="public/js/editor.js"></script>
-        <script src="public/js/input.js"></script>
-        <script src="public/js/buttons.js"></script>
+        <script src="public/js/mapEditor/undomanager.js"></script>
+        <script src="public/js/mapEditor/map.js"></script>
+        <script src="public/js/mapEditor/tileBrowser.js"></script>
+        <script src="public/js/mapEditor/toolBar.js"></script>
+        <script src="public/js/mapEditor/editor.js"></script>
+        <script src="public/js/mapEditor/sliders.js"></script>
+        <script src="public/js/mapEditor/keyboardInput.js"></script>
+        <script src="public/js/mapEditor/mouseInput.js"></script>
+        <script src="public/js/mapEditor/buttons.js"></script>
 
 
         <div class="container unselectable" >

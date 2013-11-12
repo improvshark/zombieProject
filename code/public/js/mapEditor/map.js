@@ -1,4 +1,4 @@
-function Map(canvas, image, height, width ) {
+function Map(canvas, image, height, width, middle, upper ) {
 	if (arguments.length == 0) return; // don't do anything
 
 	// canvas object 
@@ -26,12 +26,11 @@ function Map(canvas, image, height, width ) {
 	this.grid = 0;
 	this.gridColor = "black";
 
-	this.image = image;
-	this.imageLoaded = false;
+	this.images = {bottom: image, middle: middle, upper: upper};
+	this.imageLoaded = {bottom: false, middle: false, upper: false};
 	this.dragging = false;
 	this.dragPoint = {x: 0, y: 0};
 
-	// load map function
 
 	//default map terrain (ie. grass, sand, etc...)
 	this.terrainTile = 22; //default to 22 which is grass.
@@ -47,17 +46,28 @@ function Map(canvas, image, height, width ) {
         }
     }
 
-    console.log('data: ');
-    console.dir(this.data);
-
-
 	// there has to be a better way :(
 	var obj = this // this is a global object so that the draw function can see our variables
 
 	//make sure image is loaded
-	this.image.onload = function() {
-		obj.imageLoaded = true;
+	this.images.bottom.onload = function() {
+		obj.imageLoaded.bottom = true;
 		obj.draw();
+	}
+
+	if( typeof middle != "undefined"){ 
+		this.images.middle = middle;
+		this.images.middle.onload = function() {
+			obj.imageLoaded.middle = true;
+			obj.draw();
+		}
+	}
+
+	if( typeof upper != "undefined"){ 
+		this.images.upper.onload = function() {
+			obj.imageLoaded.upper = true;
+			obj.draw();
+		}
 	}
 }
 
@@ -97,11 +107,15 @@ Map.prototype.loadMap = function(map){
         for (var i = 0; i < this.width; i++) {  	
         	var obj = {};
         	obj.tile = map.data.bottom[j][i];
+        	obj.middle = map.data.middle[j][i];
+        	obj.upper = map.data.top[j][i];
         	this.data[j][i] = obj;
         }
     }
 
+	console.dir(map);
 	console.dir(this.data);
+
 	this.centerMap();
 };
 
@@ -118,8 +132,6 @@ Map.prototype.drawTile = function(x, y, color){
 	}
 
 	var divider = 8; // number of tiles in a row
-	var sourceX = (this.data[y][x].tile%divider) 
-	var sourceY = Math.floor(this.data[y][x].tile/divider)
 	var tileSize = 40;
 	var destX = this.x+((this.pixelWidth/this.width) *x);
 	var destY = this.y+((this.pixelHeight/this.height) *y);
@@ -128,13 +140,37 @@ Map.prototype.drawTile = function(x, y, color){
 
 	if ( this.isInCanvas({x: destX, y: destY, height: destHeight, width: destWidth}) ) {
 
-		this.context.drawImage(
-			this.image, // the image we are croping to get our tile
-			(sourceX*tileSize), (sourceY*tileSize), // the x and y location we will crop in relation to the tile image
-			tileSize, tileSize,	// the height and width of our crop in relation to the tile image
-			destX+(grid/2), destY+(grid/2), // the x and y location we will be placing the cropped image on the canvas
-			destWidth-grid, destHeight-grid // the final height and width of our tile that will be drawn on the canvas
-		);
+			// draw bottom layer
+		if( this.imageLoaded.bottom){
+			this.context.drawImage(
+				this.images.bottom, // the image we are croping to get our tile
+				((this.data[y][x].tile%divider)*tileSize), (Math.floor(this.data[y][x].tile/divider)*tileSize),
+				tileSize, tileSize,	// the height and width of our crop in relation to the tile image
+				destX+(grid/2), destY+(grid/2), // the x and y location we will be placing the cropped image on the canvas
+				destWidth-grid, destHeight-grid // the final height and width of our tile that will be drawn on the canvas
+			);
+		}
+			// draw middle layer
+		if( this.imageLoaded.middle){
+			this.context.drawImage(
+				this.images.middle, // the image we are croping to get our tile
+				((this.data[y][x].middle%divider)*tileSize), (Math.floor(this.data[y][x].middle/divider)*tileSize), // the x and y location we will crop in relation to the tile image
+				tileSize, tileSize,	// the height and width of our crop in relation to the tile image
+				destX+(grid/2), destY+(grid/2), // the x and y location we will be placing the cropped image on the canvas
+				destWidth-grid, destHeight-grid // the final height and width of our tile that will be drawn on the canvas
+			);
+		}
+
+		// draw upper layer
+		if( this.imageLoaded.upper){
+			this.context.drawImage(
+				this.images.upper, // the image we are croping to get our tile
+				((this.data[y][x].upper%divider)*tileSize), (Math.floor(this.data[y][x].upper/divider)*tileSize), // the x and y location we will crop in relation to the tile image
+				tileSize, tileSize,	// the height and width of our crop in relation to the tile image
+				destX+(grid/2), destY+(grid/2), // the x and y location we will be placing the cropped image on the canvas
+				destWidth-grid, destHeight-grid // the final height and width of our tile that will be drawn on the canvas
+			);
+		}
 
 		if (grid > 0) {
 			this.context.beginPath(); // telling the canvas that we are starting a draw of something
@@ -157,14 +193,14 @@ Map.prototype.draw = function() {
 	this.context.height = this.canvas.height;
 	this.context.clearRect(0, 0, this.canvas.width, this.canvas.height); // clearing out the canvas       
 
-    if (this.imageLoaded) {
-    	// cycle through the tiles one at a time to crop them from the tile image.
-        for (var j = 0; j < this.height; j++) {
-	        for (var i = 0; i < this.width; i++) {	        	
-	        	this.drawTile(i, j);
-	        }    
-        }
-	}
+    
+	// cycle through the tiles one at a time to crop them from the tile image.
+    for (var j = 0; j < this.height; j++) {
+        for (var i = 0; i < this.width; i++) {	        	
+        	this.drawTile(i, j);
+        }    
+    }
+	
 };
 
 Map.prototype.centerMap = function(){
@@ -252,8 +288,16 @@ Map.prototype.getMap = function(){
 
     for (var j = 0; j < this.height; j++) {
     	mapData.bottom[j] = [];
+    	mapData.middle[j] = [];
+    	mapData.top[j] = [];
         for (var i = 0; i < this.width; i++) { 
         	mapData.bottom[j][i] = this.data[j][i].tile;
+        	mapData.middle[j][i] = this.data[j][i].middle;
+        	mapData.top[j][i] = this.data[j][i].upper;
+
+        	if(mapData.bottom[j][i] == null){mapData.bottom[j][i] = -1; };
+        	if(mapData.middle[j][i] == null){mapData.middle[j][i] = -1; };
+        	if(mapData.top[j][i] == null){mapData.top[j][i] = -1; };
         }
     }
 
@@ -368,15 +412,29 @@ Map.prototype.getxyTile = function(x, y){
 
 
 // this function will change the selected tile and redraw
-Map.prototype.changeTile = function(x, y, tile){
+Map.prototype.changeTile = function(x, y, tile, layer){
 
-	var beforeChange = this.data[y][x].tile;
+	if(typeof layer == "undefined"){
+		layer = "bottom";
+	}
+	var beforeChange = null;
 
+	switch(layer){
+		case "bottom":
+			beforeChange = this.data[y][x].tile;
+			break;
+		case "middle":
+			beforeChange = this.data[y][x].middle;
+			break;
+		case "upper":
+			beforeChange = this.data[y][x].upper;
+			break;
+	}
 
 	if (beforeChange != tile){
 		var obj = this;
 
-		this.data[y][x].tile = tile;
+		this.setTile(x,y,tile,layer)
 		this.drawTile(x, y);
 
 		
@@ -384,16 +442,31 @@ Map.prototype.changeTile = function(x, y, tile){
 		this.undoManager.add({
 			undo: function(){
 				console.dir(obj);
-				obj.data[y][x].tile = beforeChange;
+				obj.setTile(x,y,beforeChange,layer);
 				obj.drawTile(x, y);
 			},
 			redo: function(){
-				obj.data[y][x].tile = tile;
+				obj.setTile(x,y,tile,layer);
 				obj.drawTile(x, y);
 			}
 		})
 	}
 };
+
+Map.prototype.setTile = function(x, y, tile, layer){
+	console.log('setting tile to:' + tile + ' on layer:' + layer);
+	switch(layer){
+		case "bottom":
+			this.data[y][x].tile = tile;
+			break;
+		case "middle":
+			this.data[y][x].middle = tile;
+			break;
+		case "upper":
+			this.data[y][x].upper = tile;
+			break;
+	}
+}
 
 // this function will change the selected tile and redraw
 Map.prototype.selectTile = function(x, y, color){
