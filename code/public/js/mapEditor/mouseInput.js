@@ -92,7 +92,9 @@ tools.eraser = function(evt) {
         rBigChanger(click, -1, thickness, "upper");
     }
 
-    $('#myCanvas').mousemove(function(evt) {
+    $('#myCanvas').on('mousemove',function(evt) {
+        
+        console.log('eraser is happening!');
         click = myMap.getTilePos(evt);
         if (click != null) {
             rBigChanger(click, defaultTile, thickness, "bottom");
@@ -100,6 +102,14 @@ tools.eraser = function(evt) {
             rBigChanger(click, -1, thickness, "upper");
         }
     });
+    // remove the handling of the event
+    $('#myCanvas').on('mouseup', function(evt) {
+       $('#myCanvas').off('mousemove'); 
+       $('#myCanvas').off('mouseup'); 
+    });
+
+
+
 }
 
 tools.lineTool = function(evt) {
