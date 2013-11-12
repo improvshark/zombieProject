@@ -1,17 +1,32 @@
-var click1 = {tile: 0, layer: "bottom"};	// left click
-var click2 = {tile: 1, layer: "bottom"};	// right click
+var click1 = {
+    tile: 0,
+    layer: "bottom"
+}; // left click
+var click2 = {
+    tile: 1,
+    layer: "bottom"
+}; // right click
 
 var tool = 1; // tool selected from toolbar
-var tempTool = 1;//Temp tool to hold previous tool for picker
+var tempTool = 1; //Temp tool to hold previous tool for picker
 
 
 // TODO: move this to  toolbar.js 
-var linin = false;//flag to control the line scketching
+var linin = false; //flag to control the line scketching
 var whichclick = "right";
 var whichclick2 = "right";
-var clickStart = {x: 0, y: 0};
-var clickEnd = {x: 0, y: 0};
-var clickT = {x: 0, y: 0};//click variable for toolbar
+var clickStart = {
+    x: 0,
+    y: 0
+};
+var clickEnd = {
+    x: 0,
+    y: 0
+};
+var clickT = {
+    x: 0,
+    y: 0
+}; //click variable for toolbar
 
 var thickness = 6;
 
@@ -27,274 +42,290 @@ var unselectRight = function() {
     upperBrowser.unselectRight();
 }
 
-// get tile selected from tile browser
-$('#myTileBrowser').mousedown(function(evt){
-    if(tool == 2)//if after using the eraser you select a new tile then the tool is set to the previous tool
-    {
-        tool = tempTool;
+
+var tools = {}
+
+tools.pencil = function(evt) {
+    if (evt.which == 1) {
+        click = myMap.getTilePos(evt);
+        if (click != null) {
+            rBigChanger(click, click1.tile, thickness, click1.layer)
+        }
+    } else if (evt.which == 3) {
+        click = myMap.getTilePos(evt);
+        if (click != null) {
+            rBigChanger(click, click2.tile, thickness, click2.layer)
+        }
     }
+}
+
+tools.brush = function(evt) {
+    $('#myCanvas').mousemove(function(evt) {
+
+        if (evt.which == 1) {
+            // set location of mouse click to click object
+            click = myMap.getTilePos(evt);
+            // check if we are on map...if we are change tile
+            if (click != null) {
+                rBigChanger(click, click1.tile, thickness, click1.layer)
+            }
+        } else if (evt.which == 3) {
+            // set location of mouse click to click object
+            click = myMap.getTilePos(evt);
+            // check if we are on map...if we are change tile
+            if (click != null) {
+                rBigChanger(click, click2.tile, thickness, click2.layer)
+            }
+        }
+        //myMap.draw(); // redraw map so we can see changes
+    });
+}
+
+tools.eraser = function(evt) {
+    var defaultTile = myMap.getDefaultTile();
+
+    click = myMap.getTilePos(evt);
+
+    if (click != null) {
+        rBigChanger(click, defaultTile, thickness, "bottom");
+        rBigChanger(click, -1, thickness, "middle");
+        rBigChanger(click, -1, thickness, "upper");
+    }
+
+    $('#myCanvas').mousemove(function(evt) {
+        click = myMap.getTilePos(evt);
+        if (click != null) {
+            rBigChanger(click, defaultTile, thickness, "bottom");
+            rBigChanger(click, -1, thickness, "middle");
+            rBigChanger(click, -1, thickness, "upper");
+        }
+    });
+}
+
+tools.lineTool = function(evt) {
+    console.log('linin: ' + linin);
+    if (linin == false) {
+        linin = true;
+        clickStart = myMap.getTilePos(evt);
+        if (evt.which == 1) {
+            whichclick = "right";
+        } else if (evt.which == 3) {
+            whichclick = "left";
+        }
+    } else if (linin == true) {
+        if (evt.which == 1) {
+            whichclick2 = "right";
+        } else if (evt.which == 3) {
+            whichclick2 = "left";
+        }
+
+        if (whichclick == whichclick2) {
+            linin = false;
+            if (whichclick == "right") {
+                drawLine(evt, click1.tile, clickStart);
+            } else {
+                drawLine(evt, click2.tile, clickStart);
+            }
+
+        } else {
+            clickStart = myMap.getTilePos(evt);
+            if (evt.which == 1) {
+                whichclick = "right";
+            } else if (evt.which == 3) {
+                whichclick = "left";
+            }
+        }
+
+    }
+}
+
+tools.selector = function(evt) {
+    if (evt.which == 1) {
+        click1.tile = myMap.getTile(evt);
+    } else if (evt.which == 3) {
+        click2.tile = myMap.getTile(evt);
+    }
+
+    tool = tempTool;
+}
+
+tools.bucket = function(evt) {
+    coord = myMap.getTilePos(evt);
+    compTile = myMap.getTile(evt);
+
+    console.log("Tile pos, x: " + coord.x + " y: " + coord.y + ". compTile: " + compTile);
+
+    if (evt.which == 1) {
+        rTileChanger(coord.x, coord.y, compTile, click1.tile);
+    } else if (evt.which == 3) {
+        rTileChanger(coord.x, coord.y, compTile, click2.tile);
+    }
+
+    myMap.draw();
+}
+
+// placement of tiles
+$('#myCanvas').mousedown(function(evt) {
+    thickness = $('#sliderBar').val();;
+    if (!evt.ctrlKey) {
+        switch (tool) {
+            case 0: //pencil
+                tools.pencil(evt);
+                break;
+            case 1: // brush
+                tools.pencil(evt);
+                tools.brush(evt);
+                break;
+            case 2: // eraser
+                tools.eraser(evt);
+                break;
+            case 3: // line
+                tools.lineTool(evt);
+                break;
+            case 4: // selector
+                tools.selector(evt);
+                break;
+            case 5: // bucket
+                tools.bucket(evt);
+                break;
+        }
+    } else if (evt.ctrlKey) { // start dragging of the map
+        evt.preventDefault();
+        if (evt.which == 1) {
+            myMap.dragStart();
+        }
+
+        // releases the drag
+        $('#myCanvas').mouseup(function(evt) {
+            console.log('releases drag');
+            evt.preventDefault();
+            if (evt.which == 1) {
+                myMap.dragEnd();
+            }
+        });
+    }
+});
+
+// get tile selected from tile browser
+$('#myTileBrowser').mousedown(function(evt) {
     var pos = tileBrowser.getTilePos(evt);
 
-    if( evt.which == 1){
+    if (evt.which == 1) {
         click1.tile = tileBrowser.getTile(evt);
         click1.layer = "bottom";
         unselectRight();
         tileBrowser.selectRight(pos.x, pos.y);
 
     }
-    if ( evt.which == 3){
+    if (evt.which == 3) {
         click2.layer = "bottom";
-       click2.tile = tileBrowser.getTile(evt); 
-       unselectLeft();
-       tileBrowser.selectLeft(pos.x, pos.y);
+        click2.tile = tileBrowser.getTile(evt);
+        unselectLeft();
+        tileBrowser.selectLeft(pos.x, pos.y);
     }
 })
 
 // get tile selected from middle tile browser
-$('#myMiddleTileBrowser').mousedown(function(evt){
-    if(tool == 2)//if after using the eraser you select a new tile then the tool is set to the previous tool
-    {
-        tool = tempTool;
-    }
+$('#myMiddleTileBrowser').mousedown(function(evt) {
     var pos = middleBrowser.getTilePos(evt);
 
-    if( evt.which == 1){
+    if (evt.which == 1) {
         click1.layer = "middle";
         click1.tile = middleBrowser.getTile(evt);
         unselectRight();
         middleBrowser.selectRight(pos.x, pos.y);
 
     }
-    if ( evt.which == 3){
+    if (evt.which == 3) {
         click2.layer = "middle";
-       click2.tile = middleBrowser.getTile(evt); 
-       unselectLeft();
-       middleBrowser.selectLeft(pos.x, pos.y);
+        click2.tile = middleBrowser.getTile(evt);
+        unselectLeft();
+        middleBrowser.selectLeft(pos.x, pos.y);
     }
 })
 
 // get tile selected from middle tile browser
-$('#myUpperTileBrowser').mousedown(function(evt){
-    if(tool == 2)//if after using the eraser you select a new tile then the tool is set to the previous tool
-    {
-        tool = tempTool;
-    }
+$('#myUpperTileBrowser').mousedown(function(evt) {
     var pos = upperBrowser.getTilePos(evt);
 
-    if( evt.which == 1){
+    if (evt.which == 1) {
         click1.layer = "upper";
         click1.tile = upperBrowser.getTile(evt);
         unselectRight();
         upperBrowser.selectRight(pos.x, pos.y);
 
     }
-    if ( evt.which == 3){
+    if (evt.which == 3) {
         click2.layer = "upper";
-       click2.tile = upperBrowser.getTile(evt); 
-       unselectLeft();
-       upperBrowser.selectLeft(pos.x, pos.y);
+        click2.tile = upperBrowser.getTile(evt);
+        unselectLeft();
+        upperBrowser.selectLeft(pos.x, pos.y);
     }
 })
 
-// placement of tiles
-$('#myCanvas').mousedown(function(evt){
-    thickness = $('#sliderBar').val();;
-    //begin pencil tool
-	if (tool == 0 && !evt.ctrlKey ){  // if tool 0 is selected
-	    if(evt.which == 1) { 
-	        // set location of mouse click to click object
-	        click = myMap.getTilePos(evt);  
-	        // check if we are on map...if we are change tile
-            console.log("About to brush");
-	        if (click != null) { rBigChanger(click, click1.tile, thickness, click1.layer) }
-	    }
-	    else if (evt.which == 3 ) {
-	        // set location of mouse click to click object
-	        click = myMap.getTilePos(evt);  
-	        // check if we are on map...if we are change tile
-            console.log("About to brush");
-	        if (click != null) { rBigChanger(click, click2.tile, thickness, click2.layer) }
-	    }
-		//myMap.draw(); // redraw map so we can see changes
-	}//end pencil tool
-    //begin pen tool
-	else if (tool == 1 && !evt.ctrlKey ){  // if tool 1 is selected
-        /*end code to fix mouse move bug*/
-        if(evt.which == 1) { 
-            // set location of mouse click to click object
-            click = myMap.getTilePos(evt);  
-            // check if we are on map...if we are change tile
-            console.log("About to brush");
-            if (click != null) { rBigChanger(click, click1.tile, thickness, click1.layer) }
+$('#myToolBar').mousedown(function(evt) {
+    var selTool = toolBar.getTile(evt);
+    tempTool = tool;
+    tool = (selTool / 8); //+ 1;
 
-        }
-        else if (evt.which == 3 ) {
-            // set location of mouse click to click object
-            click = myMap.getTilePos(evt);  
-            // check if we are on map...if we are change tile
-            console.log("About to brush");
-            if (click != null) { rBigChanger(click, click2.tile, thickness, click2.layer) }
-        }
-        /*end code to fix mouse move bug*/
-	    $('#myCanvas').mousemove(function(evt){
+    var pos = toolBar.getTilePos(evt);
+    toolBar.selectTool(pos.x, pos.y);
 
-            if(evt.which == 1) {
-                // set location of mouse click to click object
-                click = myMap.getTilePos(evt);  
-                // check if we are on map...if we are change tile
-                if (click != null) { rBigChanger(click, click1.tile, thickness, click1.layer) }
-            }
-            else if (evt.which == 3 ) {
-                // set location of mouse click to click object
-                click = myMap.getTilePos(evt);  
-                // check if we are on map...if we are change tile
-                if (click != null) { rBigChanger(click, click2.tile, thickness, click2.layer) }
-            }
-        	//myMap.draw(); // redraw map so we can see changes
-	    });
-	}//end pen tool
-    //begin delete tool
-    else if (tool == 2 && !evt.ctrlKey)
-    {
-        //This gets the default tile (ie. grass, sand,...) to simulate the erase tool.
-        var defaultTile = myMap.getDefaultTile();
+})
 
-         click = myMap.getTilePos(evt);
-
-        if (click != null) { rBigChanger(click, defaultTile, thickness, "bottom");}
-        if (click != null) { rBigChanger(click, -1, thickness, "middle");}
-        if (click != null) { rBigChanger(click, -1, thickness, "upper");}
-        
-        $('#myCanvas').mousemove(function(evt){
-            click = myMap.getTilePos(evt);  
-            if (click != null) { rBigChanger(click, defaultTile, thickness, "bottom");}
-            if (click != null) { rBigChanger(click, -1, thickness, "middle");}
-            if (click != null) { rBigChanger(click, -1, thickness, "upper");}
-        });
-    }//end delete tool
-    //begin line tool
-    else if (tool == 3 && !evt.ctrlKey)
-    {
-        console.log('linin: ' + linin);
-        if(linin == false)
-        {                                                
-            linin = true;
-            clickStart = myMap.getTilePos(evt);
-            if(evt.which == 1){
-                whichclick = "right";
-            }else if (evt.which == 3){
-                whichclick = "left";
-            }
-        }else if (linin == true)
-        {
-            if(evt.which == 1){
-                whichclick2 = "right";
-            }else if (evt.which == 3){
-                whichclick2 = "left";
-            }
-
-            if(whichclick == whichclick2)
-            {
-                linin = false;
-                if(whichclick == "right")
-                {
-                    drawLine(evt, click1.tile, clickStart);
-                }else
-                {
-                    drawLine(evt, click2.tile, clickStart);
-                }
-                
-            }else
-            {  
-                clickStart = myMap.getTilePos(evt);
-                if(evt.which == 1){
-                    whichclick = "right";
-                }else if (evt.which == 3){
-                    whichclick = "left";
-                }
-            }
-
-        }
-
-    }else if (tool == 5 && !evt.ctrlKey)//bucket tool
-    {
-            coord = myMap.getTilePos(evt);
-            compTile = myMap.getTile(evt);
-
-            console.log("Tile pos, x: " + coord.x + " y: " + coord.y + ". compTile: " + compTile);
-
-            if(evt.which == 1){
-                rTileChanger(coord.x, coord.y, compTile, click1.tile);
-            }else if (evt.which == 3){
-                rTileChanger(coord.x, coord.y, compTile, click2.tile);
-            }
-
-            myMap.draw();
-    }else if (tool == 4 && !evt.ctrlKey)//peecker (yes peecker)
-    {
-
-        if(evt.which == 1){
-            click1.tile = myMap.getTile(evt);
-        }else if (evt.which == 3){
-            click2.tile = myMap.getTile(evt);
-        }
-        
-        tool = tempTool;
-
-    }//it was so hard to do this...
-
-});
 
 // TODO: move this to  toolbar.js 
-var rTileChanger = function(varX, varY, compTile, chTile, layer){
+var rTileChanger = function(varX, varY, compTile, chTile, layer) {
 
-    if(myMap.boundsCheck(varX, varY))
-    {
+    if (myMap.boundsCheck(varX, varY)) {
         var currTile = myMap.getxyTile(varX, varY);
         console.log("currTile: " + currTile + "compTile: " + compTile);
 
-        if(currTile != compTile || currTile == chTile)
-        {
+        if (currTile != compTile || currTile == chTile) {
             return;
-        }
-        else if(currTile == compTile)
-        {
+        } else if (currTile == compTile) {
             myMap.changeTile(varX, varY, chTile, layer);
 
-            rTileChanger(varX + 1/*myMap.width*/, varY, compTile, chTile, layer); //go right
-            rTileChanger(varX - 1/*myMap.width*/, varY, compTile, chTile, layer); //go left
-            rTileChanger(varX, varY - 1/*myMap.height*/, compTile, chTile, layer); //go up
-            rTileChanger(varX, varY + 1/*myMap.height*/, compTile, chTile. layer); //go down
+            rTileChanger(varX + 1 /*myMap.width*/ , varY, compTile, chTile, layer); //go right
+            rTileChanger(varX - 1 /*myMap.width*/ , varY, compTile, chTile, layer); //go left
+            rTileChanger(varX, varY - 1 /*myMap.height*/ , compTile, chTile, layer); //go up
+            rTileChanger(varX, varY + 1 /*myMap.height*/ , compTile, chTile.layer); //go down
         }
     }
 
 };
 
-var rBigChanger = function(click, chTile,timesThickness, layer)
-{
+var rBigChanger = function(click, chTile, timesThickness, layer) {
 
-    if(myMap.boundsCheck(click.x, click.y))
-    {
+    if (myMap.boundsCheck(click.x, click.y)) {
 
-        if(timesThickness == 0)
-        {
+        if (timesThickness == 0) {
             return;
-        }
-        else
-        {
+        } else {
             myMap.changeTile(click.x, click.y, chTile, layer);
 
-            rBigChanger({x: click.x+1, y: click.y}, chTile, timesThickness-1, layer); //go right
-            rBigChanger({x: click.x-1, y: click.y}, chTile, timesThickness-1, layer); //go left
-            rBigChanger({x: click.x  , y: click.y-1}, chTile, timesThickness-1, layer); //go up
-            rBigChanger({x: click.x  , y: click.y+1}, chTile, timesThickness-1, layer); //go down
+            rBigChanger({
+                x: click.x + 1,
+                y: click.y
+            }, chTile, timesThickness - 1, layer); //go right
+            rBigChanger({
+                x: click.x - 1,
+                y: click.y
+            }, chTile, timesThickness - 1, layer); //go left
+            rBigChanger({
+                x: click.x,
+                y: click.y - 1
+            }, chTile, timesThickness - 1, layer); //go up
+            rBigChanger({
+                x: click.x,
+                y: click.y + 1
+            }, chTile, timesThickness - 1, layer); //go down
         }
     }
 
 };
 
-var drawLine = function(evt, side, clickStart)
-{
+var drawLine = function(evt, side, clickStart) {
     clickEnd = myMap.getTilePos(evt);
 
     console.log('X0: ' + clickStart.x + ' Y0: ' + clickStart.y);
@@ -310,181 +341,36 @@ var drawLine = function(evt, side, clickStart)
     dx = Math.abs(clickEnd.x - clickStart.x);
     dy = Math.abs(clickEnd.y - clickStart.y);
 
-    if(clickStart.x < clickEnd.x)
-    {
+    if (clickStart.x < clickEnd.x) {
         sx = 1;
-    }else
-    {
+    } else {
         sx = -1;
     }
 
-    if(clickStart.y < clickEnd.y)
-    {
+    if (clickStart.y < clickEnd.y) {
         sy = 1;
-    }else
-    {
+    } else {
         sy = -1;
-    }      
+    }
 
     err = dx - dy;
 
 
-    while(true)
-    {
+    while (true) {
         //myMap.changeTile(clickStart.x, clickStart.y, side);
-        rBigChanger({x: clickStart.x, y: clickStart.y}, side, thickness);
-        if(clickStart.x == clickEnd.x && clickStart.y == clickEnd.y) break;
-        e2 = 2*err;
-        if (e2 > -dy)
-        {
+        rBigChanger({
+            x: clickStart.x,
+            y: clickStart.y
+        }, side, thickness);
+        if (clickStart.x == clickEnd.x && clickStart.y == clickEnd.y) break;
+        e2 = 2 * err;
+        if (e2 > -dy) {
             err = err - dy;
             clickStart.x = clickStart.x + sx;
         }
-        if (e2 < dx)
-        {
+        if (e2 < dx) {
             err = err + dx;
             clickStart.y = clickStart.y + sy;
         }
     }
 }
-
-
-// starts the drag of the map
-$('#myCanvas').mousedown(function(evt){
-    console.log('MOUSEBUTTON: ' + evt.which);
-    if (evt.ctrlKey == true){
-        evt.preventDefault();
-        if (evt.which == 1) {  myMap.dragStart();  }   
-    }
-});
-
-// releases the drag
-$('#myCanvas').mouseup(function(evt){
-    evt.preventDefault();
-    if (evt.which == 1) {  myMap.dragEnd(); }   
-});
-
-
-// makes pluss and minus zoom the map
-$(document).keydown (function(evt){
-    console.log('key: ' + evt.which);
-    var change = 5
-    var changeX = (myMap.width *  change);
-    var changeY = (myMap.height * change);
-    var move = 30;
-
-    if (evt.which == 107 || evt.which == 187){
-        
-        myMap.pixelWidth += changeX;
-        myMap.pixelHeight += changeY;
-        myMap.x -= (myMap.width * change)/2;
-        myMap.y -= (myMap.height * change)/2;
-    }
-    else if (evt.which == 109 || evt.which == 189){
-        if (myMap.pixelWidth - changeX > 100 || myMap.pixelHeight- changeY > 100){
-            myMap.pixelWidth -= changeX;
-            myMap.pixelHeight -= changeY;
-            myMap.x += (myMap.width * change)/2;
-            myMap.y += (myMap.height * change)/2;
-        }  
-    }
-    else if (evt.which == 37) { evt.preventDefault(); myMap.x -= move } // arrow keys
-    else if (evt.which == 38) { evt.preventDefault(); myMap.y -= move }
-    else if (evt.which == 39) { evt.preventDefault(); myMap.x += move }
-    else if (evt.which == 40) { evt.preventDefault(); myMap.y += move }
-    else if (evt.ctrlKey && evt.which == 90){ myMap.undoManager.undo();}
-    else if (evt.ctrlKey && evt.which == 82){
-        evt.preventDefault();
-        myMap.undoManager.redo();
-    }
-
-    myMap.draw();
-});
-
-
-// this stuff is to hide and show the toolbar and tile Broweser
-var toolbarVisable = true;
-var tileBrowserVisable = true;
-var sliderVisable = true;
-
-var showToolbar = function (){
-    $('#toolbar').show();
-    $('#toolbar').animate({'left' : 0 }, {duration: 200, queue: false, easing: 'linear'})
-    $('#butBar-toolbox')[0].setAttribute("class", "glyphicon glyphicon-ok"); // add checkmark 
-}
-var showTileBrowser = function (){
-    $('#tileBrowser').show();
-    $('#tileBrowser').animate({'right' : 0 }, {duration: 200, queue: false, easing: 'linear'})
-    $('#butBar-tileBrowser')[0].setAttribute("class", "glyphicon glyphicon-ok"); // add checkmark 
-}
-var hideToolbar = function (){
-    $('#toolbar').animate({'left' :  -200}, {duration: 200, queue: false, easing: 'linear'})
-    $('#toolbar').hide();
-    $('#butBar-toolbox')[0].setAttribute("class", ""); // remove checkmark 
-}
-var hideTileBrowser = function (){
-    $('#tileBrowser').animate({'right' :  -500}, {duration: 200, queue: false, easing: 'linear'})
-    $('#tileBrowser').hide();
-    $('#butBar-tileBrowser')[0].setAttribute("class", ""); // remove checkmark 
-}
-
-var hideSlider = function (){
-    $('#slider').animate({'left' :  -300}, {duration: 200, queue: false, easing: 'linear'})
-    $('#slider').hide();
-    $('#butBar-slider')[0].setAttribute("class", ""); // remove checkmark 
-}
-
-var showSlider = function (){
-    $('#slider').show();
-    $('#slider').animate({'left' : 6 }, {duration: 200, queue: false, easing: 'linear'})
-    $('#butBar-slider')[0].setAttribute("class", "glyphicon glyphicon-ok"); // add checkmark 
-}
-
-
-
-if (toolbarVisable){ showToolbar() } else { hideToolbar() };
-if (tileBrowserVisable) { showTileBrowser() } else { hideTileBrowser() };
-if (sliderVisable) { showSlider(); } else { hideSlider() };
-
-// show toolbar when mouse over
-$('#sliderHandle').mouseover(function() {
-    if (!sliderVisable) {
-        showSlider();
-    }
-});
-
-// hide toolbar on mouse out
-$('#sliderHandle').mouseout(function() {
-    if (!sliderVisable) {
-        hideSlider();
-    }
-});
-// show toolbar when mouse over
-$('#toolbarHandle').mouseover(function() {
-	if (!toolbarVisable) {
-	    showToolbar()
-	}
-});
-
-// hide toolbar on mouse out
-$('#toolbarHandle').mouseout(function() {
-	if (!toolbarVisable) {
-	    hideToolbar()
-	}
-});
-// show tileBrowser when mouse over
-$('#tileBrowserHandle').mouseover(function() {
-	if (!tileBrowserVisable) {
-	    showTileBrowser()
-	}
-});
-// hide tileBrowser on mouse out
-$('#tileBrowserHandle').mouseout(function() {
-	if (!tileBrowserVisable) {
-	    hideTileBrowser();
-	}
-});
-
-
-
-

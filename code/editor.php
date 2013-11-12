@@ -43,6 +43,8 @@
         <script src="public/js/mapEditor/tileBrowser.js"></script>
         <script src="public/js/mapEditor/toolBar.js"></script>
         <script src="public/js/mapEditor/editor.js"></script>
+        <script src="public/js/mapEditor/sliders.js"></script>
+        <script src="public/js/mapEditor/keyboardInput.js"></script>
         <script src="public/js/mapEditor/mouseInput.js"></script>
         <script src="public/js/mapEditor/buttons.js"></script>
 
