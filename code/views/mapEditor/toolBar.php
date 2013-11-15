@@ -2,7 +2,7 @@
     #toolbar {
         position: absolute;
         width: 85px;
-        height: 500px;
+        height: 450x;
         left: -200px;
 
     }
@@ -12,7 +12,7 @@
         float: left;
         top: 15%;
         width: 30px;
-        height: 500px;
+        height: 450px;
         text-align: center;
 
     }

@@ -17,6 +17,7 @@
         <!--  adding the tile browser-->
         <?php include("views/mapEditor/tileBrowser.php"); ?>
         <!--  adding the toolbar-->
+		<?php include("views/mapEditor/miniMap.php"); ?>
         <?php include("views/mapEditor/toolBar.php"); ?>      
           
         <?php include("views/mapEditor/slider.php"); ?>        
@@ -41,6 +42,7 @@
         <script src="public/js/mapEditor/undomanager.js"></script>
         <script src="public/js/mapEditor/map.js"></script>
         <script src="public/js/mapEditor/tileBrowser.js"></script>
+		<script src="public/js/mapEditor/miniMap.js"></script>
         <script src="public/js/mapEditor/toolBar.js"></script>
         <script src="public/js/mapEditor/editor.js"></script>
         <script src="public/js/mapEditor/sliders.js"></script>
