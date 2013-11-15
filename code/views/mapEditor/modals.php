@@ -47,6 +47,31 @@
   </div><!-- /.modal -->
 
 
+      <!-- Preferences Modal -->
+  <div class="modal fade" id="preferencesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h3 class="text-info modal-title">Preferences</h3>
+        </div>
+        <div class="modal-body">
+          <h3>Hotkeys:</h3>
+          <div class="row"><label class="col-md-2">Pencil</label><input id="" type="character"></div>  
+          <div class="row"><label class="col-md-2">Brush</label><input id="" type="character"></div>
+          <div class="row"><label class="col-md-2">Eraser</label><input id="" type="character"></div>
+          <div class="row"><label class="col-md-2">Line</label><input id="" type="character"></div>
+          <div class="row"><label class="col-md-2">Selector</label><input id="" type="character"></div>
+          <div class="row"><label class="col-md-2">Fill</label><input id="" type="character"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" data-dismiss="modal" class="btn btn-primary" id="" >Save</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->  
+
 
     <style type="text/css">
       #playTestModal .modal-dialog {
@@ -58,7 +83,7 @@
       }
 
     </style>
-      <!-- fill Modal -->
+      <!-- Play Test Modal -->
   <div class="modal fade" id="playTestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -77,3 +102,6 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+
+
+

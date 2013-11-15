@@ -155,3 +155,7 @@ $('#butBar-fill')[0].onclick = function(){
     $('#fillModal').modal()
 
 }
+
+$('#butBar-preferences')[0].onclick = function(){
+    $('#preferencesModal').modal();
+}
