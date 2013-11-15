@@ -102,8 +102,19 @@ else {
   $( "#mapName" ).text(myMap.title);  
   myMap.draw();
 }
+var miniImageBot = new Image();
+var miniImageMid = new Image();
+var miniImageTop = new Image();
 
+miniImageBot.src = 'public/img/tiles.png';
+miniImageMid.src = 'public/img/middle.png';
+miniImageMid.src = 'public/img/upper.png';
+myMiniMap = new miniMap( document.getElementById('myMiniMap'), miniImageBot, 10, 10, miniImageMid, miniImageTop);
 
+setInterval(function() {
+	miniMap.loadMap(myMap.getMap)
+	minimap.draw();
+	}, 30000);
 
 // important makes pixel ratio and canvas size correct
 var resize=function(){

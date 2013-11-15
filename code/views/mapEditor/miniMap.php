@@ -14,12 +14,11 @@
         top: 73%;
         width: 50px;
         height: 150px;
-		background: #FFFFFF;
 
     }
 </style>
 <div id='miniMapHandle'>
     <div id="miniMap" oncontextmenu="return false" >
-            <canvas id='myMiniMap' width='500' height='100'></canvas>       
+            <canvas id='myMiniMap' width='250' height='150'></canvas>       
     </div>
 </div>
