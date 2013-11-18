@@ -114,10 +114,6 @@ myMiniMap = new miniMap( document.getElementById('myMiniMap'), miniImageBot, 10,
 myMiniMap.pixelWidth = 10;
 myMiniMap.pixelHeight = 10;
 
-setInterval(function() {
-	miniMap.loadMap(myMap.getMap)
-	minimap.draw();
-	}, 30000);
 
 // important makes pixel ratio and canvas size correct
 var resize=function(){
