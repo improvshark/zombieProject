@@ -81,6 +81,17 @@ $('#butBar-toolbox')[0].onclick = function(){
     }
 }
 
+$('#butBar-miniMap')[0].onclick = function(){
+    if (!miniMapVisible){
+        miniMapVisible = true;
+        showMiniMap();
+
+    } else {
+        miniMapVisible = false;
+        hideMiniMap();
+    }
+}
+
 // window --> slider
 $('#butBar-slider')[0].onclick = function(){
     if (!sliderVisable){

@@ -102,7 +102,17 @@ else {
   $( "#mapName" ).text(myMap.title);  
   myMap.draw();
 }
+var miniImageBot = new Image();
+var miniImageMid = new Image();
+var miniImageTop = new Image();
 
+miniImageBot.src = 'public/img/tiles.png';
+miniImageMid.src = 'public/img/middle.png';
+miniImageTop.src = 'public/img/upper.png';
+myMiniMap = new miniMap( document.getElementById('myMiniMap'), miniImageBot, 10, 10, miniImageMid, miniImageTop);
+
+myMiniMap.pixelWidth = 10;
+myMiniMap.pixelHeight = 10;
 
 
 // important makes pixel ratio and canvas size correct

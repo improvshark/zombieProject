@@ -11,17 +11,21 @@
         <script src="public/js/bootstrap.min.js"></script>
     </head>
 
-    <body>
+    <body oncontextmenu="return false" class="unselectable">
         <!--  adding the navbar to the page and selecting current tab-->
         <?php include("views/mapEditor/butBar.php"); ?>
-        <!--  adding the tile browser-->
-        <?php include("views/mapEditor/tileBrowser.php"); ?>
-        <!--  adding the toolbar-->
-        <?php include("views/mapEditor/toolBar.php"); ?>      
-          
-        <?php include("views/mapEditor/slider.php"); ?>        
 
-        <div style="width: 100%;" oncontextmenu="return false" class="unselectable">
+		<div style="position: relative; top: 8%;" >
+                <!--  adding the tile browser-->
+            <?php include("views/mapEditor/tileBrowser.php"); ?>
+            <!--  adding the toolbar-->
+            <?php include("views/mapEditor/toolBar.php"); ?>      
+              
+            <?php include("views/mapEditor/slider.php"); ?> 
+
+            <?php include("views/mapEditor/miniMap.php"); ?>
+        <div>
+        <div style="width: 100%;" >
             <canvas id='myCanvas' width='900' height='650' style="border: 1px black solid; "></canvas>
         </div>
 
@@ -41,6 +45,7 @@
         <script src="public/js/mapEditor/undomanager.js"></script>
         <script src="public/js/mapEditor/map.js"></script>
         <script src="public/js/mapEditor/tileBrowser.js"></script>
+		<script src="public/js/mapEditor/miniMap.js"></script>
         <script src="public/js/mapEditor/toolBar.js"></script>
         <script src="public/js/mapEditor/editor.js"></script>
         <script src="public/js/mapEditor/sliders.js"></script>
