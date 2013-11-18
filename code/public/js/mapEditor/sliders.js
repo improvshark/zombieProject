@@ -56,6 +56,7 @@ if (miniMapVisible) { showMiniMap(); } else { hideMiniMap(); };
 
 // show toolbar when mouse over
 $('#sliderHandle').mouseover(function() {
+
     if (!sliderVisable) {
         showSlider();
     }
@@ -93,6 +94,7 @@ $('#tileBrowserHandle').mouseout(function() {
 });
 //show miniMap on mouse over
 $('#miniMapHandle').mouseover(function() {
+    myMiniMap.update(myMap.getMap());
     if (!miniMapVisible) {
         showMiniMap();
     }

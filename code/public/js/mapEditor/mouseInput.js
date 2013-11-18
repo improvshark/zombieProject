@@ -173,6 +173,39 @@ tools.bucket = function(evt) {
 
     myMap.draw();
 }
+// mini map movement
+$('#myMiniMap').mousedown(function(evt) {
+    var click = myMiniMap.getTilePos(evt);
+
+    var numPixWidth = click.x * myMap.pixelWidth/myMap.width;
+    var numPixHeight = click.y * myMap.pixelHeight/myMap.height;
+    var midX = myMap.canvas.width/2;
+    var midY = myMap.canvas.height/2;
+
+    myMap.x = midX - numPixWidth;
+    myMap.y = midY - numPixHeight;
+
+
+
+    $('#myMiniMap').on('mousemove',function(evt) {
+        var click = myMiniMap.getTilePos(evt);
+        var numPixWidth = click.x * myMap.pixelWidth/myMap.width;
+        var numPixHeight = click.y * myMap.pixelHeight/myMap.height;
+        var midX = myMap.canvas.width/2;
+        var midY = myMap.canvas.height/2;
+        myMap.x = midX - numPixWidth;
+        myMap.y = midY - numPixHeight;
+        myMap.draw();
+
+    });
+    // remove the handling of the event
+    $('#myMiniMap').on('mouseup', function(evt) {
+       $('#myMiniMap').off('mousemove'); 
+       $('#myMiniMap').off('mouseup'); 
+    });
+
+    myMap.draw();
+});
 
 // placement of tiles
 $('#myCanvas').mousedown(function(evt) {

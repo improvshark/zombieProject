@@ -10,7 +10,7 @@
         position: absolute;
         right: 0px;
         float: right;
-        top: 15%;
+        top: 46px;
         width: 50px;
         height: 500px;
 

@@ -111,6 +111,9 @@ miniImageMid.src = 'public/img/middle.png';
 miniImageMid.src = 'public/img/upper.png';
 myMiniMap = new miniMap( document.getElementById('myMiniMap'), miniImageBot, 10, 10, miniImageMid, miniImageTop);
 
+myMiniMap.pixelWidth = 10;
+myMiniMap.pixelHeight = 10;
+
 setInterval(function() {
 	miniMap.loadMap(myMap.getMap)
 	minimap.draw();
