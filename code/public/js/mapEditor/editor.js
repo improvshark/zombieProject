@@ -108,7 +108,7 @@ var miniImageTop = new Image();
 
 miniImageBot.src = 'public/img/tiles.png';
 miniImageMid.src = 'public/img/middle.png';
-miniImageMid.src = 'public/img/upper.png';
+miniImageTop.src = 'public/img/upper.png';
 myMiniMap = new miniMap( document.getElementById('myMiniMap'), miniImageBot, 10, 10, miniImageMid, miniImageTop);
 
 myMiniMap.pixelWidth = 10;
