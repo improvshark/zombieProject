@@ -133,3 +133,32 @@ function sendMap(map, callback ){
     });
 }
 
+
+function savePref(id, preferences ){
+	console.log( 'saving preferences...');
+
+	var myData = {
+		saving_pref: true,
+		preferences: preferences, 
+		id: id
+	}
+
+	request = $.ajax({
+		type: "POST",
+		url: "tools/update.php",
+		data: myData,
+	    success: function(data){
+	    	console.log('successful save');
+	    	//id = parseInt(data)
+	    	//console.log(":"+id+":")
+	    },
+		error:function(){
+	    	console.log('fail save');
+	    },
+		
+
+	})
+
+	//return id;
+}
+
