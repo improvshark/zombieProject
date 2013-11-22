@@ -183,6 +183,10 @@ $('#butBar-preferences')[0].onclick = function(){
         myPref.lineKey = $('#lineKey').val().toUpperCase();
         myPref.selectKey = $('#selectKey').val().toUpperCase();
         myPref.fillKey = $('#fillKey').val().toUpperCase();
+        console.dir(myPref);
+        var saveData =  JSON.stringify( myPref ) ;
+        console.log(saveData);
+        savePref(userData.user_id, saveData);
     }
 
     

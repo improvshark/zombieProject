@@ -162,3 +162,29 @@ function savePref(id, preferences ){
 	//return id;
 }
 
+function getPref(id){
+	console.log( 'getting preferences...');
+
+	var myData = {
+		get_pref: true,
+		id: id
+	}
+
+	request = $.ajax({
+		type: "POST",
+		url: "tools/update.php",
+		data: myData,
+	    success: function(data){
+	    	var pref =  JSON.parse(data);
+	    	return pref;
+	    },
+		error:function(){
+	    	console.log('fail save');
+	    },
+		
+
+	})
+
+	//return id;
+}
+

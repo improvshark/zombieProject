@@ -162,7 +162,8 @@ class Login
         }
     }
 
-    public function getPref($userID) {
+    public function getPref() {
+        $userID = (int )$_POST['id'];
         // if database connection opened
         if ($this->databaseConnection()) {
             // database query, getting all the info of the selected map

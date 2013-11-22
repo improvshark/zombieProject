@@ -108,5 +108,9 @@ else if (!empty($_POST['saving_pref'])) {
     echo $login->savePref();
 }
 
+else if (!empty($_POST['get_pref'])) {
+    echo $login->getPref();
+}
+
 
 ?>
