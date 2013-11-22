@@ -5,8 +5,6 @@ $(document).keydown(function(evt) {
     var changeY = (myMap.height * change);
     var move = 30;
 
-
-
     switch (evt.which) {
         case 107: // +
         case 187: // num+    
@@ -26,7 +24,7 @@ $(document).keydown(function(evt) {
             }
             break;
         case 37: // left
-            evt.preventDefault();
+            evt.peventDefault();
             myMap.x -= move
             break;
         case 38: // up
@@ -52,27 +50,27 @@ $(document).keydown(function(evt) {
                 myMap.undoManager.redo();
             };
             break;
-        case 80: // p
+        case myPref.pencilKey.charCodeAt(0): // pencil
             tool = 0;
             toolBar.selectTool(0, 0);
             break;
-        case 66: // b
+        case myPref.brushKey.charCodeAt(0): // brush
             tool = 1;
             toolBar.selectTool(0, 1);
             break;
-        case 69: // e
+        case myPref.eraserKey.charCodeAt(0): // eraser
             tool = 2;
             toolBar.selectTool(0, 2);
             break;
-        case 76: // l
+        case myPref.lineKey.charCodeAt(0): // line
             tool = 3;
             toolBar.selectTool(0, 3);
             break;
-        case 83: // s
+        case myPref.selectKey.charCodeAt(0): // selector
             tool = 4;
             toolBar.selectTool(0, 4);
             break;
-        case 70: // f
+        case myPref.fillKey.charCodeAt(0): // fill
             tool = 5;
             toolBar.selectTool(0, 5);
             break;

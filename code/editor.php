@@ -47,6 +47,7 @@
         <script src="public/js/mapEditor/keyboardInput.js"></script>
         <script src="public/js/mapEditor/mouseInput.js"></script>
         <script src="public/js/mapEditor/buttons.js"></script>
+        <script src="public/js/mapEditor/preferences.js"></script>
 
 
         <div class="container unselectable" >

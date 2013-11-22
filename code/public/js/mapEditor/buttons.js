@@ -158,4 +158,21 @@ $('#butBar-fill')[0].onclick = function(){
 
 $('#butBar-preferences')[0].onclick = function(){
     $('#preferencesModal').modal();
+    $('#pencilKey').val(myPref.pencilKey);
+    $('#brushKey').val(myPref.brushKey);
+    $('#eraserKey').val(myPref.eraserKey);
+    $('#lineKey').val(myPref.lineKey);
+    $('#selectKey').val(myPref.selectKey);
+    $('#fillKey').val(myPref.fillKey);
+
+    $('#savePref')[0].onclick = function(evt) {
+        myPref.pencilKey = $('#pencilKey').val().toUpperCase();
+        myPref.brushKey = $('#brushKey').val().toUpperCase();
+        myPref.eraserKey = $('#eraserKey').val().toUpperCase();
+        myPref.lineKey = $('#lineKey').val().toUpperCase();
+        myPref.selectKey = $('#selectKey').val().toUpperCase();
+        myPref.fillKey = $('#fillKey').val().toUpperCase();
+    }
+
+    
 }
