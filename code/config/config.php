@@ -77,7 +77,7 @@ define("EMAIL_SMTP_ENCRYPTION", 'ssl');
  */
 
 /** absolute URL to register.php, necessary for email password reset links */
-define("EMAIL_PASSWORDRESET_URL", "localhost/zombieProject/code/login/password_reset.php");
+define("EMAIL_PASSWORDRESET_URL", "localhost/zombieProject/code/password_reset.php");
 define("EMAIL_PASSWORDRESET_FROM", "noreply@example.com");
 define("EMAIL_PASSWORDRESET_FROM_NAME", "My Project");
 define("EMAIL_PASSWORDRESET_SUBJECT", "Password reset for PROJECT XY");

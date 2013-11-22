@@ -132,9 +132,9 @@ tools.lineTool = function(evt) {
         if (whichclick == whichclick2) {
             linin = false;
             if (whichclick == "right") {
-                drawLine(evt, click1.tile, clickStart);
+                drawLine(evt, click1, clickStart);
             } else {
-                drawLine(evt, click2.tile, clickStart);
+                drawLine(evt, click2, clickStart);
             }
 
         } else {
@@ -161,18 +161,54 @@ tools.selector = function(evt) {
 
 tools.bucket = function(evt) {
     coord = myMap.getTilePos(evt);
-    compTile = myMap.getTile(evt);
+    
 
-    console.log("Tile pos, x: " + coord.x + " y: " + coord.y + ". compTile: " + compTile);
+
+    //console.log("Tile pos, x: " + coord.x + " y: " + coord.y + ". compTile: " + compTile);
 
     if (evt.which == 1) {
-        rTileChanger(coord.x, coord.y, compTile, click1.tile);
+        compTile = myMap.getTile(evt, click1.layer);
+        rTileChanger(coord.x, coord.y, compTile, click1.tile, click1.layer );
     } else if (evt.which == 3) {
-        rTileChanger(coord.x, coord.y, compTile, click2.tile);
+        compTile = myMap.getTile(evt, click2.layer);
+        rTileChanger(coord.x, coord.y, compTile, click2.tile, click2.layer );
     }
 
     myMap.draw();
 }
+// mini map movement
+$('#myMiniMap').mousedown(function(evt) {
+    var click = myMiniMap.getTilePos(evt);
+
+    var numPixWidth = click.x * myMap.pixelWidth/myMap.width;
+    var numPixHeight = click.y * myMap.pixelHeight/myMap.height;
+    var midX = myMap.canvas.width/2;
+    var midY = myMap.canvas.height/2;
+
+    myMap.x = midX - numPixWidth;
+    myMap.y = midY - numPixHeight;
+
+
+
+    $('#myMiniMap').on('mousemove',function(evt) {
+        var click = myMiniMap.getTilePos(evt);
+        var numPixWidth = click.x * myMap.pixelWidth/myMap.width;
+        var numPixHeight = click.y * myMap.pixelHeight/myMap.height;
+        var midX = myMap.canvas.width/2;
+        var midY = myMap.canvas.height/2;
+        myMap.x = midX - numPixWidth;
+        myMap.y = midY - numPixHeight;
+        myMap.draw();
+
+    });
+    // remove the handling of the event
+    $('#myMiniMap').on('mouseup', function(evt) {
+       $('#myMiniMap').off('mousemove'); 
+       $('#myMiniMap').off('mouseup'); 
+    });
+
+    myMap.draw();
+});
 
 // placement of tiles
 $('#myCanvas').mousedown(function(evt) {
@@ -288,7 +324,7 @@ $('#myToolBar').mousedown(function(evt) {
 var rTileChanger = function(varX, varY, compTile, chTile, layer) {
 
     if (myMap.boundsCheck(varX, varY)) {
-        var currTile = myMap.getxyTile(varX, varY);
+        var currTile = myMap.getxyTile(varX, varY, layer);
         console.log("currTile: " + currTile + "compTile: " + compTile);
 
         if (currTile != compTile || currTile == chTile) {
@@ -299,7 +335,7 @@ var rTileChanger = function(varX, varY, compTile, chTile, layer) {
             rTileChanger(varX + 1 /*myMap.width*/ , varY, compTile, chTile, layer); //go right
             rTileChanger(varX - 1 /*myMap.width*/ , varY, compTile, chTile, layer); //go left
             rTileChanger(varX, varY - 1 /*myMap.height*/ , compTile, chTile, layer); //go up
-            rTileChanger(varX, varY + 1 /*myMap.height*/ , compTile, chTile.layer); //go down
+            rTileChanger(varX, varY + 1 /*myMap.height*/ , compTile, chTile, layer); //go down
         }
     }
 
@@ -371,7 +407,7 @@ var drawLine = function(evt, side, clickStart) {
         rBigChanger({
             x: clickStart.x,
             y: clickStart.y
-        }, side, thickness);
+        }, side.tile, thickness, side.layer);
         if (clickStart.x == clickEnd.x && clickStart.y == clickEnd.y) break;
         e2 = 2 * err;
         if (e2 > -dy) {

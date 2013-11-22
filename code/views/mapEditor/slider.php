@@ -10,7 +10,7 @@
         position: absolute;
         left: 0px;
         float: left;
-        top: 8%;
+        top: 0px;
         width: 70px;
         height: 46px;
         text-align: center;

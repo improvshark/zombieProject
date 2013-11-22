@@ -2,11 +2,22 @@
 var toolbarVisable = true;
 var tileBrowserVisable = true;
 var sliderVisable = true;
+var miniMapVisible = false;
 
 var showToolbar = function (){
     $('#toolbar').show();
     $('#toolbar').animate({'left' : 0 }, {duration: 200, queue: false, easing: 'linear'})
     $('#butBar-toolbox')[0].setAttribute("class", "glyphicon glyphicon-ok"); // add checkmark 
+}
+var showMiniMap = function (){
+    $('#miniMap').show();
+    $('#miniMap').animate({'left' : 0 }, {duration: 200, queue: false, easing: 'linear'})
+    $('#butBar-miniMap')[0].setAttribute("class", "glyphicon glyphicon-ok"); // add checkmark 
+}
+var hideMiniMap = function (){
+    $('#miniMap').animate({'left' :  -200}, {duration: 200, queue: false, easing: 'linear'})
+    $('#miniMap').hide();
+    $('#butBar-miniMap')[0].setAttribute("class", ""); // remove checkmark 
 }
 var showTileBrowser = function (){
     $('#tileBrowser').show();
@@ -38,17 +49,18 @@ var showSlider = function (){
 
 
 
-if (toolbarVisable){ showToolbar() } else { hideToolbar() };
-if (tileBrowserVisable) { showTileBrowser() } else { hideTileBrowser() };
-if (sliderVisable) { showSlider(); } else { hideSlider() };
+if (toolbarVisable){ showToolbar(); } else { hideToolbar(); };
+if (tileBrowserVisable) { showTileBrowser(); } else { hideTileBrowser(); };
+if (sliderVisable) { showSlider(); } else { hideSlider(); };
+if (miniMapVisible) { showMiniMap(); } else { hideMiniMap(); };
 
 // show toolbar when mouse over
 $('#sliderHandle').mouseover(function() {
+
     if (!sliderVisable) {
         showSlider();
     }
 });
-
 // hide toolbar on mouse out
 $('#sliderHandle').mouseout(function() {
     if (!sliderVisable) {
@@ -79,4 +91,17 @@ $('#tileBrowserHandle').mouseout(function() {
 	if (!tileBrowserVisable) {
 	    hideTileBrowser();
 	}
+});
+//show miniMap on mouse over
+$('#miniMapHandle').mouseover(function() {
+    myMiniMap.update(myMap.getMap());
+    if (!miniMapVisible) {
+        showMiniMap();
+    }
+});
+//hide miniMap on mouse out
+$('#miniMapHandle').mouseout(function() {
+    if (!miniMapVisible) {
+        hideMiniMap();
+    }
 });
