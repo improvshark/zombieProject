@@ -24,7 +24,7 @@ $(document).keydown(function(evt) {
             }
             break;
         case 37: // left
-            evt.peventDefault();
+            evt.preventDefault();
             myMap.x -= move
             break;
         case 38: // up
