@@ -23,7 +23,7 @@
                 <a  <?php if ($login->isUserLoggedIn() == false) { echo "href='register.php'"; } else { echo "href='register.php?logout'"; } ?> class="btn btn-success btn-lg">Join now</a></p>
             </div>
 
-                
+            <!--  
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h2 class="panel-title">Hello World!</h2>
@@ -40,6 +40,8 @@
                 </div>
             </div>
         </div> 
+
+        -->
 
         <!--  adding the navbar to the page and selecting current tab-->
         <?php include("views/templates/footer.php"); ?>
