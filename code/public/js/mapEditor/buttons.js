@@ -104,7 +104,6 @@ $('#butBar-slider')[0].onclick = function(){
     }
 }
 
-// tools --> playTest
 $('#butBar-playTest')[0].onclick = function(){
     
     sendMap(myMap.getMap(), function(data){
@@ -132,6 +131,12 @@ $('#butBar-resizeMap')[0].onclick = function(){
     $('#resizeModal').modal()
     $('#resizeWidth').val(myMap.width);
     $('#resizeHeight').val(myMap.height);
+}
+
+$('#butBar-events')[0].onclick = function(){
+    $('#eventsModal').modal()
+    $('#eventsWidth').val(myMap.width);
+    $('#eventsHeight').val(myMap.height);
 }
 
 // tools --> fill

@@ -81,6 +81,7 @@
                     <ul class="dropdown-menu">
                         <li><a id="butBar-fill" class="" > Fill</a></li>
                         <li><a id="butBar-resizeMap" class="" > Resize map</a></li>
+                        <li><a id="butBar-events" class="" > Events</a></li>
                         <li><a id="butBar-playTest" class="" > Play Test</a></li>
                     </ul>
                 </li>

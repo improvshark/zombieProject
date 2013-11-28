@@ -268,6 +268,12 @@ Map.prototype.growWidth = function(width) {
 	this.width = width;
 }
 
+//Event adder function
+Map.prototype.addEvent = function(selEvent, mapDestination, pos_x, pos_y) {
+	console.log("Selected: " + selEvent + " Destinantion: " + mapDestination + " x and y: " + pos_x + ", " + pos_y );
+	this.events =
+}
+
 Map.prototype.resize = function(width, height) {
 	console.log('current: x:' + this.width + " y:" + this.height)
 	console.log("going to x:" + width + " y:" + height);
@@ -306,7 +312,8 @@ Map.prototype.getMap = function() {
 	var mapData = {
 		bottom: [],
 		middle: [],
-		top: []
+		top: [],
+		events: []
 	};
 
 	for (var j = 0; j < this.height; j++) {
