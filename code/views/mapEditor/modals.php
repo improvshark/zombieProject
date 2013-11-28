@@ -63,7 +63,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" data-dismiss="modal" class="btn btn-primary" id="eventBtn" onclick=" myMap.addEvent( $('#eventSelector').val(), $('#mapDestination').val(), $('#evt_pos_x').val(), $('#evt_pos_y').val() )">Add</button>
+          <button type="button" data-dismiss="modal" class="btn btn-primary" id="eventBtn" onclick=" addEvent( $('#eventSelector').val(), $('#mapDestination').val(), $('#evt_pos_x').val(), $('#evt_pos_y').val() )">Add</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

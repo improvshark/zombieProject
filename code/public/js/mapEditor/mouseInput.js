@@ -10,6 +10,8 @@ var click2 = {
 var tool = 1; // tool selected from toolbar
 var tempTool = 1; //Temp tool to hold previous tool for picker
 
+var newTempEvt;
+
 
 // TODO: move this to  toolbar.js 
 var linin = false; //flag to control the line scketching
@@ -210,6 +212,83 @@ $('#myMiniMap').mousedown(function(evt) {
     myMap.draw();
 });
 
+var addEvent = function(selEvent, mapDestination, pos_x, pos_y) {
+    console.log("Selected: " + selEvent + " Destinantion: " + mapDestination + " x and y: " + pos_x + ", " + pos_y );
+    newTempEvt = {
+        selected: selEvent,
+        dest: mapDestination,
+        xnext: pos_x,
+        ynext: pos_y
+    };
+    tempTool = tool;
+    tool = 10;
+}
+
+tools.popEvent = function(evt) {
+    
+    var tPosition = myMap.getTilePos(evt);
+
+    t_id = "treasure";
+    t_item = 0;
+    t_dest = "";
+    t_dx = 0;
+    t_dy = 0;
+
+    switch(newTempEvt.selected){
+        case "shotgun":
+            t_id = "treasure";
+            t_item = 1;
+            break;
+        case "knife":
+            t_id = "treasure";
+            t_item = 2;
+            break;
+        case "machine":
+            t_id = "treasure";
+            t_item = 3;
+            break;
+        case "bush":
+            t_id = "bush";
+            break;
+        case "hole":
+            t_id = "hole";
+            t_dest = newTempEvt.dest;
+            t_dx = newTempEvt.xnext;
+            t_dy = newTempEvt.ynext;
+            break;
+        case "door":
+            t_id = "door";
+            t_dest = newTempEvt.dest;
+            t_dx = newTempEvt.xnext;
+            t_dy = newTempEvt.ynext;
+            break;
+        case "passage":
+            t_id = "door";
+            t_dest = newTempEvt.dest;
+            t_dx = newTempEvt.xnext;
+            t_dy = newTempEvt.ynext;
+            break;
+            
+    }
+
+
+
+    var evtObj = {
+        id:   t_id,
+        x:    tPosition.x,  
+        y:    tPosition.y, 
+        item: t_item, 
+        d_id: t_dest, 
+        d_x:  t_dx,  
+        d_y:  t_dy 
+    };
+
+    console.log("evtObj: " + " " + evtObj.id + " " + evtObj.x + " " + evtObj.y + " " + evtObj.item + " " + evtObj.d_id + " " + evtObj.d_x + " " + evtObj.d_y);
+    myMap.addEventArr(evtObj);
+
+    tool = tempTool;
+}
+
 // placement of tiles
 $('#myCanvas').mousedown(function(evt) {
     thickness = $('#sliderBar').val();;
@@ -233,6 +312,9 @@ $('#myCanvas').mousedown(function(evt) {
                 break;
             case 5: // bucket
                 tools.bucket(evt);
+                break;
+            case 10:
+                tools.popEvent(evt);
                 break;
         }
     } else if (evt.ctrlKey) { // start dragging of the map
@@ -420,3 +502,4 @@ var drawLine = function(evt, side, clickStart) {
         }
     }
 }
+

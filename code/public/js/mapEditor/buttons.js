@@ -133,10 +133,9 @@ $('#butBar-resizeMap')[0].onclick = function(){
     $('#resizeHeight').val(myMap.height);
 }
 
+// tools --> events
 $('#butBar-events')[0].onclick = function(){
-    $('#eventsModal').modal()
-    $('#eventsWidth').val(myMap.width);
-    $('#eventsHeight').val(myMap.height);
+    $('#eventsModal').modal();
 }
 
 // tools --> fill

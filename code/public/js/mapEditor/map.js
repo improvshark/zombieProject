@@ -15,6 +15,7 @@ function Map(canvas, image, height, width, middle, upper) {
 	this.y = 0;
 
 	this.undoManager = new UndoManager();
+	this.events = [];
 
 
 	//TODO !!!!!!!!!!!!!!!!!!!!! SET TITLE AND AUTHOR HERE
@@ -81,6 +82,8 @@ function Map(canvas, image, height, width, middle, upper) {
 		}
 	}
 }
+
+var newTempEvt;
 
 //default terrain functions
 Map.prototype.setDefaultTerrain = function(terrain) {
@@ -269,10 +272,8 @@ Map.prototype.growWidth = function(width) {
 }
 
 //Event adder function
-Map.prototype.addEvent = function(selEvent, mapDestination, pos_x, pos_y) {
-	console.log("Selected: " + selEvent + " Destinantion: " + mapDestination + " x and y: " + pos_x + ", " + pos_y );
-	this.events =
-}
+//catches events and changes the mouse. Waits for mouse to send the event.
+
 
 Map.prototype.resize = function(width, height) {
 	console.log('current: x:' + this.width + " y:" + this.height)
@@ -479,6 +480,12 @@ Map.prototype.getxyTile = function(x, y, layer) {
 	}
 	return tile;
 };
+
+Map.prototype.addEventArr = function(evtObj)
+{
+	this.events.push(evtObj);
+
+}
 
 
 // this function will change the selected tile and redraw

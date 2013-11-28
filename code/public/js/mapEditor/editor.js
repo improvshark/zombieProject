@@ -35,8 +35,6 @@ var map = {
 };
 
 
-
-
 // create bottom tileBrowser
 var tiles = new Image()
 tiles.src = 'public/img/tiles.png';
