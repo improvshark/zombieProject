@@ -162,6 +162,37 @@ class Login
         }
     }
 
+    public function getPref() {
+        $userID = (int )$_POST['id'];
+        // if database connection opened
+        if ($this->databaseConnection()) {
+            // database query, getting all the info of the selected map
+            $result =  $this->db_connection->query('SELECT preferences FROM users WHERE user_id = $userID' );
+
+            return $result->fetchObject();
+        } else {
+            return false;
+        }
+    }
+
+    public function savePref() {
+        if ($this->databaseConnection()) {
+
+            $preferences =  $_POST['preferences'];
+            $userID = (int )$_POST['id'];
+            
+            echo "this is the profile id:" . $userID.":";
+
+            return $this->db_connection->query("UPDATE users
+               set preferences = '$preferences'
+
+               WHERE user_id = '$userID'");
+
+        }else {
+            return false;
+        }
+    }
+
     private function loginWithSessionData()
     {
         $this->user_name = $_SESSION['user_name'];
@@ -245,6 +276,7 @@ class Login
                         $_SESSION['user_name'] = $result_row->user_name;
                         $_SESSION['user_email'] = $result_row->user_email;
                         $_SESSION['user_logged_in'] = 1;
+                        $_SESSION['preferences'] = $result_row->preferences;
 
                         // declare user id, set the login status to true
                         $this->user_id = $result_row->user_id;

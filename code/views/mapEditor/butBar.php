@@ -29,7 +29,10 @@
 <div class="navbar  navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <!-- <a href="index.php" class="navbar-brand">ZombieAttack</a> -->
+            <div href="" class="navbar-brand" id="mapName"></div>
+            <div class="navbar-form navbar-left" id="mapNameEditDiv">
+                <input type="text" class="form-control col-lg-8 " value="Untitled" id="mapNameEdit">
+            </div>
             <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -46,7 +49,6 @@
                         <li><a id="butBar-open" class="" > Open</a></li>
                         <li><a id="butBar-save" class="" > Save</a></li>
                         <li><a id="butBar-download" class="" > Download</a></li>
-                        <li><a id="butBar-close" class="" href="index.php"> Close</a></li>
                         <li><a id="butBar-exit" class="" href="index.php"> Exit</a></li>
                     </ul>
                 </li>
@@ -69,6 +71,7 @@
                     <a href="" class="" data-toggle="dropdown"> View </a>
                     <ul class="dropdown-menu">
                         <li><a id="butBar-zoom" class="" > Zoom</a></li>
+                        <li><a id="butBar-centerMap" class="" > Center Map</a></li>
                         <li><a id="butBar-showGrid" class="" > Show Grid</a></li>
                     </ul>
                 </li>
@@ -78,6 +81,7 @@
                     <ul class="dropdown-menu">
                         <li><a id="butBar-fill" class="" > Fill</a></li>
                         <li><a id="butBar-resizeMap" class="" > Resize map</a></li>
+                        <li><a id="butBar-events" class="" > Events</a></li>
                         <li><a id="butBar-playTest" class="" > Play Test</a></li>
                     </ul>
                 </li>
@@ -86,6 +90,7 @@
                     <ul class="dropdown-menu">
                         <li><a id="butBar-toolbox" class="" > Toolbox</a></li>
                         <li><a id="butBar-tileBrowser" class="" > TileBrowser</a></li>
+                        <li><a id="butBar-slider" class="" > size Slider</a></li>
                         <li><a id="butBar-palette" class="" > Palette</a></li>
                         <li><a id="butBar-miniMap" class="" > Mini map</a></li>
                         <li><a id="butBar-events" class="" > Events</a></li>

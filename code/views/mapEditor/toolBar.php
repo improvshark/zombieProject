@@ -2,8 +2,7 @@
     #toolbar {
         position: absolute;
         width: 85px;
-        height: 300px;
-        background: #000;
+        height: 450x;
         left: -200px;
 
     }
@@ -11,16 +10,16 @@
         position: absolute;
         left: 0px;
         float: left;
-        top: 15%;
+        top: 46px;
         width: 30px;
-        height: 500px;
+        height: 450px;
         text-align: center;
 
     }
 </style>
 <div id="toolbarHandle">
     <div id="toolbar" oncontextmenu="return false">
-        <canvas id='myToolBar' width='80' height='350'></canvas> 
+        <canvas id='myToolBar' width='80' height='430'></canvas> 
     </div>
 
 </div>

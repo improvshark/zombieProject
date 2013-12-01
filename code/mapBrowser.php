@@ -17,13 +17,13 @@
 
         <?php
         // ... ask if we are logged in here:
-        if ($login->isUserLoggedIn() == true and ($login->isDeveloper() or $login->isAdmin())  ) { 
+        if ($login->isUserLoggedIn() == true ) { 
             require_once("classes/Maps.php");
             $maps = new Maps();
         ?>
                 
 
-        <?php include("views/dev_index/maps.php"); ?>
+        <?php include("views/mapBrowser/maps.php"); ?>
 
 
         <?php
@@ -46,21 +46,6 @@
 
     </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
